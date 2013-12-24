@@ -31,8 +31,8 @@
 				<th>#</th>
 				<th>Test title</th>
 				<th>Questions</th>
-				<th>Correct answers</th>
-				<th>Fail answers</th>
+				<th>Correct<br> answers</th>
+				<th>Fail<br> answers</th>
 				<th>Value</th>
 				<th>Date</th>
 			</tr>
@@ -49,9 +49,8 @@
 						<td id="accounts">${QUESTIONS_COUNT}</td>
 						<td id="accounts">${result.correctAnswers}</td>
 						<td id="accounts">${result.failAnswers}</td>
-						<td id="accounts"><f:formatNumber maxFractionDigits="2">${result.correctAnswers*100/QUESTIONS_COUNT }</f:formatNumber>
-				%</td>
-						<td id="accounts"><f:formatDate value="${result.date }" pattern="dd-MM-yyyy" />
+						<td id="accounts"><f:formatNumber maxFractionDigits="2">${result.correctAnswers*100/QUESTIONS_COUNT }</f:formatNumber>%</td>
+						<td id="accounts"><f:formatDate value="${result.date }" pattern="dd-MM-yyyy HH:mm:ss" />
 						
 						</td>
 					</tr>

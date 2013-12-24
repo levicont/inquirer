@@ -63,7 +63,7 @@ public class ResultDataBaseManager implements ResultDataService, InquirerConstan
 				testResult.setAccount(accountManager.getAccount(rs.getInt(COLUMN_NAME_ACCOUNT)));
 				testResult.setCorrectAnswers(rs.getInt(COLUMN_NAME_CORRECT_ANSWERS));
 				testResult.setFailAnswers(rs.getInt(COLUMN_NAME_FAIL_ANSWERS));
-				testResult.setDate(rs.getDate(COLUMN_NAME_DATE));
+				testResult.setDate(rs.getTimestamp(COLUMN_NAME_DATE));
 				result.add(testResult);
 			}
 			return result;
@@ -91,7 +91,7 @@ public class ResultDataBaseManager implements ResultDataService, InquirerConstan
 				testResult.setAccount(accountManager.getAccount(rs.getInt(COLUMN_NAME_ACCOUNT)));
 				testResult.setCorrectAnswers(rs.getInt(COLUMN_NAME_CORRECT_ANSWERS));
 				testResult.setFailAnswers(rs.getInt(COLUMN_NAME_FAIL_ANSWERS));
-				testResult.setDate(rs.getDate(COLUMN_NAME_DATE));
+				testResult.setDate(rs.getTimestamp(COLUMN_NAME_DATE));
 				result.add(testResult);
 			}
 			return result;
@@ -119,7 +119,7 @@ public class ResultDataBaseManager implements ResultDataService, InquirerConstan
 				testResult.setAccount(accountManager.getAccount(rs.getInt(COLUMN_NAME_ACCOUNT)));
 				testResult.setCorrectAnswers(rs.getInt(COLUMN_NAME_CORRECT_ANSWERS));
 				testResult.setFailAnswers(rs.getInt(COLUMN_NAME_FAIL_ANSWERS));
-				testResult.setDate(rs.getDate(COLUMN_NAME_DATE));
+				testResult.setDate(rs.getTimestamp(COLUMN_NAME_DATE));
 				result.add(testResult);
 			}
 			return result;
@@ -147,7 +147,7 @@ public class ResultDataBaseManager implements ResultDataService, InquirerConstan
 				testResult.setAccount(accountManager.getAccount(rs.getInt(COLUMN_NAME_ACCOUNT)));
 				testResult.setCorrectAnswers(rs.getInt(COLUMN_NAME_CORRECT_ANSWERS));
 				testResult.setFailAnswers(rs.getInt(COLUMN_NAME_FAIL_ANSWERS));
-				testResult.setDate(rs.getDate(COLUMN_NAME_DATE));
+				testResult.setDate(rs.getTimestamp(COLUMN_NAME_DATE));
 				result.add(testResult);
 			}
 			return result;
@@ -177,7 +177,7 @@ public class ResultDataBaseManager implements ResultDataService, InquirerConstan
 					result.setAccount(accountManager.getAccount(rs.getInt(COLUMN_NAME_ACCOUNT)));
 					result.setCorrectAnswers(rs.getInt(COLUMN_NAME_CORRECT_ANSWERS));
 					result.setFailAnswers(rs.getInt(COLUMN_NAME_FAIL_ANSWERS));
-					result.setDate(rs.getDate(COLUMN_NAME_DATE));
+					result.setDate(rs.getTimestamp(COLUMN_NAME_DATE));
 					return result;
 				}
 			}
@@ -202,7 +202,7 @@ public class ResultDataBaseManager implements ResultDataService, InquirerConstan
 			pstmt.setInt(2, testResult.getTest().getId());
 			pstmt.setInt(3, testResult.getCorrectAnswers());
 			pstmt.setInt(4, testResult.getFailAnswers());
-			pstmt.setDate(5, testResult.getDate());
+			pstmt.setTimestamp(5, testResult.getDate());
 			pstmt.executeUpdate();
 			
 

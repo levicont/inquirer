@@ -1,6 +1,6 @@
 package com.lvg.inquirer.models;
 
-import java.sql.Date;
+import java.sql.Timestamp;
 
 public class TestResult extends AbstractModelBean {
 	
@@ -11,16 +11,15 @@ public class TestResult extends AbstractModelBean {
 	private Account account;
 	private Integer correctAnswers;
 	private Integer failAnswers;
-	private Date date;
+	private Timestamp date;
 	
 	public TestResult(){
 		long currDateTime = System.currentTimeMillis();
 		this.correctAnswers = 0;
 		this.failAnswers = 0;
 		
-		this.date = new Date(currDateTime);
-		this.date.setTime(currDateTime);
-		
+		this.date = new Timestamp(currDateTime);
+				
 	}
 	
 	public Integer getId() {
@@ -53,10 +52,10 @@ public class TestResult extends AbstractModelBean {
 	public void setFailAnswers(Integer failAnswers) {
 		this.failAnswers = failAnswers;
 	}
-	public Date getDate() {
+	public Timestamp getDate() {
 		return date;
 	}
-	public void setDate(Date date) {
+	public void setDate(Timestamp date) {
 		this.date = date;
 	}
 	

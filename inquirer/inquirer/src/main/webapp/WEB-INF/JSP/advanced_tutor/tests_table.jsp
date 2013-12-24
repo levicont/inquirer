@@ -33,7 +33,7 @@
 				<th>Title</th>
 				<th>Description</th>
 				<th>Author</th>
-				<th>Time Limit (sec)</th>
+				<th>Time<br>Limit (sec)</th>
 				<th>Service</th>
 			</tr>
 		</thead>
