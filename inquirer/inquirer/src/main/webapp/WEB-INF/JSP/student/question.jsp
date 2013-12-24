@@ -28,7 +28,7 @@
 			<tr>
 					<td colspan="3">Answers choices:</td>
 			</tr>
-			<c:forEach  var="answer" items="${ANSWERS_LIST}" varStatus="ansIndex">
+			<c:forEach var="answer" items="${ANSWERS_LIST}" varStatus="ansIndex">
 
 				<tr>
 					<td colspan="3">
