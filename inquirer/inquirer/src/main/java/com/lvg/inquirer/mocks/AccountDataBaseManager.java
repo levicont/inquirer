@@ -39,7 +39,7 @@ public class AccountDataBaseManager implements InquirerConstants, AccountDataSer
 	private RoleDataService rolesManager = new RoleDataBaseManager();
 	
 	public void close(){
-		//Do nothig
+		//Do nothing
 	};
 
 	public List<Account> accountList() throws InquirerDataException{
@@ -107,8 +107,7 @@ public class AccountDataBaseManager implements InquirerConstants, AccountDataSer
 	public void addAccount(Account account)throws InquirerDataException{
 		Connection connection = connectionManager.getDBConnection();
 		try{
-			checkAccount(account);
-			connection.setAutoCommit(false);
+			checkAccount(account);		
 			PreparedStatement pstmt = connection.prepareStatement(SQL_ADD_ACCOUNT);
 			pstmt.setString(1, account.getUsername());
 			pstmt.setString(2, account.getPassword());
@@ -116,7 +115,7 @@ public class AccountDataBaseManager implements InquirerConstants, AccountDataSer
 			pstmt.setInt(4, account.getEnabled());
 			pstmt.executeUpdate();
 			rolesManager.addRolesByAccount(account);
-			connection.commit();			
+						
 		}catch(SQLException ex){
 			LOGGER.error("Not possible to add account in DB! ", ex);
 			throw new InquirerDataException("Not possible to add account in DB! ", ex);
@@ -129,7 +128,7 @@ public class AccountDataBaseManager implements InquirerConstants, AccountDataSer
 	public void updateAccount(Account account)throws InquirerDataException{
 		Connection connection = connectionManager.getDBConnection();
 		try{
-			connection.setAutoCommit(false);
+			
 			PreparedStatement pstmt = connection.prepareStatement(SQL_UPDATE_ACCOUNT);
 			pstmt.setString(1, account.getUsername());
 			pstmt.setString(2, account.getPassword());
@@ -138,7 +137,7 @@ public class AccountDataBaseManager implements InquirerConstants, AccountDataSer
 			pstmt.setInt(5, account.getId());
 			pstmt.executeUpdate();
 			rolesManager.updateRolesByAccount(account);
-			connection.commit();
+			
 		}catch(SQLException ex){
 			LOGGER.error("Not possible to update account with id: "+account.getId()+" in DB! ", ex);
 			throw new InquirerDataException("Not possible to update account with id: "+account.getId()+" in DB! ", ex);
@@ -157,12 +156,12 @@ public class AccountDataBaseManager implements InquirerConstants, AccountDataSer
 	public void deleteAccount(Account account)throws InquirerDataException{
 		Connection connection = connectionManager.getDBConnection();
 		try{
-			connection.setAutoCommit(false);
+			
 			PreparedStatement pstmt = connection.prepareStatement(SQL_DELETE_ACCOUNT);
 			pstmt.setInt(1, account.getId());
 			pstmt.executeUpdate();
 			rolesManager.deleteRolesByAccount(account);
-			connection.commit();
+			
 		}catch(SQLException ex){
 			LOGGER.error("Not possible to update account with id: "+account.getId()+" in DB! ", ex);
 			throw new InquirerDataException("Not possible to update account with id: "+account.getId()+" in DB! ", ex);

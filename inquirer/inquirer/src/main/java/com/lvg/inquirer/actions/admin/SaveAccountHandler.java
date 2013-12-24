@@ -29,6 +29,7 @@ public class SaveAccountHandler extends AbstractInquirerServletHandler implement
 	private static final Logger LOGGER = Logger.getLogger(SaveAccountHandler.class);
 	private static final AccountDataService accountManager = new AccountDataBaseManager();
 	
+	
 	private final String ADMIN_CHK_ATTRIBUTE = "chkAdmin";
 	private final String ADVANCE_TUTOR_CHK_ATTRIBUTE = "chkAdvancedTutor";
 	private final String TUTOR_CHK_ATTRIBUTE = "chkTutor";
@@ -49,7 +50,7 @@ public class SaveAccountHandler extends AbstractInquirerServletHandler implement
 						request.removeAttribute("EDITED_ACCOUNT");
 				redirectRequest("/admin/home.php", request, response);
 			} else {
-				if (request.getSession().getAttribute("EDITED_ACCOUNT") != null) {
+				if ("edit".equals(request.getParameter("action"))) {
 					doEditAccount(request, response);
 					LOGGER.info("\n Account has been edited  ");
 					request.getServletContext().setAttribute(InquirerConstants.ACCOUNTS_LIST,

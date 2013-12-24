@@ -13,6 +13,7 @@
 	<form action="<%=request.getContextPath()%>/admin/save_account.php"
 		method="post" name="accountForm">
 		<input type="hidden" name="action" value="none" />
+		
 		<p class="formTitle">
 			<c:if test="${EDITED_ACCOUNT != null }"> Edit account</c:if>
 			<c:if test="${EDITED_ACCOUNT == null }"> Add new account</c:if>
@@ -78,7 +79,9 @@
 			</tr>
 			<tr>
 				<td><button onclick="executeAction('cancel')">Cancel</button></td>
-				<td><input type="submit" value="Save account" /></td>
+				<c:if test="${EDITED_ACCOUNT != null }"> <td><input type="button" value="Save account" onclick="executeAction('edit')" /></td></c:if>
+			<c:if test="${EDITED_ACCOUNT == null }"> <td><input type="button" value="Save account" onclick="executeAction('add')" /></td></c:if>
+				
 			</tr>
 			<tr>
 

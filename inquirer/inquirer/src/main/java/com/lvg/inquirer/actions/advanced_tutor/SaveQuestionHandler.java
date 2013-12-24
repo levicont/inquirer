@@ -118,6 +118,7 @@ public class SaveQuestionHandler extends AbstractInquirerServletHandler {
 	}
 	
 	
+	@SuppressWarnings("unchecked")
 	private void updateQuestion(Question question, HttpServletRequest request, HttpServletResponse response)
 			throws InvalidDataException, InquirerDataException, IOException, ServletException {
 

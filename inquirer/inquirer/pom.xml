@@ -48,7 +48,7 @@
 							<tasks>
 								<copy todir="${basedir}/src/main/webapp/WEB-INF/lib">
 									<fileset
-										dir="${basedir}/terget/${project.build.finalName}/WEB-INF/lib" />
+										dir="${basedir}/target/${project.build.finalName}/WEB-INF/lib" />
 								</copy>
 							</tasks>
 						</configuration>

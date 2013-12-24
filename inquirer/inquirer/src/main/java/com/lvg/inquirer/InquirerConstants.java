@@ -21,6 +21,7 @@ public interface InquirerConstants {
 	String NAME_ROLE_STUDENT		="Student";
 	
 	
+	@SuppressWarnings("serial")
 	static final Map<Integer, String> NAMES_ROLES = new HashMap<Integer,String>(){{
 		put(ROLE_ADMIN, NAME_ROLE_ADMIN);
 		put(ROLE_ADVANCED_TUTOR, NAME_ROLE_ADVANCED_TUTOR);

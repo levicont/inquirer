@@ -20,9 +20,9 @@ public class EditAccountHandler extends AbstractInquirerServletHandler implement
 		gotoToJSP("/admin/add_account.jsp", request, response);
 
 	}
-	
+	@SuppressWarnings("unchecked")
 	private void fillRequest(HttpServletRequest request){
-		Integer accountId = Integer.parseInt(request.getParameter("id"));
+		Integer accountId = Integer.parseInt(request.getParameter("id"));		
 		List<Account> accountList = (List<Account>)request.getServletContext().getAttribute(ACCOUNTS_LIST);
 		List<Role> roles = null;
 		for(Account a: accountList){

@@ -22,22 +22,14 @@ public class AdminHomeHandler extends AbstractInquirerServletHandler {
 	@SuppressWarnings("unchecked")
 	@Override
 	protected void handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		int page;
-		int fromAccount;
-		int toAccount;
+		int page;		
 		List<Account> accountList = (List<Account>) request.getServletContext().getAttribute(ACCOUNTS_LIST);
 
 		if (!StringUtils.isBlank( request.getParameter(ACCOUNTS_PAGE))) {
 			try {
 				checkPage(request.getParameter(ACCOUNTS_PAGE));
 				page = Integer.parseInt(request.getParameter(ACCOUNTS_PAGE));
-				if(page==1){
-					fromAccount = (page);
-				}else{
-				fromAccount = (page-1) * ACCOUNTS_ON_PAGE;
-				}
-				toAccount = page * ACCOUNTS_ON_PAGE;
-				
+								
 				request.setAttribute("ACCOUNT_PAGES_COUNT", getPages(accountList, ACCOUNTS_ON_PAGE));
 				request.setAttribute("ACCOUNTS_ITEMS", accountList.size());
 				request.setAttribute(ACCOUNTS_PAGE, page);

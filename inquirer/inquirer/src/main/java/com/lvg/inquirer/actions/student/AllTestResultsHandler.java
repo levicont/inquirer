@@ -5,8 +5,6 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.log4j.Logger;
-
 import com.lvg.inquirer.InquirerConstants;
 import com.lvg.inquirer.actions.AbstractInquirerServletHandler;
 import com.lvg.inquirer.mocks.ResultDataBaseManager;
@@ -18,7 +16,6 @@ import com.lvg.inquirer.services.ResultDataService;
 public class AllTestResultsHandler extends AbstractInquirerServletHandler implements InquirerConstants {
 
 	private static final long serialVersionUID = 2778128994953923324L;
-	private static final Logger LOGGER = Logger.getLogger(AllTestResultsHandler.class);
 	private static final ResultDataService resultManager = new ResultDataBaseManager();
 	
 	
