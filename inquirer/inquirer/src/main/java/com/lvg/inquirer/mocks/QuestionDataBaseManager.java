@@ -1,0 +1,214 @@
+package com.lvg.inquirer.mocks;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.log4j.Logger;
+
+import com.lvg.inquirer.InquirerConstants;
+import com.lvg.inquirer.exceptions.InquirerDataException;
+import com.lvg.inquirer.exceptions.InvalidDataException;
+import com.lvg.inquirer.models.Question;
+import com.lvg.inquirer.models.Test;
+import com.lvg.inquirer.services.QuestionDataService;
+import com.lvg.inquirer.services.TestDataService;
+
+public class QuestionDataBaseManager implements QuestionDataService, InquirerConstants {
+
+	private static final Logger LOGGER = Logger.getLogger(QuestionDataBaseManager.class);
+	
+
+	private DBConnectionManager connectionManager = new DBConnectionManager();
+	private TestDataService testManager = new TestDataBaseManager();
+
+	private final String COLUMN_NAME_ID = "id_questions";
+	private final String COLUMN_NAME_TEST = "id_tests";
+	private final String COLUMN_NAME_TEXT = "text";
+
+	private final String SQL_ALL_QUESTIONS = "SELECT * FROM questions";
+	private final String SQL_GET_LAST_INSERTED_QUESTION = "SELECT MAX(id_questions) FROM questions";
+	private final String SQL_GET_QUESTIONS_BY_TEST_ID = "SELECT * FROM questions WHERE id_tests=?";
+	private final String SQL_GET_VALID_QUESTIONS = "SELECT * FROM questions WHERE id_tests=? AND text=?";
+	private final String SQL_GET_QUESTION_BY_ID = "SELECT * FROM questions WHERE id_questions=?";
+	private final String SQL_ADD_NEW_QUESTION = "INSERT INTO questions VALUE (null,?,?)";
+	private final String SQL_UPDATE_QUESTION = "UPDATE questions SET text=? WHERE id_questions=?";
+	private final String SQL_DELETE_QUESTION = "DELETE FROM questions WHERE id_questions=?";
+	private final String SQL_DELETE_QUESTION_BY_TEST = "DELETE FROM questions WHERE id_tests=?";
+
+	public List<Question> getQuestionList() throws InquirerDataException, InvalidDataException {
+		List<Question> result = new ArrayList<Question>();
+		Connection connection = connectionManager.getDBConnection();
+		try {
+			Statement stmt = connection.createStatement();
+			ResultSet rs = stmt.executeQuery(SQL_ALL_QUESTIONS);
+			while (rs.next()) {
+				Question question = new Question();
+				question.setId(rs.getInt(COLUMN_NAME_ID));
+				question.setTest(testManager.getTest(rs.getInt(COLUMN_NAME_TEST)));
+				question.setText(rs.getString(COLUMN_NAME_TEXT));
+				result.add(question);
+			}
+			return result;
+		} catch (SQLException ex) {
+			LOGGER.error("Error accurred while accessing the database! ", ex);
+			throw new InquirerDataException("Error accurred while accessing the database! ", ex);
+		} finally {
+			connectionManager.closeDBConnection(connection);
+		}
+
+	}
+
+	public void addQuestion(Question question) throws InquirerDataException, InvalidDataException {
+		Connection connection = connectionManager.getDBConnection();
+
+		try {
+			validQuestion(question);
+			PreparedStatement pstmt = connection.prepareStatement(SQL_ADD_NEW_QUESTION);
+			pstmt.setInt(1, question.getTest().getId());
+			pstmt.setString(2, question.getText());
+			pstmt.executeUpdate();
+
+		} catch (SQLException ex) {
+			LOGGER.error("Not possible to add new test " + question, ex);
+			throw new InquirerDataException("Not possible to add new test " + question, ex);
+
+		} finally {
+			connectionManager.closeDBConnection(connection);
+		}
+
+	}
+
+	public void updateQuestion(Question question) throws InquirerDataException, InvalidDataException {
+		Connection connection = connectionManager.getDBConnection();
+
+		try {
+			PreparedStatement pstmt = connection.prepareStatement(SQL_UPDATE_QUESTION);
+			pstmt.setString(1, question.getText());
+			pstmt.setInt(2, question.getId());
+			pstmt.executeUpdate();
+
+		} catch (SQLException ex) {
+			LOGGER.error("Not possible to update question " + question, ex);
+			throw new InquirerDataException("Not possible to update question " + question, ex);
+
+		} finally {
+			connectionManager.closeDBConnection(connection);
+		}
+
+	}
+
+	public void deleteQuestion(Question question) throws InquirerDataException, InvalidDataException {
+		Connection connection = connectionManager.getDBConnection();
+		try {
+			PreparedStatement pstmt = connection.prepareStatement(SQL_DELETE_QUESTION);
+			pstmt.setInt(1, question.getId());
+			pstmt.executeUpdate();
+
+		} catch (SQLException ex) {
+			LOGGER.error("Not possible to delete question " + question, ex);
+			throw new InquirerDataException("Not possible to delete question " + question, ex);
+
+		} finally {
+			connectionManager.closeDBConnection(connection);
+		}
+
+	}
+
+	public List<Question> getQuestionsByTest(Test test) throws InquirerDataException, InvalidDataException {
+		Connection connection = connectionManager.getDBConnection();
+		List<Question> result = new ArrayList<Question>();
+		try{
+			PreparedStatement pstmt = connection.prepareStatement(SQL_GET_QUESTIONS_BY_TEST_ID);
+			pstmt.setInt(1, test.getId());
+			ResultSet rs = pstmt.executeQuery();
+			while(rs.next()){
+				Question question = new Question();
+				question.setId(rs.getInt(COLUMN_NAME_ID));
+				question.setTest(test);
+				question.setText(rs.getString(COLUMN_NAME_TEXT));
+				result.add(question);
+			}
+			return result;
+		}catch(SQLException ex){
+			LOGGER.error("Not possible to load question by test " + test, ex);
+			throw new InquirerDataException("Not possible to load question by test " + test, ex);
+
+		}finally{
+			connectionManager.closeDBConnection(connection);
+		}
+	}
+
+	public Question getQuestion(Integer id) throws InquirerDataException, InvalidDataException {
+		Connection connection = connectionManager.getDBConnection();
+		Question question = new Question();
+		try {
+			PreparedStatement pstmt = connection.prepareStatement(SQL_GET_QUESTION_BY_ID);
+			pstmt.setInt(1, id);
+			ResultSet rs = pstmt.executeQuery();
+			if (rs.next()) {
+				question.setId(rs.getInt(COLUMN_NAME_ID));
+				question.setTest(testManager.getTest(rs.getInt(COLUMN_NAME_TEST)));
+				question.setText(rs.getString(COLUMN_NAME_TEXT));
+				return question;
+			}
+			throw new InquirerDataException("Could not find question with id:" + id);
+		} catch (SQLException ex) {
+			LOGGER.error("Error accurred while accessing the database! ", ex);
+			throw new InquirerDataException("Error accurred while accessing the database! ", ex);
+		} finally {
+			connectionManager.closeDBConnection(connection);
+		}
+
+	}
+
+	public void close() {
+		// do nothing
+	}
+
+	public Question getLastInsertedQuestion() throws InquirerDataException, InvalidDataException {
+		Connection connection = connectionManager.getDBConnection();
+		try {
+			Statement stmt = connection.createStatement();
+			ResultSet rs = stmt.executeQuery(SQL_GET_LAST_INSERTED_QUESTION);
+			if (rs.next()) {
+				Question question = getQuestion(rs.getInt("MAX(id_questions)"));
+				return question;
+			}
+
+			throw new InquirerDataException("Could not find last inserted question ");
+		} catch (SQLException ex) {
+			throw new InquirerDataException("Error accurred while accessing the database! ", ex);
+		} finally {
+			connectionManager.closeDBConnection(connection);
+		}
+
+	}
+
+	private void validQuestion(Question question) throws InquirerDataException, InvalidDataException {
+		Connection connection = connectionManager.getDBConnection();
+		try {
+			PreparedStatement pstmt = connection.prepareStatement(SQL_GET_VALID_QUESTIONS);
+			pstmt.setInt(1, question.getTest().getId());
+			pstmt.setString(2, question.getText());
+			ResultSet rs = pstmt.executeQuery();
+
+			if (rs.next()) {
+				throw new InvalidDataException("This is not valid text of question: " + question.getText());
+			}
+
+		} catch (SQLException ex) {
+			LOGGER.error("Not possible to valid test " + question, ex);
+			throw new InquirerDataException("Not possible to valid test " + question, ex);
+
+		} finally {
+			connectionManager.closeDBConnection(connection);
+		}
+	}
+
+	
+}

@@ -1,0 +1,36 @@
+@CHARSET "UTF-8";
+
+.main{
+	background-color: #F0F0FF;
+}
+.head{
+	background-color: #E0E0FF;
+}
+.footer{
+	background-color: #E0E0FF;
+}
+
+.formTable{
+	border: 2px, #FFE0E0;
+}
+form{
+	font-size: 1.2em;
+	text-align:center;
+	table-layout:fixed;
+	background-color: rgb(250,250,255);
+	color: rgb(100,50,160);
+}
+	
+.error{
+	margin:0;
+	background-color: rgb(250,220,220);
+	color: rgb(250,50,50);
+}
+.label{
+	margin:0;
+	font-size: 1.1em;
+	text-align:center;
+	table-layout:fixed;
+	background-color: rgb(250,250,255);
+	color: rgb(100,50,160);
+}

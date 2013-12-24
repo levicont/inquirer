@@ -1,0 +1,311 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xmlns="http://java.sun.com/xml/ns/javaee"
+xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
+http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" 
+id="WebApp_ID" version="3.0">
+<display-name>Inquirer</display-name>
+  
+  <!-- Linteners -->
+  <listener>
+  	<listener-class>com.lvg.inquirer.listeners.InquirerContextListener</listener-class>
+  </listener>
+  
+  <listener>
+  	<listener-class>com.lvg.inquirer.listeners.InquirerSessionListener</listener-class>
+  </listener>
+  
+  <!-- Servlets  -->
+  
+  <servlet>
+    <servlet-name>LoginHandler</servlet-name>
+    <servlet-class>com.lvg.inquirer.actions.LoginHandler</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>LoginHandler</servlet-name>
+    <url-pattern>/login.php</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>ErrorPageHandler</servlet-name>
+    <servlet-class>com.lvg.inquirer.actions.ErrorPageHandler</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ErrorPageHandler</servlet-name>
+    <url-pattern>/error_page.php</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>RegistrationHandler</servlet-name>
+    <servlet-class>com.lvg.inquirer.actions.RegistrationHandler</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>RegistrationHandler</servlet-name>
+    <url-pattern>/register.php</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>RecoverAccountHandler</servlet-name>
+    <servlet-class>com.lvg.inquirer.actions.RecoverAccountHandler</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>RecoverAccountHandler</servlet-name>
+    <url-pattern>/recover.php</url-pattern>
+  </servlet-mapping>
+  <servlet>
+		<servlet-name>LogoutHandler</servlet-name>
+		<servlet-class>com.lvg.inquirer.actions.LogoutHandler</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>LogoutHandler</servlet-name>
+		<url-pattern>/logout.php</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>ErrorHandler</servlet-name>
+		<servlet-class>com.lvg.inquirer.actions.ErrorHandler</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ErrorHandler</servlet-name>
+		<url-pattern>/error.php</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>ErrorHandler</servlet-name>
+		<url-pattern>/pageNotFound.php</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>AdminHomeHandler</servlet-name>
+		<servlet-class>com.lvg.inquirer.actions.admin.AdminHomeHandler</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AdminHomeHandler</servlet-name>
+		<url-pattern>/admin/home.php</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>AdminHomeHandler</servlet-name>
+		<url-pattern>/all_accounts.php</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>AddAccountHandler</servlet-name>
+		<servlet-class>com.lvg.inquirer.actions.admin.AddAccountHandler</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AddAccountHandler</servlet-name>
+		<url-pattern>/admin/add_account.php</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>SaveAccountHandler</servlet-name>
+		<servlet-class>com.lvg.inquirer.actions.admin.SaveAccountHandler</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>SaveAccountHandler</servlet-name>
+		<url-pattern>/admin/save_account.php</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>EditAccountHandler</servlet-name>
+		<servlet-class>com.lvg.inquirer.actions.admin.EditAccountHandler</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>EditAccountHandler</servlet-name>
+		<url-pattern>/admin/edit_account.php</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>DeleteAccountHandler</servlet-name>
+		<servlet-class>com.lvg.inquirer.actions.admin.DeleteAccountHandler</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>DeleteAccountHandler</servlet-name>
+		<url-pattern>/admin/delete_account.php</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>AdvancedTutorHomeHandler</servlet-name>
+		<servlet-class>com.lvg.inquirer.actions.advanced_tutor.AdvancedTutorHomeHandler</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AdvancedTutorHomeHandler</servlet-name>
+		<url-pattern>/advanced_tutor/home.php</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>AddTestHandler</servlet-name>
+		<servlet-class>com.lvg.inquirer.actions.advanced_tutor.AddTestHandler</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AddTestHandler</servlet-name>
+		<url-pattern>/add_test.php</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>DeleteTestHandler</servlet-name>
+		<servlet-class>com.lvg.inquirer.actions.advanced_tutor.DeleteTestHandler</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>DeleteTestHandler</servlet-name>
+		<url-pattern>/delete_test.php</url-pattern>
+	</servlet-mapping>
+	
+	
+	<servlet>
+		<servlet-name>EditTestHandler</servlet-name>
+		<servlet-class>com.lvg.inquirer.actions.advanced_tutor.EditTestHandler</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>EditTestHandler</servlet-name>
+		<url-pattern>/edit_test.php</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>SaveTestHandler</servlet-name>
+		<servlet-class>com.lvg.inquirer.actions.advanced_tutor.SaveTestHandler</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>SaveTestHandler</servlet-name>
+		<url-pattern>/save_test.php</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>AddQuestionHandler</servlet-name>
+		<servlet-class>com.lvg.inquirer.actions.advanced_tutor.AddQuestionHandler</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AddQuestionHandler</servlet-name>
+		<url-pattern>/add_question.php</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>EditQuestionsHandler</servlet-name>
+		<servlet-class>com.lvg.inquirer.actions.advanced_tutor.EditQuestionsHandler</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>EditQuestionsHandler</servlet-name>
+		<url-pattern>/edit_question.php</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>DeleteQuestionHandler</servlet-name>
+		<servlet-class>com.lvg.inquirer.actions.advanced_tutor.DeleteQuestionHandler</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>DeleteQuestionHandler</servlet-name>
+		<url-pattern>/delete_question.php</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>SaveQuestionHandler</servlet-name>
+		<servlet-class>com.lvg.inquirer.actions.advanced_tutor.SaveQuestionHandler</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>SaveQuestionHandler</servlet-name>
+		<url-pattern>/save_question.php</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>AllQuestionsHandler</servlet-name>
+		<servlet-class>com.lvg.inquirer.actions.advanced_tutor.AllQuestionsHandler</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AllQuestionsHandler</servlet-name>
+		<url-pattern>/all_questions.php</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>TutorHomeHandler</servlet-name>
+		<servlet-class>com.lvg.inquirer.actions.tutor.TutorHomeHandler</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>TutorHomeHandler</servlet-name>
+		<url-pattern>/tutor/home.php</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>StudentHomeHandler</servlet-name>
+		<servlet-class>com.lvg.inquirer.actions.student.StudentHomeHandler</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>StudentHomeHandler</servlet-name>
+		<url-pattern>/student/home.php</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>StartTestHandler</servlet-name>
+		<servlet-class>com.lvg.inquirer.actions.student.StartTestHandler</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>StartTestHandler</servlet-name>
+		<url-pattern>/start_test.php</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>NextQuestionHandler</servlet-name>
+		<servlet-class>com.lvg.inquirer.actions.student.NextQuestionHandler</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>NextQuestionHandler</servlet-name>
+		<url-pattern>/next_question.php</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>ResultTestHandler</servlet-name>
+		<servlet-class>com.lvg.inquirer.actions.student.ResultTestHandler</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ResultTestHandler</servlet-name>
+		<url-pattern>/result_test.php</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>AllTestResultsHandler</servlet-name>
+		<servlet-class>com.lvg.inquirer.actions.student.AllTestResultsHandler</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AllTestResultsHandler</servlet-name>
+		<url-pattern>/all_results.php</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>ProfileHandler</servlet-name>
+		<servlet-class>com.lvg.inquirer.actions.student.ProfileHandler</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ProfileHandler</servlet-name>
+		<url-pattern>/profile.php</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>SaveProfileHandler</servlet-name>
+		<servlet-class>com.lvg.inquirer.actions.student.SaveProfileHandler</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>SaveProfileHandler</servlet-name>
+		<url-pattern>/save_profile.php</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>AllTestsHandler</servlet-name>
+		<servlet-class>com.lvg.inquirer.actions.advanced_tutor.AllTestsHandler</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AllTestsHandler</servlet-name>
+		<url-pattern>/all_tests.php</url-pattern>
+	</servlet-mapping>
+  
+  
+  
+  <error-page>
+    	<error-code>404</error-code>
+    	<location>/pageNotFound.php</location>
+	</error-page> 
+	
+	<error-page>
+    	<error-code>500</error-code>
+    	<location>/error.php</location>
+	</error-page> 
+	
+	<error-page>
+    	<exception-type>java.lang.Exception</exception-type>
+    	<location>/error.php</location>
+	</error-page> 
+	
+	<session-config>
+        <session-timeout>30</session-timeout>
+	</session-config>
+	
+	<welcome-file-list>
+        <welcome-file>/index.jsp</welcome-file>
+    </welcome-file-list>
+    
+  
+</web-app>

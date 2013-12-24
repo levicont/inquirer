@@ -1,0 +1,10 @@
+<table>
+		<c:forEach var="accounts" items=${ACCOUNTS_LIST } > 
+		<tr>
+			<td>${accounts.username}</td>
+			<td><c:forEach var="role" items=${accounts.roles }> ${role.name},<br>
+				</c:forEach>			
+			</td>
+		</tr>		
+		</c:forEach>	
+	</table>
