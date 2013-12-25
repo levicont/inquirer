@@ -36,11 +36,11 @@ public class ResultDataBaseManager implements ResultDataService, InquirerConstan
 	private final String COLUMN_NAME_FAIL_ANSWERS = "fail_answers";
 	private final String COLUMN_NAME_DATE = "date";
 	
-	private final String SQL_ALL_RESULTS = "SELECT * FROM test_results";
-	private final String SQL_GET_RESULTS_BY_ID = "SELECT * FROM test_results WHERE id_test_results=?";
-	private final String SQL_GET_RESULTS_BY_TEST_ID = "SELECT * FROM test_results WHERE id_tests=?";
-	private final String SQL_GET_RESULTS_BY_ACCOUNT_ID = "SELECT * FROM test_results WHERE id_accounts=?";
-	private final String SQL_GET_RESULTS_BY_ACCOUNT_AND_TEST = "SELECT * FROM test_results WHERE id_accounts=? AND id_tests=?";
+	private final String SQL_ALL_RESULTS = "SELECT * FROM test_results ORDER BY date DESC";
+	private final String SQL_GET_RESULTS_BY_ID = "SELECT * FROM test_results WHERE id_test_results=? ORDER BY date DESC";
+	private final String SQL_GET_RESULTS_BY_TEST_ID = "SELECT * FROM test_results WHERE id_tests=? ORDER BY date DESC";
+	private final String SQL_GET_RESULTS_BY_ACCOUNT_ID = "SELECT * FROM test_results WHERE id_accounts=? ORDER BY date DESC";
+	private final String SQL_GET_RESULTS_BY_ACCOUNT_AND_TEST = "SELECT * FROM test_results WHERE id_accounts=? AND id_tests=? ORDER BY date DESC";
 	private final String SQL_ADD_NEW_RESULT = "INSERT INTO test_results VALUE (null,?,?,?,?,?)";
 	private final String SQL_DELETE_RESULT = "DELETE FROM test_results WHERE id_test_results=?";
 	private final String SQL_DELETE_RESULT_BY_TEST = "DELETE FROM test_results WHERE id_tests=?";
@@ -63,7 +63,7 @@ public class ResultDataBaseManager implements ResultDataService, InquirerConstan
 				testResult.setAccount(accountManager.getAccount(rs.getInt(COLUMN_NAME_ACCOUNT)));
 				testResult.setCorrectAnswers(rs.getInt(COLUMN_NAME_CORRECT_ANSWERS));
 				testResult.setFailAnswers(rs.getInt(COLUMN_NAME_FAIL_ANSWERS));
-				testResult.setDate(rs.getDate(COLUMN_NAME_DATE));
+				testResult.setDate(rs.getTimestamp(COLUMN_NAME_DATE));
 				result.add(testResult);
 			}
 			return result;
@@ -91,7 +91,7 @@ public class ResultDataBaseManager implements ResultDataService, InquirerConstan
 				testResult.setAccount(accountManager.getAccount(rs.getInt(COLUMN_NAME_ACCOUNT)));
 				testResult.setCorrectAnswers(rs.getInt(COLUMN_NAME_CORRECT_ANSWERS));
 				testResult.setFailAnswers(rs.getInt(COLUMN_NAME_FAIL_ANSWERS));
-				testResult.setDate(rs.getDate(COLUMN_NAME_DATE));
+				testResult.setDate(rs.getTimestamp(COLUMN_NAME_DATE));
 				result.add(testResult);
 			}
 			return result;
@@ -119,7 +119,7 @@ public class ResultDataBaseManager implements ResultDataService, InquirerConstan
 				testResult.setAccount(accountManager.getAccount(rs.getInt(COLUMN_NAME_ACCOUNT)));
 				testResult.setCorrectAnswers(rs.getInt(COLUMN_NAME_CORRECT_ANSWERS));
 				testResult.setFailAnswers(rs.getInt(COLUMN_NAME_FAIL_ANSWERS));
-				testResult.setDate(rs.getDate(COLUMN_NAME_DATE));
+				testResult.setDate(rs.getTimestamp(COLUMN_NAME_DATE));
 				result.add(testResult);
 			}
 			return result;
@@ -147,7 +147,7 @@ public class ResultDataBaseManager implements ResultDataService, InquirerConstan
 				testResult.setAccount(accountManager.getAccount(rs.getInt(COLUMN_NAME_ACCOUNT)));
 				testResult.setCorrectAnswers(rs.getInt(COLUMN_NAME_CORRECT_ANSWERS));
 				testResult.setFailAnswers(rs.getInt(COLUMN_NAME_FAIL_ANSWERS));
-				testResult.setDate(rs.getDate(COLUMN_NAME_DATE));
+				testResult.setDate(rs.getTimestamp(COLUMN_NAME_DATE));
 				result.add(testResult);
 			}
 			return result;
@@ -177,7 +177,7 @@ public class ResultDataBaseManager implements ResultDataService, InquirerConstan
 					result.setAccount(accountManager.getAccount(rs.getInt(COLUMN_NAME_ACCOUNT)));
 					result.setCorrectAnswers(rs.getInt(COLUMN_NAME_CORRECT_ANSWERS));
 					result.setFailAnswers(rs.getInt(COLUMN_NAME_FAIL_ANSWERS));
-					result.setDate(rs.getDate(COLUMN_NAME_DATE));
+					result.setDate(rs.getTimestamp(COLUMN_NAME_DATE));
 					return result;
 				}
 			}
@@ -202,7 +202,7 @@ public class ResultDataBaseManager implements ResultDataService, InquirerConstan
 			pstmt.setInt(2, testResult.getTest().getId());
 			pstmt.setInt(3, testResult.getCorrectAnswers());
 			pstmt.setInt(4, testResult.getFailAnswers());
-			pstmt.setDate(5, testResult.getDate());
+			pstmt.setTimestamp(5, testResult.getDate());
 			pstmt.executeUpdate();
 			
 

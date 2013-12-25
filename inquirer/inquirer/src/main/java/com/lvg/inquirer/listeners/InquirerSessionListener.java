@@ -30,15 +30,18 @@ public class InquirerSessionListener implements HttpSessionListener {
 		HttpSession session = se.getSession();
 		
 		
+		
 		try {
 			session.getServletContext().setAttribute(InquirerConstants.ACCOUNTS_LIST, accountManager.accountList());
 		} catch (InquirerDataException ex) {
 			LOGGER.error("Not possible to load account list", ex);
 		}
+		
 		LOGGER.info("A session with id='" + session.getId() + "' has been destroyed");
 		if (LOGGER.isDebugEnabled()) {
 			LOGGER.debug("A session with id='" + session.getId() + "' has been destroyed");
 		}
+		
 
 	}
 
