@@ -27,42 +27,63 @@
 		<c:if test="${CURRENT_SESSION_ACCOUNT != null}">
 			<div class="mainMenu">
 				<p class="menuTitle">Available actions</p>
+				<ol>
 				<c:if test="${ROLE == 'Administrator' }">
+				<li>
 					<a href="${CONTEXT }/profile.php">Profile</a>
-					<br>
+				</li>
+				<li>
 					<a href="${CONTEXT }/all_tests.php">List all test</a>
-					<br>
+				</li>
+				<li>
 					<a href="${CONTEXT }/add_test.php">Add new test</a>
-					<br>
+				</li>
+				<li>
 					<a href="${CONTEXT }/all_accounts.php">List all accounts</a>
-					<br>
+				</li>
+				<li>
 					<a href="${CONTEXT }/all_results.php">List test results</a>
-					<br>
+				</li>
+				<li>
 					<a href="${CONTEXT }/start_test.php">Start test</a>
-					<br>
+				</li>
+				
 				</c:if>
 				<c:if test="${(ROLE == 'Advanced tutor')||(ROLE == 'Tutor') }">
+					
+				<li>
 					<a href="${CONTEXT }/profile.php">Profile</a>
-					<br>
+				</li>
+				<li>
 					<a href="${CONTEXT }/all_tests.php">List all test</a>
-					<br>
+				</li>
+				<li>
 					<a href="${CONTEXT }/add_test.php">Add new test</a>
-					<br>
+				</li>
+				<li>
 					<a href="${CONTEXT }/all_results.php">List test results</a>
-					<br>
+				</li>
+				<li>
 					<a href="${CONTEXT }/start_test.php">Start test</a>
-					<br>
+				</li>
 				</c:if>
 				<c:if test="${ROLE == 'Student' }">
+				
+				<li>	
 					<a href="${CONTEXT }/profile.php">Profile</a>
-					<br>
+				</li>
+				<li>
 					<a href="${CONTEXT }/all_tests.php">List all test</a>
-					<br>
+				</li>
+				<li>
 					<a href="${CONTEXT }/all_results.php">List test results</a>
-					<br>
+				</li>
+				<li>
 					<a href="${CONTEXT }/start_test.php">Start test</a>
-					<br>
+				</li>
+				
 				</c:if>
+				</ol>
 
 			</div>
 		</c:if>

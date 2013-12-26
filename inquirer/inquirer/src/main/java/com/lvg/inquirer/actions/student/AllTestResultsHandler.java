@@ -32,7 +32,7 @@ public class AllTestResultsHandler extends AbstractInquirerServletHandler implem
 		}
 		
 		List<TestResult> testResultList = resultManager.getTestResultList((Account)request.getSession().getAttribute(CURRENT_SESSION_ACCOUNT));
-		
+		//TODO add to session
 		request.getServletContext().setAttribute("RESULTS_LIST", testResultList);
 		request.setAttribute("RESULTS_ITEMS", testResultList.size());
 		request.setAttribute("ITEMS_ON_PAGE", ITEMS_ON_PAGE);

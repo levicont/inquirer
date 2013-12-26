@@ -12,10 +12,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-public class LoginFilter implements Filter {
+import org.apache.log4j.Logger;
+
+import com.lvg.inquirer.InquirerConstants;
+
+public class LoginFilter implements Filter, InquirerConstants {
 	private static final String USER_PARAMETER = "user";
-    HttpServletRequest request = null;
-    HttpServletResponse response = null;
+	private static final Logger LOGGER = Logger.getLogger(LoginFilter.class);
+    
 	
 	public void destroy() {
 		
@@ -23,20 +27,23 @@ public class LoginFilter implements Filter {
 
 	
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-		HttpSession session = ((HttpServletRequest)request).getSession();
-		this.request = (HttpServletRequest)request;
-		this.response = (HttpServletResponse)response;
-		String user;
-		session.setAttribute("error", "");
-		if(session.getAttribute(USER_PARAMETER)==null){
-			this.response.sendRedirect("./WEB-INF/JSP/login.jsp");
+		//TODO make valid filter
+		HttpServletRequest httpRequest = null;
+	    HttpServletResponse httpResponse = null;
+		LOGGER.info("<<== Login filter starts ==>>");		
+		httpRequest = (HttpServletRequest)request;
+		httpResponse = (HttpServletResponse)response;
+		HttpSession session = httpRequest.getSession();
+
+		if(session.getAttribute(CURRENT_SESSION_ACCOUNT)==null){
+			httpResponse.sendRedirect("/login.php");
+			
 		}else{
-			user=session.getAttribute(USER_PARAMETER)+"";
-			if(user.isEmpty())
-				
-				this.response.sendRedirect("/login.php");				
+			httpResponse.sendRedirect("/login.php");
+			chain.doFilter(httpRequest, httpResponse);
 		}
-		chain.doFilter(request, response);
+		
+		
 	}
 
 	

@@ -6,6 +6,8 @@ xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
 http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" 
 id="WebApp_ID" version="3.0">
 <display-name>Inquirer</display-name>
+
+	
   
   <!-- Linteners -->
   <listener>
@@ -281,6 +283,16 @@ id="WebApp_ID" version="3.0">
 		<servlet-name>AllTestsHandler</servlet-name>
 		<url-pattern>/all_tests.php</url-pattern>
 	</servlet-mapping>
+	
+	<!-- Filters -->
+	<filter>
+		<filter-name>LoginFilter</filter-name>
+		<filter-class>com.lvg.inquirer.filters.LoginFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>LoginFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping >
   
   
   
