@@ -18,6 +18,10 @@ function executeAction(action) {
 			<tr>
 				<td>User name:</td>
 				<td><input type="text" name="username" value="${CURRENT_SESSION_ACCOUNT.username}"/></td>
+			</tr>			
+			<tr>
+				<td>E-mail:</td>
+				<td><input type="email" name="email" value="${CURRENT_SESSION_ACCOUNT.email}" /></td>
 			</tr>
 			<tr>
 				<td>Old Password:</td>
@@ -30,10 +34,6 @@ function executeAction(action) {
 			<tr>
 				<td>Confirm password:</td>
 				<td><input type="password" name="confpassword" value="" /></td>
-			</tr>
-			<tr>
-				<td>E-mail:</td>
-				<td><input type="email" name="email" value="${CURRENT_SESSION_ACCOUNT.email}" /></td>
 			</tr>
 						
 			<tr>	
