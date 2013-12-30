@@ -24,7 +24,7 @@ public class LoginFilter extends AbstractInquirerFilter implements Filter, Inqui
 
 	public void doFilter(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
-		LOGGER.info("<<== Login filter starts ==>>");
+		LOGGER.info("<<== Login filter starts. Requested URL is: "+request.getRequestURL());
 		HttpSession session = request.getSession();
 		RequestDispatcher rd = request.getRequestDispatcher("/login.php");
 		String uri = request.getRequestURI();

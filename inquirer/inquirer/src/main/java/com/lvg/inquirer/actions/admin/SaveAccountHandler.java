@@ -62,10 +62,7 @@ public class SaveAccountHandler extends AbstractInquirerServletHandler implement
 				} else {
 					if ("register".equals(request.getParameter("action"))) {
 						registerRequest(request, response);
-						LOGGER.info("\n New account has been added  ");
-						request.getServletContext().setAttribute(InquirerConstants.ACCOUNTS_LIST,
-								accountManager.accountList());
-						redirectRequest("/login.php", request, response);
+						return;
 					} else {
 						validateRequest(request, response);
 						LOGGER.info("\n New account has been added  ");
@@ -201,9 +198,13 @@ public class SaveAccountHandler extends AbstractInquirerServletHandler implement
 			regAccount.setEmail(request.getParameter("email"));
 			regAccount.setRole(roleList);
 			accountManager.checkAccount(regAccount);
-			accountManager.addAccount(regAccount);
-			
+			accountManager.addAccount(regAccount);			
 			request.getSession().removeAttribute("register");
+			request.getServletContext().setAttribute(InquirerConstants.ACCOUNTS_LIST,
+					accountManager.accountList());
+			
+			redirectRequest("/login.php", request, response);
+			
 		} catch (InvalidDataException ex) {
 			request.setAttribute("USERNAME", regAccount.getUsername());
 			request.setAttribute("PASSWORD", regAccount.getPassword());
