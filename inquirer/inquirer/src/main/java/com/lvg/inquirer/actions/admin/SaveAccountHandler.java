@@ -19,15 +19,18 @@ import com.lvg.inquirer.exceptions.InquirerDataException;
 import com.lvg.inquirer.exceptions.InvalidDataException;
 import com.lvg.inquirer.mocks.AccountDataBaseManager;
 import com.lvg.inquirer.mocks.ListDataStorage;
+import com.lvg.inquirer.mocks.RoleDataBaseManager;
 import com.lvg.inquirer.models.Account;
 import com.lvg.inquirer.models.Role;
 import com.lvg.inquirer.services.AccountDataService;
+import com.lvg.inquirer.services.RoleDataService;
 
 public class SaveAccountHandler extends AbstractInquirerServletHandler implements InquirerConstants {
 
 	private static final long serialVersionUID = -3684134246731276681L;
 	private static final Logger LOGGER = Logger.getLogger(SaveAccountHandler.class);
 	private static final AccountDataService accountManager = new AccountDataBaseManager();
+	private static final RoleDataService roleManager = new RoleDataBaseManager();
 	
 	
 	private final String ADMIN_CHK_ATTRIBUTE = "chkAdmin";
@@ -62,7 +65,7 @@ public class SaveAccountHandler extends AbstractInquirerServletHandler implement
 						LOGGER.info("\n New account has been added  ");
 						request.getServletContext().setAttribute(InquirerConstants.ACCOUNTS_LIST,
 								accountManager.accountList());
-						redirectRequest("/student/home.php", request, response);
+						redirectRequest("/login.php", request, response);
 					} else {
 						validateRequest(request, response);
 						LOGGER.info("\n New account has been added  ");
@@ -189,15 +192,17 @@ public class SaveAccountHandler extends AbstractInquirerServletHandler implement
 	private void registerRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException,
 			InquirerDataException, IOException {
 		Account regAccount = new Account();
+		List<Role> roleList = new ArrayList<Role>();
+		roleList.add(new Role(ROLE_STUDENT,NAME_ROLE_STUDENT));
 		try {
 			checkFields(request);
 			regAccount.setUsername(request.getParameter("username"));
 			regAccount.setPassword(request.getParameter("password"));
 			regAccount.setEmail(request.getParameter("email"));
-			regAccount.setRole(getRoles(request));
+			regAccount.setRole(roleList);
 			accountManager.checkAccount(regAccount);
 			accountManager.addAccount(regAccount);
-			request.getSession().setAttribute(CURRENT_SESSION_ACCOUNT, regAccount);
+			
 			request.getSession().removeAttribute("register");
 		} catch (InvalidDataException ex) {
 			request.setAttribute("USERNAME", regAccount.getUsername());

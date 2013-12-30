@@ -88,7 +88,6 @@ public class AccountDataBaseManager implements InquirerConstants, AccountDataSer
 				a.setPassword(rs.getString(COLUMN_NAME_PASSWORD));
 				a.setEmail(rs.getString(COLUMN_NAME_EMAIL));
 				a.setEnabled(rs.getInt(COLUMN_NAME_ENABLED));
-				a.setRole(rolesManager.getRolesByAccount(account));
 				if(!a.getId().equals(account.getId()))
 					result.add(account);
 			}			
@@ -114,6 +113,8 @@ public class AccountDataBaseManager implements InquirerConstants, AccountDataSer
 			pstmt.setString(3, account.getEmail());
 			pstmt.setInt(4, account.getEnabled());
 			pstmt.executeUpdate();
+			Account justAddedAccount = getAccount(account.getUsername(), account.getEmail());
+			account.setId(justAddedAccount.getId());
 			rolesManager.addRolesByAccount(account);
 						
 		}catch(SQLException ex){
@@ -208,6 +209,7 @@ public class AccountDataBaseManager implements InquirerConstants, AccountDataSer
 				result.setId(rs.getInt(COLUMN_NAME_ID));
 				result.setUsername(rs.getString(COLUMN_NAME_USERNAME));
 				result.setPassword(rs.getString(COLUMN_NAME_PASSWORD));
+				result.setEmail(rs.getString(COLUMN_NAME_EMAIL));
 				result.setEnabled(rs.getInt(COLUMN_NAME_ENABLED));
 				result.setRole(rolesManager.getRolesByAccount(result));
 				return result;

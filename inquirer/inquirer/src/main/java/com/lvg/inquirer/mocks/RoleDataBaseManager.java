@@ -68,8 +68,7 @@ public class RoleDataBaseManager implements RoleDataService {
 			result = new ArrayList<Role>();
 			PreparedStatement pstmt = connection.prepareStatement(SQL_GET_ROLES_BY_ID);
 			pstmt.setInt(1, account.getId());
-			pstmt.execute();
-			ResultSet rs = pstmt.getResultSet();
+			ResultSet rs = pstmt.executeQuery();
 
 			while (rs.next()) {
 				Role role = new Role();
@@ -78,8 +77,6 @@ public class RoleDataBaseManager implements RoleDataService {
 				result.add(role);
 			}
 
-			pstmt.close();
-			rs.close();
 			return result;
 
 		} catch (SQLException ex) {
@@ -117,6 +114,7 @@ public class RoleDataBaseManager implements RoleDataService {
 	
 	public void deleteRolesByAccount(Account account)throws InquirerDataException{
 		Connection connection = connectionManager.getDBConnection();
+		
 		try{
 			PreparedStatement pstmt = connection.prepareStatement(SQL_DELETE_ACCOUNTS_ROLES);
 			pstmt.setInt(1, account.getId());
