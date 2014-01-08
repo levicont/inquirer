@@ -16,7 +16,7 @@ public class AdminHomeHandler extends AbstractInquirerServletHandler {
 	private static final long serialVersionUID = -3900923726049569012L;
 
 	private final String ACCOUNTS_PAGE = "page";
-	private final Integer ACCOUNTS_ON_PAGE = 2;
+	private final Integer ACCOUNTS_ON_PAGE = 10;
 
 	
 	@SuppressWarnings("unchecked")

@@ -81,7 +81,7 @@ public class RecoverAccountHandler extends AbstractInquirerServletHandler {
 			email.send();
 		} catch (EmailException ex) {
 			LOGGER.error("Can't send mail! ", ex);
-			throw new InquirerDataException("Can't send mail! ", ex);
+			throw new InquirerDataException("Can't send mail! ");
 			
 		}
 		

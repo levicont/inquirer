@@ -19,18 +19,16 @@ import com.lvg.inquirer.exceptions.InquirerDataException;
 import com.lvg.inquirer.exceptions.InvalidDataException;
 import com.lvg.inquirer.mocks.AccountDataBaseManager;
 import com.lvg.inquirer.mocks.ListDataStorage;
-import com.lvg.inquirer.mocks.RoleDataBaseManager;
 import com.lvg.inquirer.models.Account;
 import com.lvg.inquirer.models.Role;
 import com.lvg.inquirer.services.AccountDataService;
-import com.lvg.inquirer.services.RoleDataService;
 
 public class SaveAccountHandler extends AbstractInquirerServletHandler implements InquirerConstants {
 
 	private static final long serialVersionUID = -3684134246731276681L;
 	private static final Logger LOGGER = Logger.getLogger(SaveAccountHandler.class);
 	private static final AccountDataService accountManager = new AccountDataBaseManager();
-	private static final RoleDataService roleManager = new RoleDataBaseManager();
+	
 	
 	
 	private final String ADMIN_CHK_ATTRIBUTE = "chkAdmin";

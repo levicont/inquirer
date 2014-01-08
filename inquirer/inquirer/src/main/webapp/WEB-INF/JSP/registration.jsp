@@ -12,7 +12,7 @@ function executeAction(action) {
 	
 	<form action="<%=request.getContextPath()%>/admin/save_account.php" method="post" name="accountForm">
 	<input type="hidden" name="action" value="none" />
-		<p class="formTitle">Registration new account</p>
+		<p class="formTitle">Registration<br>new account</p>
 		<table>
 			
 			<tr>

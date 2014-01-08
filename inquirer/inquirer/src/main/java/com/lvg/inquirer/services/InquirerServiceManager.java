@@ -5,7 +5,6 @@ import javax.servlet.ServletContext;
 import org.apache.log4j.Logger;
 
 import com.lvg.inquirer.mocks.InquirerDataBaseService;
-import com.lvg.inquirer.mocks.InquirerDataService;
 
 public final class InquirerServiceManager {
 	

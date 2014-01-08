@@ -15,7 +15,6 @@ import com.lvg.inquirer.models.Account;
 import com.lvg.inquirer.models.Role;
 import com.lvg.inquirer.services.DataService;
 import com.lvg.inquirer.services.InquirerServiceManager;
-import com.lvg.inquirer.services.RoleDataService;
 
 public class InquirerDataBaseService implements DataService {
 

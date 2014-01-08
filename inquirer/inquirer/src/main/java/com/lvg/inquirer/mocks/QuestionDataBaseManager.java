@@ -38,7 +38,7 @@ public class QuestionDataBaseManager implements QuestionDataService, InquirerCon
 	private final String SQL_ADD_NEW_QUESTION = "INSERT INTO questions VALUE (null,?,?)";
 	private final String SQL_UPDATE_QUESTION = "UPDATE questions SET text=? WHERE id_questions=?";
 	private final String SQL_DELETE_QUESTION = "DELETE FROM questions WHERE id_questions=?";
-	private final String SQL_DELETE_QUESTION_BY_TEST = "DELETE FROM questions WHERE id_tests=?";
+	
 
 	public List<Question> getQuestionList() throws InquirerDataException, InvalidDataException {
 		List<Question> result = new ArrayList<Question>();
