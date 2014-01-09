@@ -28,7 +28,7 @@ public class LoginFilter extends AbstractInquirerFilter implements Filter, Inqui
 		HttpSession session = request.getSession();
 		RequestDispatcher rd = request.getRequestDispatcher("/login.php");
 		String uri = request.getRequestURI();
-		
+		request.setCharacterEncoding("UTF8");
 		if("POST".equals(request.getMethod())){
 			chain.doFilter(request, response);
 			return;
