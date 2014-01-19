@@ -34,7 +34,7 @@
 		</tbody>
 	
 	</table>
-	<form action="${CONTEXT }/all_tests.php" method="post" name="resultForm">
+	<form class="resultForm" action="${CONTEXT }/all_tests.php" method="post" name="resultForm">
 	<input type="hidden" name="action" value="none">
 	<input type="button" onclick="executeAction('back')" value="Back"/>
 	</form>

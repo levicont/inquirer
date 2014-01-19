@@ -277,6 +277,11 @@ form td input {
 	margin-bottom:7px;
 }
 
+form.resultForm{
+	padding: 10px;
+}
+
+
 div .registerForm .formTitle {
 	border-bottom: 1px solid;
 	color: #FF8822;

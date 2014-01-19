@@ -7,6 +7,7 @@ import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 
@@ -36,22 +37,17 @@ public class NextQuestionHandler extends AbstractInquirerServletHandler {
 			redirectRequest("/all_tests.php", request, response);
 		} else {
 			Integer questionId = Integer.parseInt(request.getParameter("question"));
-
 			Question question = questionManager.getQuestion(questionId);
 			Test test = question.getTest();
 			List<Question> questionList = questionManager.getQuestionsByTest(test);
-
 			Integer indexQuestion = questionList.indexOf(question);
 			request.setAttribute("CHECKED_QUESTION", question);
-					
-			
-			if (isLastQuestionOfTest(question)) {
+			if (isLastQuestionOfTest(question)) {				
 				updateResult(request, response);
-				redirectRequest("/result_test.php", request, response);
+				checkQuestionCount(request, response);				
 			} else {
 				Question nextQuestion = questionList.get(indexQuestion + 1);
 				List<Answer> answersList = answerManager.getAnswerListByQuestion(nextQuestion);
-				
 				updateResult(request, response);
 				request.setAttribute("TEST", test);
 				request.setAttribute("QUESTION", nextQuestion);
@@ -72,47 +68,84 @@ public class NextQuestionHandler extends AbstractInquirerServletHandler {
 	}
 
 	private void updateResult(HttpServletRequest request, HttpServletResponse response) throws IOException,
-			ServletException, InquirerDataException, InvalidDataException {	
-		
-		TestResult testResult = (TestResult) request.getSession().getAttribute("CURRENT_TEST_RESULT");	
-		
-		if(validAnswer(request,response)){
-			testResult.setCorrectAnswers(testResult.getCorrectAnswers()+1);			
+			ServletException, InquirerDataException, InvalidDataException {
+		TestResult testResult = (TestResult) request.getSession().getAttribute("CURRENT_TEST_RESULT");
+		if (validAnswer(request, response)) {
+			testResult.setCorrectAnswers(testResult.getCorrectAnswers() + 1);
+		} else {
+			testResult.setFailAnswers(testResult.getFailAnswers() + 1);
 		}
-		else{
-			testResult.setFailAnswers(testResult.getFailAnswers()+1);
-		}		
+		updateSessionQuestionCount(request.getSession());
 		request.getSession().setAttribute("CURRENT_TEST_RESULT", testResult);
 
 	}
 
+	private int getQuestionCount(Test test){		
+		try{			
+			return (questionManager.getQuestionsByTest(test)).size();
+		}catch(InquirerDataException ex){
+			LOGGER.warn("Not possible to calculate questions count",ex);
+			return -1;
+		}catch(InvalidDataException ex){
+			LOGGER.warn("Not possible to calculate questions count",ex);
+			return -1;
+		}
+	}
+	
+	private void checkQuestionCount(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException{
+		
+		Integer currentQuestionCount = (Integer)request.getSession().getAttribute("QUESTION_COUNT");
+		Test currentTest = ((Question)request.getAttribute("CHECKED_QUESTION")).getTest();
+		LOGGER.debug("Current question count: "+currentQuestionCount);
+		LOGGER.debug("Questions count in test is: "+getQuestionCount(currentTest));
+		if(currentQuestionCount==getQuestionCount(currentTest)){
+			redirectRequest("/result_test.php", request, response);
+		}else{
+			LOGGER.warn("Error! Question checksum not valid.");
+			request.setAttribute(VALIDATION_MESSAGE, "Error! Question checksum not valid.");
+			redirectRequest("/all_tests.php", request, response);
+		}
+		request.getSession().removeAttribute("QUESTION_COUNT");		
+	}
+	
+	private void updateSessionQuestionCount(HttpSession session){
+		
+		if(null == session.getAttribute("QUESTION_COUNT")){
+			Integer count = 1;
+			session.setAttribute("QUESTION_COUNT", count);
+		}else{
+			Integer count = (Integer)session.getAttribute("QUESTION_COUNT");
+			session.setAttribute("QUESTION_COUNT", count+1);
+		}
+	}
+
 	private Boolean validAnswer(HttpServletRequest request, HttpServletResponse response) throws IOException,
 			ServletException, InquirerDataException, InvalidDataException {
-		
-		Question question = (Question)request.getAttribute("CHECKED_QUESTION");
+
+		Question question = (Question) request.getAttribute("CHECKED_QUESTION");
 		List<Answer> answerCorrectList = answerManager.getCorrectAnswerListByQuestion(question);
 		List<Answer> answerList = answerManager.getAnswerListByQuestion(question);
 		List<Answer> answersTest = new ArrayList<Answer>();
-		
-		if(null!=request.getParameter("unknow"))
+
+		if (null != request.getParameter("unknow"))
 			return false;
-		
-		for(Answer answer: answerList){
-			if(null!=request.getParameter("isCorrect_"+answer.getId()))
+		for (Answer answer : answerList) {
+			if (null != request.getParameter("isCorrect_" + answer.getId()))
 				answersTest.add(answer);
 		}
-		if(answersTest.isEmpty())
-			return false;
 		
-		if(answersTest.size()==answerCorrectList.size()){
-			for(Answer answer : answersTest){
-				if(!answerCorrectList.contains(answer))
+		if (answersTest.isEmpty())
+			return false;
+
+		if (answersTest.size() == answerCorrectList.size()) {
+			for (Answer answer : answersTest) {
+				if (!answerCorrectList.contains(answer))
 					return false;
 			}
 			return true;
-		}else{
+		} else {
 			return false;
-		}		
+		}
 
 	}
 
