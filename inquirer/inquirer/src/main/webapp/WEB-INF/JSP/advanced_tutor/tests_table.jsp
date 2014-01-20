@@ -19,11 +19,13 @@
 		});
 	});
 </script>
-<p class="error">
-		<jsp:include page="../modules/validMessage.jsp"/>
+<c:if test="${VALIDATION_MESSAGE != null }">
+	<p class="error">
+		<jsp:include page="../modules/validMessage.jsp" />
 	</p>
+</c:if>
 <div class="accounts">
-	
+
 	<table class="accountsTable">
 		<caption>The Tests table</caption>
 		<thead>
@@ -33,7 +35,8 @@
 				<th>Title</th>
 				<th>Description</th>
 				<th>Author</th>
-				<th>Time<br>Limit (sec)</th>
+				<th>Time<br>Limit (sec)
+				</th>
 				<th>Service</th>
 			</tr>
 		</thead>
@@ -50,30 +53,29 @@
 						<td id="accounts">${tests.description}</td>
 						<td id="accounts">${tests.author.username}</td>
 						<td id="accounts">${tests.timeLimit }</td>
-						<td id="accounts">
-						<c:if test="${ ROLE=='Administrator' || ROLE=='Advanced tutor' || ROLE=='Tutor' }">
-							<c:if test="${ ROLE=='Administrator' || ROLE=='Advanced tutor'}">
+						<td id="accounts"><c:if
+								test="${ ROLE=='Administrator' || ROLE=='Advanced tutor' || ROLE=='Tutor' }">
+								<c:if test="${ ROLE=='Administrator' || ROLE=='Advanced tutor'}">
+									<a class="accountService"
+										href="${CONTEXT }/edit_test.php?id=${TEST_ID }">Edit</a>
+									<a class="accountService"
+										href="${CONTEXT }/delete_test.php?id=${TEST_ID }"
+										onclick="return(window.confirm('Are sure to want delete?'))">Delete</a>
+								</c:if>
+								<c:if
+									test="${ROLE=='Tutor' && tests.author.id==CURRENT_SESSION_ACCOUNT.id}">
+									<a class="accountService"
+										href="${CONTEXT }/edit_test.php?id=${TEST_ID }">Edit</a>
+									<a class="accountService"
+										href="${CONTEXT }/delete_test.php?id=${TEST_ID }"
+										onclick="return(window.confirm('Are sure to want delete?'))">Delete</a>
+								</c:if>
 								<a class="accountService"
-								href="${CONTEXT }/edit_test.php?id=${TEST_ID }">Edit</a>
+									href="${CONTEXT }/start_test.php?id=${TEST_ID }">Start Test</a>
+							</c:if> <c:if test="${ROLE=='Student' }">
 								<a class="accountService"
-								href="${CONTEXT }/delete_test.php?id=${TEST_ID }"
-								onclick="return(window.confirm('Are sure to want delete?'))">Delete</a>
-							</c:if>
-							<c:if test="${ROLE=='Tutor' && tests.author.id==CURRENT_SESSION_ACCOUNT.id}">
-								<a class="accountService"
-								href="${CONTEXT }/edit_test.php?id=${TEST_ID }">Edit</a>
-								<a class="accountService"
-								href="${CONTEXT }/delete_test.php?id=${TEST_ID }"
-								onclick="return(window.confirm('Are sure to want delete?'))">Delete</a>
-							</c:if>
-							<a class="accountService"
-								href="${CONTEXT }/start_test.php?id=${TEST_ID }">Start Test</a>
-						</c:if>
-						<c:if test="${ROLE=='Student' }">
-							<a class="accountService"
-								href="${CONTEXT }/start_test.php?id=${TEST_ID }">Start Test</a>
-						</c:if>
-						</td>
+									href="${CONTEXT }/start_test.php?id=${TEST_ID }">Start Test</a>
+							</c:if></td>
 					</tr>
 				</c:if>
 			</c:forEach>
@@ -90,5 +92,5 @@
 	<div class="pager">
 		<p class="pagination"></p>
 	</div>
-	
+
 </div>

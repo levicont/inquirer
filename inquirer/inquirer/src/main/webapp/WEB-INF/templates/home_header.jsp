@@ -10,4 +10,9 @@
 		Hello, ${CURRENT_SESSION_ACCOUNT.username }! <a
 			href="<%=request.getContextPath()%>/logout.php">Logout</a>
 	</p>
+	<c:if test="${VALIDATION_MESSAGE != null }">
+		<p class="error">
+			<jsp:include page="../JSP/modules/validMessage.jsp" />
+		</p>
+	</c:if>
 </div>

@@ -44,12 +44,10 @@ public class SaveQuestionHandler extends AbstractInquirerServletHandler {
 				initParameters(request, response);
 				Integer questionId = Integer.parseInt(request.getParameter("question"));
 				Question editedQuestion = questionManager.getQuestion(questionId);
-				checkQuestion(editedQuestion);	
 				updateQuestion(editedQuestion, request, response);
 			} else {
 				initParameters(request, response);
 				Question newQuestion = (Question) request.getAttribute("NEW_QUESTION");
-				checkQuestion(newQuestion);
 				saveQuestion(newQuestion, request, response);
 			}
 		}
@@ -99,6 +97,7 @@ public class SaveQuestionHandler extends AbstractInquirerServletHandler {
 
 		List<Answer> answerList = (List<Answer>) request.getAttribute("ANSWER_LIST");
 		try {
+			checkQuestion(question);
 			questionManager.addQuestion(question);
 			answerManager.deleteAnswerByQuestion(questionManager.getLastInsertedQuestion());
 			for (Answer answer : answerList) {
@@ -124,6 +123,7 @@ public class SaveQuestionHandler extends AbstractInquirerServletHandler {
 
 		List<Answer> answerList = (List<Answer>)request.getAttribute("ANSWER_LIST");
 		try {
+			checkQuestion(question);
 			answerManager.deleteAnswerByQuestion(question);
 			questionManager.updateQuestion(question);			
 			for (Answer answer : answerList) {

@@ -71,8 +71,5 @@
 	</table>
 	<div class="pager">
 		<p class="pagination"></p>
-	</div>
-	<p class="error">
-		<jsp:include page="../modules/validMessage.jsp" />
-	</p>
+	</div>	
 </div>

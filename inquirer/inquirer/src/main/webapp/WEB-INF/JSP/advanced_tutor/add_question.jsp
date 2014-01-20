@@ -9,7 +9,7 @@
 </script>
 
 <div>
-
+	
 	<form action="<%=request.getContextPath()%>/save_question.php"
 		method="post" name="questionForm">
 		<input type="hidden" name="action" value="none" />
@@ -48,8 +48,5 @@
 		</table>
 
 	</form>
-	<p class="error">
-		<jsp:include page="../modules/validMessage.jsp" />
-	</p>
-
+	
 </div>

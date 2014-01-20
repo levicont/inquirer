@@ -40,8 +40,10 @@
 
 			</form>
 	</c:if>
+	<c:if test="${VALIDATION_MESSAGE != null }">
 	<p class="error">
 		<jsp:include page="modules/validMessage.jsp" />
 	</p>
+</c:if>
 
 </div>

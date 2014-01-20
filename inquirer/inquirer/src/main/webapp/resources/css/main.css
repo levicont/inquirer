@@ -307,9 +307,11 @@ div .registerForm {
 }
 
 .error {
-	margin: 0;
-	background-color: rgb(250, 220, 220);
-	color: rgb(250, 50, 50);
+	background-color: #FADCDC;
+    border: 1px solid #FF0000;
+    color: #FA3232;
+    margin: 20px;
+    padding: 5px;
 }
 
 .label {

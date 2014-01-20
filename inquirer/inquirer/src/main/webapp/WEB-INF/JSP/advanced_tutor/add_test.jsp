@@ -46,8 +46,5 @@
 		</table>
 
 	</form>
-	<p class="error">
-		<jsp:include page="../modules/validMessage.jsp" />
-	</p>
-
+	
 </div>

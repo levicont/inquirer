@@ -103,7 +103,7 @@ public class NextQuestionHandler extends AbstractInquirerServletHandler {
 		}else{
 			LOGGER.warn("Error! Question checksum not valid.");
 			request.setAttribute(VALIDATION_MESSAGE, "Error! Question checksum not valid.");
-			redirectRequest("/all_tests.php", request, response);
+			forwardRequest("/all_tests.php", request, response);
 		}
 		request.getSession().removeAttribute("QUESTION_COUNT");		
 	}
