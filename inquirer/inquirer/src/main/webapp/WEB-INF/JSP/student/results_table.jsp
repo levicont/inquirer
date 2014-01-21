@@ -19,9 +19,6 @@
 		});
 	});
 </script>
-<p class="error">
-		<jsp:include page="../modules/validMessage.jsp"/>
-	</p>
 <div class="accounts">
 	
 	<table class="accountsTable">
