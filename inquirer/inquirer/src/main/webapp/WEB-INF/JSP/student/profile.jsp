@@ -25,15 +25,15 @@ function executeAction(action) {
 			</tr>
 			<tr>
 				<td>Old Password:</td>
-				<td><input type="password" name="password" value=""/></td>
+				<td><input type="password" name="oldPassword" value=""/></td>
 			</tr>
 			<tr>
 				<td>New Password:</td>
-				<td><input type="password" name="password" value=""/></td>
+				<td><input type="password" name="newPassword" value=""/></td>
 			</tr>
 			<tr>
 				<td>Confirm password:</td>
-				<td><input type="password" name="confpassword" value="" /></td>
+				<td><input type="password" name="confirmPassword" value="" /></td>
 			</tr>
 						
 			<tr>	

@@ -43,11 +43,11 @@ public class SaveProfileHandler extends AbstractInquirerServletHandler implement
 		} catch (InquirerDataException ex) {
 			LOGGER.error("Not possible to update profile",ex);
 			request.setAttribute(VALIDATION_MESSAGE, ex.getMessage());
-			redirectRequest("/profile.php", request, response);
+			forwardRequest("/profile.php", request, response);
 		} catch (InvalidDataException ex) {
 			LOGGER.error("Not possible to update profile",ex);
 			request.setAttribute(VALIDATION_MESSAGE, ex.getMessage());
-			redirectRequest("/profile.php", request, response);
+			forwardRequest("/profile.php", request, response);
 		}
 	}
 
@@ -83,6 +83,9 @@ public class SaveProfileHandler extends AbstractInquirerServletHandler implement
 			}
 			newAccount.setPassword(newPassword);
 		}
+		if(account.getUsername().equals(username) && account.getEmail().equals(email))
+			if(StringUtils.isBlank(oldPassword) && StringUtils.isBlank(newPassword))		
+				throw new InvalidDataException("All fields has not updated");
 
 		accountManager.checkAccount(newAccount);
 		request.setAttribute("UPDATED_ACCOUNT", newAccount);
