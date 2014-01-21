@@ -43,7 +43,9 @@ public class SaveQuestionHandler extends AbstractInquirerServletHandler {
 			if ("edit_question".equals(action)) {
 				initParameters(request, response);
 				Integer questionId = Integer.parseInt(request.getParameter("question"));
+				Question newQuestion = (Question)request.getAttribute("NEW_QUESTION");
 				Question editedQuestion = questionManager.getQuestion(questionId);
+				editedQuestion.setText(newQuestion.getText());
 				updateQuestion(editedQuestion, request, response);
 			} else {
 				initParameters(request, response);
