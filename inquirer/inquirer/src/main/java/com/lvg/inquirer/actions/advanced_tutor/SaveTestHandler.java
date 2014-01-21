@@ -85,12 +85,12 @@ public class SaveTestHandler extends AbstractInquirerServletHandler {
 		Test updatedTest = null;
 		
 		try {
+			updatedTest = testManager.getTest(Integer.parseInt(request.getParameter("test")));
 			checkFields(request);
 			String title = request.getParameter("title");
 			String description = request.getParameter("description");
-			Integer timeLimit= Integer.parseInt(request.getParameter("timeLimit"));
+			Integer timeLimit= Integer.parseInt(request.getParameter("timeLimit"));	
 			
-			updatedTest = testManager.getTest(Integer.parseInt(request.getParameter("test")));
 			updatedTest.setTitle(title);
 			updatedTest.setDescription(description);
 			updatedTest.setTimeLimit(timeLimit);
@@ -98,18 +98,28 @@ public class SaveTestHandler extends AbstractInquirerServletHandler {
 
 		} catch (InvalidDataException ex) {
 			LOGGER.error("Not possible to update test.", ex);
+			fillRequestByOldData(request, updatedTest);
 			request.setAttribute(VALIDATION_MESSAGE, ex.getMessage());
 			gotoToJSP("/advanced_tutor/edit_test.jsp", request, response);
 		} catch (InquirerDataException ex) {
 			LOGGER.error("Not possible to update test.", ex);
+			fillRequestByOldData(request, updatedTest);
 			request.setAttribute(VALIDATION_MESSAGE, ex.getMessage());
 			gotoToJSP("/advanced_tutor/edit_test.jsp", request, response);
 		}
 	}
+	
+	private void fillRequestByOldData(HttpServletRequest request, Test updatedTest){
+		request.setAttribute("TITLE", updatedTest.getTitle());
+		request.setAttribute("DESCRIPTION", updatedTest.getDescription());
+		request.setAttribute("TIME_LIMIT", updatedTest.getTimeLimit());
+		request.setAttribute("EDITED_TEST_ID", updatedTest.getId());
+	}
 
 	private void checkFields(HttpServletRequest request) throws InvalidDataException {
 		String title = request.getParameter("title");
-	
+		if (!StringUtils.isNotBlank(title))
+			throw new InvalidDataException("Title must not be empty");
 		try {
 			Integer timeLimit = Integer.parseInt(request.getParameter("timeLimit"));
 			if (timeLimit <= 0)
@@ -117,8 +127,7 @@ public class SaveTestHandler extends AbstractInquirerServletHandler {
 		} catch (NumberFormatException ex) {
 			throw new InvalidDataException("Number of time limit not valid ");
 		}
-		if (!StringUtils.isNotBlank(title))
-			throw new InvalidDataException("Title must not be empty");
+		
 	}
 
 }
