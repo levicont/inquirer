@@ -4,7 +4,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 
 <script>
-	time = ${QUESTION.test.timeLimit}*60;
+	time = ${QUESTION.test.timeLimit * 60};
 	
 	function executeAction(action) {
 		document.questionForm.action.value = action;
