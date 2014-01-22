@@ -4,6 +4,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 
 <script>
+	time = ${QUESTION.test.timeLimit}*60;
+	
 	function executeAction(action) {
 		document.questionForm.action.value = action;
 		document.questionForm.submit();
@@ -12,9 +14,25 @@
 		ev.preventDefault();
 		return false;
 	}
+	function writeTimer(){
+		if(time > 0){
+			time--;			
+			var timeDiv = document.getElementById("timer");
+			var timeP = document.getElementById("timerP");
+			var timeText = timeP.firstChild;
+			timeText.nodeValue = time;			
+		}else{
+			executeAction("next_question");
+		}
+	}
+	onload = function(){
+		setInterval("writeTimer()",1000);
+	}
 </script>
-
-
+<a href="javascript:writeTimer()">Start timer</a>
+<div id="timer">
+	<p id="timerP">${QUESTION.test.timeLimit}</p>
+</div>
 
 <div>
 	<form action="${CONTEXT }/next_question.php"
