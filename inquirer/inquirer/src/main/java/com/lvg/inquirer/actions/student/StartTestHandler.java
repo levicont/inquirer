@@ -35,6 +35,7 @@ public class StartTestHandler extends AbstractInquirerServletHandler {
 		Integer testId;
 		
 		try {
+			checkTimeStamp(request);
 			testId = Integer.parseInt(request.getParameter("id"));
 			Test test = testManager.getTest(testId);
 			checkTest(test);
@@ -56,20 +57,29 @@ public class StartTestHandler extends AbstractInquirerServletHandler {
 			gotoToJSP("/student/question.jsp", request, response);
 		} catch (InquirerDataException ex) {
 			LOGGER.warn("Not possible to start test", ex);
-			request.setAttribute(VALIDATION_MESSAGE, ex);
-			redirectRequest("/all_tests.php", request, response);
+			request.setAttribute(VALIDATION_MESSAGE, ex.getMessage());
+			forwardRequest("/all_tests.php", request, response);
 			
 		}catch(NumberFormatException ex){
 			LOGGER.warn("Not possible to load test", ex);
-			request.setAttribute(VALIDATION_MESSAGE, ex);
-			redirectRequest("/all_tests.php", request, response);
+			request.setAttribute(VALIDATION_MESSAGE, "No one test has been choised");
+			forwardRequest("/all_tests.php", request, response);
 		}
 
+	}
+	private void checkTimeStamp(HttpServletRequest request)throws InquirerDataException{
+			if(null == request.getSession().getAttribute("TIME_STAMP")){
+				request.getSession().setAttribute("TIME_STAMP", System.currentTimeMillis());
+			}else{
+				request.getSession().removeAttribute("TIME_STAMP");
+				throw new InquirerDataException("Time stamp key not valid");
+			}
+				
 	}
 
 	private void checkTest(Test test) throws InquirerDataException, InvalidDataException {
 		if (questionManager.getQuestionsByTest(test).size() <= 0)
-			throw new InquirerDataException("Test <<" + test.getTitle() + ">> has not any questions");
+			throw new InquirerDataException("This test has not any questions");
 	}
 
 }

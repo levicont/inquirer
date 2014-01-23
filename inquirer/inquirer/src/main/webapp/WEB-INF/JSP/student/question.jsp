@@ -17,10 +17,11 @@
 	function writeTimer(){
 		if(time > 0){
 			time--;			
-			var timeDiv = document.getElementById("timer");
 			var timeP = document.getElementById("timerP");
 			var timeText = timeP.firstChild;
-			timeText.nodeValue = time;			
+			timeText.nodeValue = time;
+			if(time<11)
+				timeP.style.color = "red";
 		}else{
 			executeAction("next_question");
 		}
@@ -29,9 +30,9 @@
 		setInterval("writeTimer()",1000);
 	}
 </script>
-<a href="javascript:writeTimer()">Start timer</a>
+
 <div id="timer">
-	<p id="timerP">${QUESTION.test.timeLimit}</p>
+	<p >You have <span id="timerP">${QUESTION.test.timeLimit * 60}</span> sec. to answer the question</p>
 </div>
 
 <div>
@@ -39,7 +40,7 @@
 		method="post" name="questionForm" onsubmit="return false;">
 				
 		<input type="hidden" name="action" value="none"/> 
-		
+		<input type="hidden" name="timeStamp" value="${TIME_STAMP}"/>
 		<input type="hidden" name="question" value="${QUESTION.id}" />
 		<p class="formTitle">${QUESTION.text }</p>
 		<table>

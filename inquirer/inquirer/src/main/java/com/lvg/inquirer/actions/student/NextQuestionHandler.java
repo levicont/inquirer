@@ -32,8 +32,11 @@ public class NextQuestionHandler extends AbstractInquirerServletHandler {
 
 	@Override
 	protected void handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		if(null != request.getSession().getAttribute("TIME_STAMP"))
+			request.getSession().removeAttribute("TIME_STAMP");
 		String action = request.getParameter("action");
 		if ("cancel".equals(action)) {
+			
 			redirectRequest("/all_tests.php", request, response);
 		} else {
 			Integer questionId = Integer.parseInt(request.getParameter("question"));
