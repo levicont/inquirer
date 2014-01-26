@@ -75,7 +75,7 @@ public class SaveProfileHandler extends AbstractInquirerServletHandler implement
 				throw new InvalidDataException("Old password is blank");
 			} else {
 				if (oldPassword.equals(account.getPassword())) {
-					if (newPassword.equals(confirmPassword))
+					if (!newPassword.equals(confirmPassword))
 						throw new InvalidDataException("New password is not equal to confirm password");
 				} else {
 					throw new InvalidDataException("Old password is not correct");

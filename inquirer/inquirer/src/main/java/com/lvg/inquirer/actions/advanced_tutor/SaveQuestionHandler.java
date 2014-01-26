@@ -99,6 +99,8 @@ public class SaveQuestionHandler extends AbstractInquirerServletHandler {
 
 		List<Answer> answerList = (List<Answer>) request.getAttribute("ANSWER_LIST");
 		try {
+			if(null == answerList || answerList.isEmpty())
+				throw new InquirerDataException("Question must have one or more answers.");
 			checkQuestion(question);
 			questionManager.addQuestion(question);
 			answerManager.deleteAnswerByQuestion(questionManager.getLastInsertedQuestion());
@@ -125,6 +127,8 @@ public class SaveQuestionHandler extends AbstractInquirerServletHandler {
 
 		List<Answer> answerList = (List<Answer>)request.getAttribute("ANSWER_LIST");
 		try {
+			if(null == answerList || answerList.isEmpty())
+				throw new InquirerDataException("Question must have one or more answers.");			
 			checkQuestion(question);
 			answerManager.deleteAnswerByQuestion(question);
 			questionManager.updateQuestion(question);			
