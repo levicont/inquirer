@@ -46,10 +46,12 @@ public class SaveQuestionHandler extends AbstractInquirerServletHandler {
 				Question newQuestion = (Question)request.getAttribute("NEW_QUESTION");
 				Question editedQuestion = questionManager.getQuestion(questionId);
 				editedQuestion.setText(newQuestion.getText());
+				request.setAttribute("TEST_ID", newQuestion.getTest().getId());
 				updateQuestion(editedQuestion, request, response);
 			} else {
 				initParameters(request, response);
 				Question newQuestion = (Question) request.getAttribute("NEW_QUESTION");
+				request.setAttribute("TEST_ID", newQuestion.getTest().getId());
 				saveQuestion(newQuestion, request, response);
 			}
 		}
@@ -110,7 +112,7 @@ public class SaveQuestionHandler extends AbstractInquirerServletHandler {
 			}
 			redirectRequest("/all_questions.php?test_id=" + question.getTest().getId(), request, response);
 		} catch (InvalidDataException ex) {
-			LOGGER.error("Not possible to save question with answer.", ex);
+			LOGGER.error("Not possible to save question with answer.", ex);			
 			request.setAttribute(VALIDATION_MESSAGE, ex.getMessage());
 			gotoToJSP("/advanced_tutor/add_question.jsp", request, response);
 		} catch (InquirerDataException ex) {

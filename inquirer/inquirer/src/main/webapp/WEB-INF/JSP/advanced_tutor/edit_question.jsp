@@ -14,7 +14,7 @@
 	<form action="<%=request.getContextPath()%>/save_question.php"
 		method="post" name="questionForm" onsubmit="return false;">
 		<input type="hidden" name="action" value="none" /> 
-		<input type="hidden" name="test" value="${test_id}" /> 
+		<input type="hidden" name="test" value="${TEST_ID}" /> 
 		<input type="hidden" name="question" value="${EDITED_QUESTION.id}" />
 		<p class="formTitle">Edit question</p>
 		<table>

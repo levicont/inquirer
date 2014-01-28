@@ -46,7 +46,7 @@ public class EditQuestionsHandler extends AbstractInquirerServletHandler {
 			countOfEmptyAnswers = 0;
 		
 		request.setAttribute("EDITED_QUESTION", question);
-		request.setAttribute("test_id", test.getId());
+		request.setAttribute("TEST_ID", test.getId());
 		request.setAttribute("QUESTION_TEXT", question.getText());
 		request.setAttribute("DEFAULT_ANSWERS_COUNT", DEFAULT_ANSWERS_COUNT);
 		request.setAttribute("ANSWERS_LIST", answerList);
