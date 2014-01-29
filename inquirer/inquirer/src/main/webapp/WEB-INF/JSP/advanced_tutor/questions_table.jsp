@@ -20,7 +20,11 @@
 		});
 	});
 </script>
-
+<div class="testTitle">
+	<a href="${CONTEXT}/edit_test.php?id=${test_id }">
+	Back to test <span>${CURRENT_TEST.title}</span>
+	</a>
+</div>
 <div class="accounts">
 	<table class="accountsTable">
 		<caption>The Questions table</caption>

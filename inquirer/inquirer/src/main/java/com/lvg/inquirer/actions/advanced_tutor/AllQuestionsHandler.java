@@ -53,6 +53,7 @@ public class AllQuestionsHandler extends AbstractInquirerServletHandler {
 				
 				LOGGER.info("Test id = "+test.getId());
 				questionList = questionManager.getQuestionsByTest(test);
+				request.setAttribute("CURRENT_TEST", test);
 
 			}
 			request.setAttribute("test_id", testId);

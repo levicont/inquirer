@@ -21,8 +21,9 @@
 		<table>
 			<tr>
 				<td>Question:</td>
-				<td colspan="2"><textarea rows="5" cols="40" maxlength="250"
-						name="text" /></textarea></td>
+				<td colspan="2">
+					<textarea rows="5" cols="40" maxlength="250" name="text">${QUESTION_TEXT}</textarea>
+				</td>
 			</tr>
 			<tr>
 					<td class="formTitle" colspan="3">Answers</td>				

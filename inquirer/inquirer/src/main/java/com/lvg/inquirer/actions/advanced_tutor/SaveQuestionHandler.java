@@ -47,11 +47,13 @@ public class SaveQuestionHandler extends AbstractInquirerServletHandler {
 				Question editedQuestion = questionManager.getQuestion(questionId);
 				editedQuestion.setText(newQuestion.getText());
 				request.setAttribute("TEST_ID", newQuestion.getTest().getId());
+				request.setAttribute("DEFAULT_ANSWERS_COUNT",DEFAULT_ANSWERS_COUNT);
 				updateQuestion(editedQuestion, request, response);
 			} else {
 				initParameters(request, response);
 				Question newQuestion = (Question) request.getAttribute("NEW_QUESTION");
 				request.setAttribute("TEST_ID", newQuestion.getTest().getId());
+				request.setAttribute("DEFAULT_ANSWERS_COUNT",DEFAULT_ANSWERS_COUNT);
 				saveQuestion(newQuestion, request, response);
 			}
 		}
@@ -66,9 +68,13 @@ public class SaveQuestionHandler extends AbstractInquirerServletHandler {
 		String text = request.getParameter("text");
 		List<Answer> answerList = new ArrayList<Answer>();
 		try {
-
+			if(null!=request.getParameter("question")){
+				Integer questionId = Integer.parseInt(request.getParameter("question"));
+				request.setAttribute("EDITED_QUESTION", questionManager.getQuestion(questionId));
+			}
+				
 			testId = Integer.parseInt(request.getParameter("test"));
-			Test test = testManager.getTest(testId);
+			Test test = testManager.getTest(testId);			
 
 			for (int i = 1; i <= DEFAULT_ANSWERS_COUNT; i++) {
 				String answerText = request.getParameter("answer_" + i);
@@ -88,7 +94,8 @@ public class SaveQuestionHandler extends AbstractInquirerServletHandler {
 			newQuestion.setTest(test);
 			newQuestion.setText(text);
 			request.setAttribute("NEW_QUESTION", newQuestion);
-			request.setAttribute("ANSWER_LIST", answerList);
+			request.setAttribute("ANSWERS_LIST", answerList);
+			request.setAttribute("SIZE_OF_ANSWER_LIST", answerList.size());
 		} catch (NumberFormatException ex) {
 			LOGGER.warn("Not possible to cast test id to number id=" + request.getParameter("test"), ex);
 		}
@@ -99,11 +106,11 @@ public class SaveQuestionHandler extends AbstractInquirerServletHandler {
 	private void saveQuestion(Question question, HttpServletRequest request, HttpServletResponse response)
 			throws InvalidDataException, InquirerDataException, IOException, ServletException {
 
-		List<Answer> answerList = (List<Answer>) request.getAttribute("ANSWER_LIST");
+		List<Answer> answerList = (List<Answer>) request.getAttribute("ANSWERS_LIST");		
 		try {
-			if(null == answerList || answerList.isEmpty())
-				throw new InquirerDataException("Question must have one or more answers.");
 			checkQuestion(question);
+			request.setAttribute("QUESTION_TEXT", question.getText());
+			checkAnswers(answerList);			
 			questionManager.addQuestion(question);
 			answerManager.deleteAnswerByQuestion(questionManager.getLastInsertedQuestion());
 			for (Answer answer : answerList) {
@@ -127,11 +134,11 @@ public class SaveQuestionHandler extends AbstractInquirerServletHandler {
 	private void updateQuestion(Question question, HttpServletRequest request, HttpServletResponse response)
 			throws InvalidDataException, InquirerDataException, IOException, ServletException {
 
-		List<Answer> answerList = (List<Answer>)request.getAttribute("ANSWER_LIST");
-		try {
-			if(null == answerList || answerList.isEmpty())
-				throw new InquirerDataException("Question must have one or more answers.");			
+		List<Answer> answerList = (List<Answer>)request.getAttribute("ANSWERS_LIST");		
+		try {					
 			checkQuestion(question);
+			request.setAttribute("QUESTION_TEXT", question.getText());			
+			checkAnswers(answerList);			
 			answerManager.deleteAnswerByQuestion(question);
 			questionManager.updateQuestion(question);			
 			for (Answer answer : answerList) {
@@ -156,6 +163,11 @@ public class SaveQuestionHandler extends AbstractInquirerServletHandler {
 			throw new InvalidDataException("Title must not be empty");
 		if (question.getTest() == null)
 			throw new InvalidDataException("Test is not recognized");
+	}
+	
+	private void checkAnswers(List<Answer> answerList)throws InvalidDataException{
+		if(null == answerList || answerList.isEmpty())
+			throw new InvalidDataException("Question must have one or more answers.");	
 	}
 
 }
