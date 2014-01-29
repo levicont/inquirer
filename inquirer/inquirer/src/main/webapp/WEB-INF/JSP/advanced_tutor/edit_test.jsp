@@ -12,7 +12,7 @@
 	}
 </script>
 
-<div>
+<div class="mainForm">
 
 	<form action="<%=request.getContextPath()%>/save_test.php" onsubmit="a(event);"
 		method="post" name="testForm" >

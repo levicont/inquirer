@@ -8,7 +8,7 @@
 	}
 </script>
 
-<div>
+<div class="mainForm">
 
 	<form action="<%=request.getContextPath()%>/save_test.php"
 		method="post" name="testForm">

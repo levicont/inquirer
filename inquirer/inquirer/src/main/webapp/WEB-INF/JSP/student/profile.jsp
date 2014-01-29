@@ -8,7 +8,7 @@ function executeAction(action) {
 }
 </script>
 
-<div class="profileForm">
+<div class="mainForm">
 	
 	<form action="${CONTEXT }/save_profile.php" method="post" name="profileForm">
 	<input type="hidden" name="action" value="none" />
