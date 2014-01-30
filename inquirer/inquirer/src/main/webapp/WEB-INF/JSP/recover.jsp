@@ -8,7 +8,7 @@
 	}
 </script>
 
-<div class="registerForm">
+<div class="recoverForm">
 	<p>
 		<strong>${RECOVER_MESSAGE }</strong>
 	</p>
@@ -18,7 +18,7 @@
 	<c:if test="${RECOVER_MESSAGE  == null}">
 			<form action="${CONTEXT }/recover.php" method="post" name="accountForm">
 				<input type="hidden" name="action" value="none" />
-				<p class="formTitle">Recover account</p>
+				<p class="formRecoverTitle">Recover account</p>
 				<table>
 					
 					<tr>

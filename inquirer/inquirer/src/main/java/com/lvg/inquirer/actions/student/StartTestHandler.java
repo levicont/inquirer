@@ -34,11 +34,11 @@ public class StartTestHandler extends AbstractInquirerServletHandler {
 	protected void handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		Integer testId;
 		
-		try {
-			checkTimeStamp(request);
+		try {			
 			testId = Integer.parseInt(request.getParameter("id"));
 			Test test = testManager.getTest(testId);
 			checkTest(test);
+			checkTimeStamp(request);
 			List<Question> questionsList = questionManager.getQuestionsByTest(test);
 			Integer questionsCount = questionsList.size();
 
@@ -72,7 +72,7 @@ public class StartTestHandler extends AbstractInquirerServletHandler {
 				request.getSession().setAttribute("TIME_STAMP", System.currentTimeMillis());
 			}else{
 				request.getSession().removeAttribute("TIME_STAMP");
-				throw new InquirerDataException("Time stamp key not valid");
+				throw new InquirerDataException("Time stamp key not valid, try 'START' button again!");
 			}
 				
 	}

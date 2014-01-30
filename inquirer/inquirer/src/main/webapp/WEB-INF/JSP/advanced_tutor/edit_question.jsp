@@ -24,7 +24,7 @@
 						name="text">${QUESTION_TEXT} </textarea></td>
 			</tr>
 			<tr>
-				<td class="formTitle" colspan="3">Answers</td>
+				<td class="formAnswerTitle" colspan="3">Answers</td>
 			</tr>
 
 			<c:forEach var="answer" items="${ANSWERS_LIST}" varStatus="ansIndex">
