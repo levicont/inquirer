@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Properties;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
@@ -27,6 +28,7 @@ public class InquirerDataBaseService implements DataService {
 	static {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
+			
 			LOGGER.info("Connection to database has been established!");
 		} catch (ClassNotFoundException ex) {
 			throw new RuntimeException("Failed to load DB driver.", ex);
@@ -35,8 +37,12 @@ public class InquirerDataBaseService implements DataService {
 
 	public Connection getDataBaseConnection() throws InquirerDataException {
 		try {
-			Connection connection = DriverManager.getConnection("jdbc:mysql://localhost/inquirer", "inquirer",
-					"inquirer");
+			Properties properties = new Properties();
+			properties.setProperty("user", "inquirer");
+			properties.setProperty("password", "inquirer");
+			properties.setProperty("useUnicode", "true");
+			properties.setProperty("characterEncoding", "UTF-8");
+			Connection connection = DriverManager.getConnection("jdbc:mysql://localhost/inquirer",properties);
 			return connection;
 		} catch (SQLException ex) {
 			throw new InquirerDataException("Failed to establish the database connection.", ex);

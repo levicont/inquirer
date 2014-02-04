@@ -22,7 +22,7 @@
 			<tr>
 				<td>Question:</td>
 				<td colspan="2">
-					<textarea rows="5" cols="40" maxlength="250" name="text">${QUESTION_TEXT}</textarea>
+					<textarea id="taQuestion" rows="5" cols="40" maxlength="250" name="text">${QUESTION_TEXT}</textarea>
 				</td>
 			</tr>
 			<tr>
@@ -30,11 +30,11 @@
 			</tr>
 			<c:forEach begin="1" end="${DEFAULT_ANSWERS_COUNT }" step="1" varStatus="index">
 				<tr>
-					<td colspan="3">Answer ${index.count}:</td>				
+					<td id="tdAnswer" colspan="3">Answer ${index.count}:</td>				
 				</tr>
 				<tr>
 					
-					<td colspan="3"><textarea rows="4" cols="35" maxlength="250"
+					<td colspan="3"><textarea id="taAnswer" rows="4" cols="35" maxlength="250"
 						name="answer_${index.count}" ></textarea></td>
 				</tr>
 				<tr>

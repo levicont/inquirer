@@ -20,8 +20,8 @@
 		<table>
 			<tr>
 				<td>Question:</td>
-				<td colspan="2"><textarea rows="5" cols="40" maxlength="250"
-						name="text">${QUESTION_TEXT} </textarea></td>
+				<td colspan="2"><textarea id="taQuestion" rows="5" cols="40" maxlength="250"
+								name="text">${QUESTION_TEXT} </textarea></td>
 			</tr>
 			<tr>
 				<td class="formAnswerTitle" colspan="3">Answers</td>
@@ -30,11 +30,11 @@
 			<c:forEach var="answer" items="${ANSWERS_LIST}" varStatus="ansIndex">
 
 				<tr>
-					<td colspan="3">Answer ${ansIndex.count}:</td>
+					<td id="tdAnswer" colspan="3">Answer ${ansIndex.count}:</td>
 				</tr>
 				<tr>
 					<td colspan="3"><c:set var="answerText">${answer.text }</c:set>
-						<textarea rows="4" cols="35" maxlength="250"
+						<textarea id="taAnswer" rows="4" cols="35" maxlength="250"						
 							name="answer_${ansIndex.count}">${answerText}</textarea></td>
 				</tr>
 				<tr>
@@ -48,10 +48,10 @@
 				<c:forEach begin="${SIZE_OF_ANSWER_LIST+1}"
 					end="${DEFAULT_ANSWERS_COUNT }" step="1" varStatus="index">
 					<tr>
-						<td colspan="3">Answer ${index.count+SIZE_OF_ANSWER_LIST}:</td>
+						<td id="tdAnswer" colspan="3">Answer ${index.count+SIZE_OF_ANSWER_LIST}:</td>
 					</tr>
 					<tr>
-						<td colspan="3"><textarea rows="4" cols="35" maxlength="250"
+						<td colspan="3"><textarea id="taAnswer" rows="4" cols="35" maxlength="250"						 
 								name="answer_${index.count+SIZE_OF_ANSWER_LIST}"></textarea></td>
 					</tr>
 					<tr>
