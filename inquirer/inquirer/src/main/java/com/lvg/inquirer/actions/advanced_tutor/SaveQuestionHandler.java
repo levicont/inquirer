@@ -167,7 +167,16 @@ public class SaveQuestionHandler extends AbstractInquirerServletHandler {
 	
 	private void checkAnswers(List<Answer> answerList)throws InvalidDataException{
 		if(null == answerList || answerList.isEmpty())
-			throw new InvalidDataException("Question must have one or more answers.");	
+			throw new InvalidDataException("Question must have one or more answers.");
+		int correctCount = 0;
+		for(Answer answer : answerList){
+			if(answer.isCorrect()){
+				correctCount++;
+				break;
+			}
+		}
+		if(correctCount == 0)
+			throw new InvalidDataException("No one answer is correct.");
 	}
 
 }
