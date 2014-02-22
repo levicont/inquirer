@@ -51,7 +51,7 @@ public class InquirerDataBaseService implements DataService {
 	}
 	
 	public void close(){
-		//Do nothing;
+		//Do nothing ;
 	}
 
 	

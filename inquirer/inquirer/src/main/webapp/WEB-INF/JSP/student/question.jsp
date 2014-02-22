@@ -36,16 +36,16 @@
 </div>
 
 <div>
-	<form action="${CONTEXT }/next_question.php"
+	<form class="questionForm" action="${CONTEXT }/next_question.php"
 		method="post" name="questionForm" onsubmit="return false;">
 				
 		<input type="hidden" name="action" value="none"/> 
 		<input type="hidden" name="timeStamp" value="${TIME_STAMP}"/>
 		<input type="hidden" name="question" value="${QUESTION.id}" />
-		<p class="formTitle">${QUESTION.text }</p>
-		<table>
+		<p class="questionFormTitle">${QUESTION.text }</p>
+		<table id="answers">
 			<tr>
-					<td colspan="3">Answers choices:</td>
+					<td id="answersTitle" colspan="3">Answers choices:</td>
 			</tr>
 			<c:forEach var="answer" items="${ANSWERS_LIST}" varStatus="ansIndex">
 

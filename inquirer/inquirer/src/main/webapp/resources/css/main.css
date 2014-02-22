@@ -340,6 +340,36 @@ form.resultForm {
 	padding: 10px;
 }
 
+form.questionForm{ 
+	background: linear-gradient(to top, #DDDDFF, #EEEEFF) repeat scroll 0 0 rgba(0, 0, 0, 0);
+    border: 1px solid #5555FF;
+    border-radius: 3px;
+    color: #8888FF;
+    font-size: 1em;
+    margin-left: 0;
+    margin-top: 0;
+    padding: 0 10px 10px;
+    text-align: left;
+}
+
+form p.questionFormTitle{
+	background: linear-gradient(to top, #8888FF, #DDDDFF) repeat scroll 0 0 rgba(0, 0, 0, 0);
+    border-radius: 3px;
+    color: #2222FF;
+    font-size: 1em;
+    font-weight:bold;
+    margin-left: -10px;
+    margin-right: -10px;
+    margin-top: 0;
+    padding: 5px;
+}
+#answers{
+	width: auto;
+}
+#answersTitle{
+	font-weight: bold;
+}
+
 div .registerForm .formTitle {
 	letter-spacing: 0.2em;
     margin-bottom: 15px;
