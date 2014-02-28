@@ -1,6 +1,8 @@
 package com.lvg.inquirer.filters;
 
 import java.io.IOException;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -24,11 +26,22 @@ public class LoginFilter extends AbstractInquirerFilter implements Filter, Inqui
 
 	public void doFilter(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
+		
+		
 		LOGGER.info("<<== Login filter starts. Requested URL is: "+request.getRequestURL());
+		
+		Locale currLocal = new Locale("ru");
+		ResourceBundle bundle = ResourceBundle.getBundle("interface", currLocal);
+		
+		
 		HttpSession session = request.getSession();
 		RequestDispatcher rd = request.getRequestDispatcher("/login.php");
 		String uri = request.getRequestURI();
 		request.setCharacterEncoding("UTF8");
+		
+		LOGGER.debug(bundle.getString("title"));
+		session.setAttribute("RBUNDLE", bundle);
+		
 		if("POST".equals(request.getMethod())){
 			chain.doFilter(request, response);
 			return;

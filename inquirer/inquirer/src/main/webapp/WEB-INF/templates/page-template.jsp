@@ -12,42 +12,38 @@
 	</head>
 <body class="default">
 	<div class="header">
-		<h1>Inquirer center</h1>
+		<h1>${RBUNDLE.getString("title") }</h1>
 	</div>
 
 	<div class="main">
 
 		<c:if test="${CURRENT_SESSION_ACCOUNT != null}">
 			<div class="mainMenu">
-				<p class="menuTitle">Available actions</p>
+				<p class="menuTitle">${RBUNDLE.getString("main_menu_title") }</p>
 				<ol>
 					<c:if test="${ROLE == 'Administrator' }">
-						<li><a href="${CONTEXT }/profile.php">Profile</a></li>
-						<li><a href="${CONTEXT }/all_tests.php">List all test</a></li>
-						<li><a href="${CONTEXT }/add_test.php">Add new test</a></li>
-						<li><a href="${CONTEXT }/all_accounts.php">List all
-								accounts</a></li>
-						<li><a href="${CONTEXT }/all_results.php">List test
-								results</a></li>
-						<li><a href="${CONTEXT }/start_test.php">Start test</a></li>
+						<li><a href="${CONTEXT }/profile.php">${RBUNDLE.getString("main_menu_profile") }</a></li>
+						<li><a href="${CONTEXT }/all_tests.php">${RBUNDLE.getString("main_menu_tests") }</a></li>
+						<li><a href="${CONTEXT }/add_test.php">${RBUNDLE.getString("main_menu_new_test") }</a></li>
+						<li><a href="${CONTEXT }/all_accounts.php">${RBUNDLE.getString("main_menu_accounts") }</a></li>
+						<li><a href="${CONTEXT }/all_results.php">${RBUNDLE.getString("main_menu_results") }</a></li>
+						<li><a href="${CONTEXT }/start_test.php">${RBUNDLE.getString("main_menu_start_test") }</a></li>
 
 					</c:if>
 					<c:if test="${(ROLE == 'Advanced tutor')||(ROLE == 'Tutor') }">
 
-						<li><a href="${CONTEXT }/profile.php">Profile</a></li>
-						<li><a href="${CONTEXT }/all_tests.php">List all test</a></li>
-						<li><a href="${CONTEXT }/add_test.php">Add new test</a></li>
-						<li><a href="${CONTEXT }/all_results.php">List test
-								results</a></li>
-						<li><a href="${CONTEXT }/start_test.php">Start test</a></li>
+						<li><a href="${CONTEXT }/profile.php">${RBUNDLE.getString("main_menu_profile") }</a></li>
+						<li><a href="${CONTEXT }/all_tests.php">${RBUNDLE.getString("main_menu_tests") }</a></li>
+						<li><a href="${CONTEXT }/add_test.php">${RBUNDLE.getString("main_menu_new_test") }</a></li>						
+						<li><a href="${CONTEXT }/all_results.php">${RBUNDLE.getString("main_menu_results") }</a></li>
+						<li><a href="${CONTEXT }/start_test.php">${RBUNDLE.getString("main_menu_start_test") }</a></li>
 					</c:if>
 					<c:if test="${ROLE == 'Student' }">
 
-						<li><a href="${CONTEXT }/profile.php">Profile</a></li>
-						<li><a href="${CONTEXT }/all_tests.php">List all test</a></li>
-						<li><a href="${CONTEXT }/all_results.php">List test
-								results</a></li>
-						<li><a href="${CONTEXT }/start_test.php">Start test</a></li>
+						<li><a href="${CONTEXT }/profile.php">${RBUNDLE.getString("main_menu_profile") }</a></li>
+						<li><a href="${CONTEXT }/all_tests.php">${RBUNDLE.getString("main_menu_tests") }</a></li>										
+						<li><a href="${CONTEXT }/all_results.php">${RBUNDLE.getString("main_menu_results") }</a></li>
+						<li><a href="${CONTEXT }/start_test.php">${RBUNDLE.getString("main_menu_start_test") }</a></li>
 
 					</c:if>
 				</ol>
