@@ -18,20 +18,20 @@
 	<c:if test="${RECOVER_MESSAGE  == null}">
 			<form action="${CONTEXT }/recover.php" method="post" name="accountForm">
 				<input type="hidden" name="action" value="none" />
-				<p class="formRecoverTitle">Recover account</p>
+				<p class="formRecoverTitle">${RBUNDLE.getString("recover_fm_title") }</p>
 				<table>
 					
 					<tr>
-						<td>User name:</td>
+						<td>${RBUNDLE.getString("recover_fm_usname") }:</td>
 						<td><input type="text" name="username" value="" /></td>
 					</tr>
 					<tr>
-						<td>E-mail:</td>
+						<td>${RBUNDLE.getString("recover_fm_email") }:</td>
 						<td><input type="email" name="email" value="" /></td>
 					</tr>
 					<tr>
-						<td><button onclick="executeAction('cancel_recover')">Cancel</button></td>
-						<td><button onclick="executeAction('recover')">Recover</button></td>
+						<td><button onclick="executeAction('cancel_recover')">${RBUNDLE.getString("recover_fm_bt_cancel") }</button></td>
+						<td><button onclick="executeAction('recover')">${RBUNDLE.getString("recover_fm_bt_recover") }</button></td>
 					</tr>
 					<tr>
 

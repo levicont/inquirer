@@ -22,16 +22,16 @@
 <div class="accounts">
 	
 	<table class="accountsTable">
-		<caption>The tests results</caption>
+		<caption>${RBUNDLE.getString("all_test_results_title") }</caption>
 		<thead>
 			<tr>
-				<th>#</th>
-				<th>Test title</th>
-				<th>Questions</th>
-				<th>Correct<br> answers</th>
-				<th>Fail<br> answers</th>
-				<th>Value</th>
-				<th>Date</th>
+				<th>${RBUNDLE.getString("all_test_results_col_num") }</th>
+				<th>${RBUNDLE.getString("all_test_results_col_title") }</th>
+				<th>${RBUNDLE.getString("all_test_results_col_total") }</th>
+				<th>${RBUNDLE.getString("all_test_results_col_correct") }</th>
+				<th>${RBUNDLE.getString("all_test_results_col_fail") }</th>
+				<th>${RBUNDLE.getString("all_test_results_col_value") }</th>
+				<th>${RBUNDLE.getString("all_test_results_col_date") }</th>
 			</tr>
 		</thead>
 		<tbody>

@@ -14,13 +14,13 @@
 </script>
 <div>
 	<table class="accountsTable">
-	<caption>Test results</caption>
+	<caption>${RBUNDLE.getString("test_result_title") }</caption>
 		<thead>
 			<tr>
-				<th>Test title</th>
-				<th>Correct answers</th>
-				<th>Fail answers</th>
-				<th>Value</th>
+				<th>${RBUNDLE.getString("test_result_col_title") }</th>
+				<th>${RBUNDLE.getString("test_result_col_correct") }</th>
+				<th>${RBUNDLE.getString("test_result_col_fail") }</th>
+				<th>${RBUNDLE.getString("test_result_col_value") }</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -36,7 +36,7 @@
 	</table>
 	<form class="resultForm" action="${CONTEXT }/all_tests.php" method="post" name="resultForm">
 	<input type="hidden" name="action" value="none">
-	<input type="button" onclick="executeAction('back')" value="Back"/>
+	<input type="button" onclick="executeAction('back')" value="${RBUNDLE.getString('test_result_bt_back') }"/>
 	</form>
 
 </div>

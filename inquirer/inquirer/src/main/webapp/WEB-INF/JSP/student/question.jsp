@@ -32,7 +32,7 @@
 </script>
 
 <div id="timer">
-	<p >You have <span id="timerP">${QUESTION.test.timeLimit * 60}</span> sec. to answer the question</p>
+	<p >${RBUNDLE.getString("question_timer_before") } <span id="timerP">${QUESTION.test.timeLimit * 60}</span> ${RBUNDLE.getString("question_timer_after") }</p>
 </div>
 
 <div>
@@ -45,10 +45,10 @@
 		<p class="questionFormTitle">${QUESTION.text }</p>
 		<table id="answers">
 			<tr>
-					<td id="answersTitle" colspan="3">Answers choices:</td>
+					<td id="answersTitle" colspan="3">${RBUNDLE.getString("question_answer_choice") }:</td>
 			</tr>
 			<c:forEach var="answer" items="${ANSWERS_LIST}" varStatus="ansIndex">
-
+				<c:set var="ANSCOUNT" value="${ansIndex.count + 1 }"/>
 				<tr>
 					<td colspan="3">
 					<input type="checkbox" name="isCorrect_${answer.id}" />${ansIndex.count} - ${answer.text }</td>
@@ -56,11 +56,11 @@
 			</c:forEach>
 			<tr>
 				<td colspan="3">
-				<input type="checkbox" name="unknow" /><span>  </span> I don't know.</td>
+				<input type="checkbox" name="unknow" />${ANSCOUNT } - <span>${RBUNDLE.getString("question_unknown") }</span></td>
 			</tr>
 			<tr>				
-				<td><button onclick="executeAction('cancel')">Cancel</button></td>
-				<td><button onclick="executeAction('next_question')">Next question</button></td>
+				<td><button onclick="executeAction('cancel')">${RBUNDLE.getString("question_bt_cancel") }</button></td>
+				<td><button onclick="executeAction('next_question')">${RBUNDLE.getString("question_bt_next") }</button></td>
 			</tr>
 
 		</table>

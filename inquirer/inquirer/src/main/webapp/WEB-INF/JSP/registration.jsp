@@ -12,32 +12,33 @@ function executeAction(action) {
 	
 	<form action="<%=request.getContextPath()%>/admin/save_account.php" method="post" name="accountForm">
 	<input type="hidden" name="action" value="none" />
-		<p class="formTitle">Registration<br>new account</p>
+		<p class="formTitle">${RBUNDLE.getString("reg_fm_title") }<br>
+		</p>
 		<table>
 			
 			<tr>
-				<td>User name:</td>
+				<td>${RBUNDLE.getString("reg_fm_usname") }:</td>
 				<td><input type="text" name="username" value=""/></td>
 			</tr>
 			<tr>
-				<td>Password:</td>
+				<td>${RBUNDLE.getString("reg_fm_password") }:</td>
 				<td><input type="password" name="password" value=""/></td>
 			</tr>
 			<tr>
-				<td>Confirm password:</td>
+				<td>${RBUNDLE.getString("reg_fm_conf_pwd") }:</td>
 				<td><input type="password" name="confpassword" value="" /></td>
 			</tr>
 			<tr>
-				<td>E-mail:</td>
+				<td>${RBUNDLE.getString("reg_fm_email") }:</td>
 				<td><input type="email" name="email" value="" /></td>
 			</tr>
 			<tr>	
-				<td>Role:</td><td><input type="checkbox" name="chkStudent"  checked="checked"
+				<td>${RBUNDLE.getString("reg_fm_role") }:</td><td><input type="checkbox" name="chkStudent"  checked="checked"
 									value="<%=InquirerConstants.ROLE_STUDENT %>" /> Student </td>
 			</tr>
 			<tr>	
-				<td><button onclick="executeAction('cancel_register')">Cancel</button></td>
-				<td><button onclick="executeAction('register')" >Register</button></td>
+				<td><button onclick="executeAction('cancel_register')">${RBUNDLE.getString("reg_fm_bt_cancel") }</button></td>
+				<td><button onclick="executeAction('register')" >${RBUNDLE.getString("reg_fm_bt_register") }</button></td>
 			</tr>
 			<tr>
 				

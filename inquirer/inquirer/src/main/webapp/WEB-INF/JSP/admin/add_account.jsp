@@ -15,29 +15,29 @@
 		<input type="hidden" name="action" value="none" />
 		
 		<p class="formTitle">
-			<c:if test="${EDITED_ACCOUNT != null }"> Edit account</c:if>
-			<c:if test="${EDITED_ACCOUNT == null }"> Add new account</c:if>
+			<c:if test="${EDITED_ACCOUNT != null }">${RBUNDLE.getString("edit_account_title") }</c:if>
+			<c:if test="${EDITED_ACCOUNT == null }">${RBUNDLE.getString("add_account_title") }</c:if>
 		</p>
 		<table>
 			<tr>
-				<td>User name:</td>
+				<td>${RBUNDLE.getString("edit_account_usname") }:</td>
 				<td><input type="text" name="username" value="${USERNAME }" /></td>
 			</tr>
 			<tr>
-				<td>Password:</td>
+				<td>${RBUNDLE.getString("edit_account_password") }:</td>
 				<td><input type="password" name="password" value="${PASSWORD }" /></td>
 			</tr>
 			<tr>
-				<td>Confirm password:</td>
+				<td>${RBUNDLE.getString("edit_account_conf_pwd") }:</td>
 				<td><input type="password" name="confpassword"
 					value="${PASSWORD }" /></td>
 			</tr>
 			<tr>
-				<td>E-mail:</td>
+				<td>${RBUNDLE.getString("edit_account_email") }:</td>
 				<td><input type="email" name="email" value="${EMAIL }" /></td>
 			</tr>
 			<tr>
-				<td>Role:</td>
+				<td>${RBUNDLE.getString("edit_account_role") }:</td>
 				<td><input type="checkbox" name="chkAdmin"
 					value="<%=InquirerConstants.ROLE_ADMIN%>"
 					<c:if test="${CHK_1 != null }">checked="checked"</c:if> />
@@ -64,7 +64,7 @@
 				</td>
 			</tr>
 			<tr>
-				<td>Select status</td>
+				<td>${RBUNDLE.getString("edit_account_status") }</td>
 				<td><select name="enabled" id="role">
 						<c:if test="${ENABLED == '0'}">
 							<option value="0">Disabled</option>
@@ -78,9 +78,9 @@
 				</select></td>
 			</tr>
 			<tr>
-				<td><button onclick="executeAction('cancel')">Cancel</button></td>
-				<c:if test="${EDITED_ACCOUNT != null }"> <td><input type="button" value="Save account" onclick="executeAction('edit')" /></td></c:if>
-			<c:if test="${EDITED_ACCOUNT == null }"> <td><input type="button" value="Save account" onclick="executeAction('add')" /></td></c:if>
+				<td><button onclick="executeAction('cancel')">${RBUNDLE.getString("edit_account_bt_cancel") }</button></td>
+				<c:if test="${EDITED_ACCOUNT != null }"> <td><input type="button" value="${RBUNDLE.getString('edit_account_bt_save') }" onclick="executeAction('edit')" /></td></c:if>
+			<c:if test="${EDITED_ACCOUNT == null }"> <td><input type="button" value="${RBUNDLE.getString('edit_account_bt_save') }" onclick="executeAction('add')" /></td></c:if>
 				
 			</tr>
 			<tr>

@@ -12,16 +12,16 @@
 	<form action="<%=request.getContextPath()%>/login.php" method="post">
 		<table class="formTable">
 			<tr>
-				<td>Login:</td>
-				<td><input title="Login:" type="text" name="username" /></td>
+				<td>${RBUNDLE.getString("login_fm_login") }:</td>
+				<td><input title="${RBUNDLE.getString('login_fm_login') }" type="text" name="username" /></td>
 			</tr>
 			<tr>
-				<td>Password:</td>
-				<td><input title="Password: " type="password" name="password" />
+				<td>${RBUNDLE.getString("login_fm_password") }:</td>
+				<td><input title="${RBUNDLE.getString('login_fm_password') } " type="password" name="password" />
 				</td>
 			</tr>
 			<tr>
-				<td>Select role</td>
+				<td>${RBUNDLE.getString("login_fm_role") }:</td>
 				<td><select name="role" id="role">
 						<option value="1">Administrator</option>
 						<option value="2">Advanced tutor</option>
@@ -30,12 +30,12 @@
 				</select></td>
 			</tr>
 			<tr>
-				<td><input type="submit" value="Login" /></td>
+				<td><input type="submit" value="${RBUNDLE.getString('login_fm_bt_login') }" /></td>
 			</tr>
 		</table>
 	</form>
 	<p>
-		<a href="${CONTEXT }/register.php">Registration</a> <a
-			href="${CONTEXT }/recover.php">Recover</a>
+		<a href="${CONTEXT }/register.php">${RBUNDLE.getString("login_fm_ref_reg") }</a> <a
+			href="${CONTEXT }/recover.php">${RBUNDLE.getString("login_fm_ref_recover") }</a>
 	</p>
 </div>

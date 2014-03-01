@@ -22,17 +22,16 @@
 <div class="accounts">
 
 	<table class="accountsTable">
-		<caption>The Tests table</caption>
+		<caption>${RBUNDLE.getString("test_table_title") }</caption>
 		<thead>
 			<tr>
-				<th>id</th>
-				<th>#</th>
-				<th>Title</th>
-				<th>Description</th>
-				<th>Author</th>
-				<th>Time<br>Limit (sec)
-				</th>
-				<th>Service</th>
+				<th>${RBUNDLE.getString("test_table_col_id") }</th>
+				<th>${RBUNDLE.getString("test_table_col_num") }</th>
+				<th>${RBUNDLE.getString("test_table_col_title") }</th>
+				<th>${RBUNDLE.getString("test_table_col_descript") }</th>
+				<th>${RBUNDLE.getString("test_table_col_author") }</th>
+				<th>${RBUNDLE.getString("test_table_col_time") }</th>
+				<th>${RBUNDLE.getString("test_table_col_service") }</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -52,24 +51,24 @@
 								test="${ ROLE=='Administrator' || ROLE=='Advanced tutor' || ROLE=='Tutor' }">
 								<c:if test="${ ROLE=='Administrator' || ROLE=='Advanced tutor'}">
 									<a class="accountService"
-										href="${CONTEXT }/edit_test.php?id=${TEST_ID }">Edit</a>
+										href="${CONTEXT }/edit_test.php?id=${TEST_ID }">${RBUNDLE.getString("test_table_bt_edit") }</a>
 									<a class="accountService"
 										href="${CONTEXT }/delete_test.php?id=${TEST_ID }"
-										onclick="return(window.confirm('Are sure to want delete?'))">Delete</a>
+										onclick="return(window.confirm('${RBUNDLE.getString('confirm_delete_test') }'))">${RBUNDLE.getString("test_table_bt_delete") }</a>
 								</c:if>
 								<c:if
 									test="${ROLE=='Tutor' && tests.author.id==CURRENT_SESSION_ACCOUNT.id}">
 									<a class="accountService"
-										href="${CONTEXT }/edit_test.php?id=${TEST_ID }">Edit</a>
+										href="${CONTEXT }/edit_test.php?id=${TEST_ID }">${RBUNDLE.getString("test_table_bt_edit") }</a>
 									<a class="accountService"
 										href="${CONTEXT }/delete_test.php?id=${TEST_ID }"
-										onclick="return(window.confirm('Are sure to want delete?'))">Delete</a>
+										onclick="return(window.confirm('${RBUNDLE.getString('confirm_delete_test') }'))">${RBUNDLE.getString("test_table_bt_delete") }</a>
 								</c:if>
 								<a class="accountService"
-									href="${CONTEXT }/start_test.php?id=${TEST_ID }">Start Test</a>
+									href="${CONTEXT }/start_test.php?id=${TEST_ID }">${RBUNDLE.getString("test_table_bt_start") }</a>
 							</c:if> <c:if test="${ROLE=='Student' }">
 								<a class="accountService"
-									href="${CONTEXT }/start_test.php?id=${TEST_ID }">Start Test</a>
+									href="${CONTEXT }/start_test.php?id=${TEST_ID }">${RBUNDLE.getString("test_table_bt_start") }</a>
 							</c:if></td>
 					</tr>
 				</c:if>
@@ -78,7 +77,7 @@
 				test="${ ROLE=='Administrator' || ROLE=='Advanced tutor' || ROLE=='Tutor' }">
 				<tr>
 					<td class="refTD" colspan="7"><a class="addNew"
-						href="${CONTEXT}/add_test.php">New test</a></td>
+						href="${CONTEXT}/add_test.php">${RBUNDLE.getString("test_table_bt_new_test") }</a></td>
 				</tr>
 			</c:if>
 

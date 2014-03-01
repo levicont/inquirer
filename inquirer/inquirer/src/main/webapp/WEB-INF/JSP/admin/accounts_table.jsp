@@ -22,16 +22,16 @@
 
 <div class="accounts">	
 	<table class="accountsTable">
-		<caption>Account table</caption>
+		<caption>${RBUNDLE.getString("account_table_title") }</caption>
 		<thead>
 			<tr>
-				<th>id</th>
-				<th>#</th>
-				<th>User name</th>
-				<th>E-mail</th>
-				<th>Roles</th>
-				<th>Enabled</th>
-				<th>Service</th>
+				<th>${RBUNDLE.getString("account_table_col_id") }</th>
+				<th>${RBUNDLE.getString("account_table_col_num") }</th>
+				<th>${RBUNDLE.getString("account_table_col_usname") }</th>
+				<th>${RBUNDLE.getString("account_table_col_email") }</th>
+				<th>${RBUNDLE.getString("account_table_col_roles") }</th>
+				<th>${RBUNDLE.getString("account_table_col_enable") }</th>
+				<th>${RBUNDLE.getString("account_table_col_serv") }</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -55,16 +55,16 @@
 							<c:if test="${accounts.enabled == 0 }" >disabled</c:if>
 						</td>
 						<td id="accounts"><a class="accountService"
-							href="${CONTEXT }/admin/edit_account.php?id=${ACCOUNT_ID }">Edit</a>
+							href="${CONTEXT }/admin/edit_account.php?id=${ACCOUNT_ID }">${RBUNDLE.getString("account_table_bt_edit") }</a>
 							<a class="accountService" href="${CONTEXT }/admin/delete_account.php?id=${ACCOUNT_ID }"
-							onclick="return(window.confirm('Are sure to want delete?'))">Delete</a>
+							onclick="return(window.confirm('${RBUNDLE.getString('delete_account_confirm') }'))">${RBUNDLE.getString("account_table_bt_delete") }</a>
 						</td>
 					</tr>
 				</c:if>
 			</c:forEach>
 			<tr>
 				<td class="refTD" colspan="7">
-				<a class="addNew" href="${CONTEXT}/admin/add_account.php">New account</a></td>
+				<a class="addNew" href="${CONTEXT}/admin/add_account.php">${RBUNDLE.getString("account_table_bt_new_acc") }</a></td>
 			</tr>
 
 		</tbody>

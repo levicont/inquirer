@@ -4,11 +4,11 @@
 
 <div>
 	<p class="role">
-		${ROLE} page
+		${ROLE} ${RBUNDLE.getString("home_page_title") }
 	</p>
 	<p class="greeting">
-		Hello, ${CURRENT_SESSION_ACCOUNT.username }! <a
-			href="<%=request.getContextPath()%>/logout.php">Logout</a>
+		${RBUNDLE.getString("home_page_greeting") } ${CURRENT_SESSION_ACCOUNT.username }! <a
+			href="<%=request.getContextPath()%>/logout.php">${RBUNDLE.getString("home_page_logout") }</a>
 	</p>
 	<c:if test="${VALIDATION_MESSAGE != null }">
 		<p class="error">

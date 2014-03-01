@@ -22,19 +22,19 @@
 </script>
 <div class="testTitle">
 	<a href="${CONTEXT}/edit_test.php?id=${test_id }">
-	Back to test <span>${CURRENT_TEST.title}</span>
+	${RBUNDLE.getString("questions_back_to_test") } <span>${CURRENT_TEST.title}</span>
 	</a>
 </div>
 <div class="accounts">
 	<table class="accountsTable">
-		<caption>The Questions table</caption>
+		<caption>${RBUNDLE.getString("questions_table_title") }</caption>
 		<thead>
 			<tr>
-				<th>id</th>
-				<th>#</th>
-				<th>Test title</th>
-				<th>Question</th>
-				<th>Service</th>
+				<th>${RBUNDLE.getString("questions_table_col_id") }</th>
+				<th>${RBUNDLE.getString("questions_table_col_num") }</th>
+				<th>${RBUNDLE.getString("questions_table_col_title") }</th>
+				<th>${RBUNDLE.getString("questions_table_col_question") }</th>
+				<th>${RBUNDLE.getString("questions_table_col_service") }</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -52,10 +52,10 @@
 						<td id="accounts"><c:if
 								test="${ ROLE=='Administrator' || ROLE=='Advanced tutor' || ROLE=='Tutor' }">
 								<a class="accountService"
-									href="${CONTEXT }/edit_question.php?id=${QUESTION_ID }&test_id=${test_id}">Edit</a>
+									href="${CONTEXT }/edit_question.php?id=${QUESTION_ID }&test_id=${test_id}">${RBUNDLE.getString("questions_bt_edit") }</a>
 								<a class="accountService"
 									href="${CONTEXT }/delete_question.php?id=${QUESTION_ID }"
-									onclick="return(window.confirm('Are sure to want delete?'))">Delete</a>
+									onclick="return(window.confirm('${RBUNDLE.getString('delete_question_ask') }'))">${RBUNDLE.getString("questions_bt_delete") }</a>
 							</c:if></td>
 					</tr>
 				</c:if>
@@ -64,7 +64,7 @@
 				test="${ ROLE=='Administrator' || ROLE=='Advanced tutor' || ROLE=='Tutor' }">
 				<tr>
 					<td class="refTD" colspan="5"><a class="addNew"
-						href="${CONTEXT}/add_question.php?test_id=${test_id}">New question</a></td>
+						href="${CONTEXT}/add_question.php?test_id=${test_id}">${RBUNDLE.getString("questions_bt_new_question") }</a></td>
 				</tr>
 			</c:if>
 

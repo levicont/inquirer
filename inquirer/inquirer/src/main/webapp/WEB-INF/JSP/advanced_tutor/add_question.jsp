@@ -15,23 +15,23 @@
 		<input type="hidden" name="action" value="none" />
 		<input type="hidden" name="test" value="${TEST_ID}" />
 		<p class="formTitle">
-			<c:if test="${EDITED_TEST != null }"> Edit question</c:if>
-			<c:if test="${EDITED_TEST == null }"> Add new question</c:if>
+			<c:if test="${EDITED_TEST != null }">${RBUNDLE.getString("edit_question_title") }</c:if>
+			<c:if test="${EDITED_TEST == null }">${RBUNDLE.getString("add_question_title") }</c:if>
 		</p>
 		<table>
 			<tr>
-				<td>Question:</td>
+				<td>${RBUNDLE.getString("add_question") }:</td>
 				<td colspan="2">
 					<textarea id="taQuestion" rows="5" cols="40" maxlength="250" name="text">${QUESTION_TEXT}</textarea>
 				</td>
 			</tr>
 			<tr>
-					<td class="formTitle" colspan="3">Answers</td>				
+					<td class="formTitle" colspan="3">${RBUNDLE.getString("add_question_answers_title") }</td>				
 			</tr>			
 			<c:forEach var="answer" items="${ANSWERS_LIST}" varStatus="ansIndex">
 
 				<tr>
-					<td id="tdAnswer" colspan="3">Answer ${ansIndex.count}:</td>
+					<td id="tdAnswer" colspan="3">${RBUNDLE.getString("add_question_answer") } ${ansIndex.count}:</td>
 				</tr>
 				<tr>
 					<td colspan="3"><c:set var="answerText">${answer.text }</c:set>
@@ -41,7 +41,7 @@
 				<tr>
 					<td colspan="3"><input type="checkbox"
 						<c:if test="${answer.isCorrect != 0 }">checked="checked"</c:if>
-						name="isCorrect_${ansIndex.count}" />Answer is correct.</td>
+						name="isCorrect_${ansIndex.count}" />${RBUNDLE.getString("add_question_correct") }</td>
 				</tr>
 			</c:forEach>
 			
@@ -49,7 +49,7 @@
 				<c:forEach begin="${SIZE_OF_ANSWER_LIST+1}"
 					end="${DEFAULT_ANSWERS_COUNT }" step="1" varStatus="index">
 					<tr>
-						<td id="tdAnswer" colspan="3">Answer ${index.count+SIZE_OF_ANSWER_LIST}:</td>
+						<td id="tdAnswer" colspan="3">${RBUNDLE.getString("add_question_answer") } ${index.count+SIZE_OF_ANSWER_LIST}:</td>
 					</tr>
 					<tr>
 						<td colspan="3"><textarea id="taAnswer" rows="4" cols="35" maxlength="250"						 
@@ -57,14 +57,13 @@
 					</tr>
 					<tr>
 						<td colspan="3"><input type="checkbox"
-							name="isCorrect_${index.count+SIZE_OF_ANSWER_LIST}" />Answer is
-							correct.</td>
+							name="isCorrect_${index.count+SIZE_OF_ANSWER_LIST}" />${RBUNDLE.getString("add_question_correct") }</td>
 					</tr>
 				</c:forEach>
 			</c:if>			
 			<tr>
-				<td><button onclick="executeAction('cancel')">Cancel</button></td>
-				<td><button onclick="executeAction('new_question')">Save question</button></td>
+				<td><button onclick="executeAction('cancel')">${RBUNDLE.getString("add_question_bt_cancel") }</button></td>
+				<td><button onclick="executeAction('new_question')">${RBUNDLE.getString("add_question_bt_save") }</button></td>
 			</tr>
 
 		</table>
