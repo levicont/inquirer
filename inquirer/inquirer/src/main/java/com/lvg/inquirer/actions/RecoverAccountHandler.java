@@ -1,6 +1,7 @@
 package com.lvg.inquirer.actions;
 
 import java.io.IOException;
+import java.util.ResourceBundle;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -42,18 +43,18 @@ public class RecoverAccountHandler extends AbstractInquirerServletHandler {
 
 	private void validAccount(HttpServletRequest request, HttpServletResponse response) throws ServletException,
 			IOException {
-		try {
+		ResourceBundle errMessage = (ResourceBundle)request.getSession().getAttribute(RESOURCE_BUNDLE);
+		try {			
 			Account validAccount = accountManager.getAccount(request.getParameter("username"),
 					request.getParameter("email"));
 			sendRecoverEmail(validAccount);
-
 			request.setAttribute("RECOVER_MESSAGE", "Recovered data were sent to e-mail adress. ");
 			gotoToJSP("/recover.jsp", request, response);
 		} catch (InvalidDataException ex) {
-			request.setAttribute(VALIDATION_MESSAGE, ex.getMessage());
+			request.setAttribute(VALIDATION_MESSAGE, errMessage.getString(ex.getMessage()));
 			gotoToJSP("/recover.jsp", request, response);
 		} catch (InquirerDataException ex) {
-			request.setAttribute(VALIDATION_MESSAGE, ex.getMessage());
+			request.setAttribute(VALIDATION_MESSAGE, errMessage.getString(ex.getMessage()));
 			ex.printStackTrace();
 			gotoToJSP("/recover.jsp", request, response);
 		}
@@ -81,7 +82,7 @@ public class RecoverAccountHandler extends AbstractInquirerServletHandler {
 			email.send();
 		} catch (EmailException ex) {
 			LOGGER.error("Can't send mail! ", ex);
-			throw new InquirerDataException("Can't send mail! ");
+			throw new InquirerDataException(ERR_SEND_EMAIL);
 			
 		}
 		

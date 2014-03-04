@@ -1,6 +1,7 @@
 package com.lvg.inquirer.actions.advanced_tutor;
 
 import java.io.IOException;
+import java.util.ResourceBundle;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -57,6 +58,7 @@ public class SaveTestHandler extends AbstractInquirerServletHandler {
 			ServletException {
 		Test newTest = null;
 		
+		ResourceBundle errMessage = (ResourceBundle)request.getSession().getAttribute(RESOURCE_BUNDLE);
 		try {
 			checkFields(request);
 			String title = request.getParameter("title");
@@ -71,7 +73,7 @@ public class SaveTestHandler extends AbstractInquirerServletHandler {
 			redirectRequest("/all_tests.php", request, response);
 		} catch (InvalidDataException ex) {
 			LOGGER.error("Not possible to save test.", ex);
-			request.setAttribute(VALIDATION_MESSAGE, ex.getMessage());
+			request.setAttribute(VALIDATION_MESSAGE, errMessage.getString(ex.getMessage()));
 			gotoToJSP("/advanced_tutor/add_test.jsp", request, response);
 		} catch (InquirerDataException ex) {
 			LOGGER.error("Not possible to save test.", ex);
@@ -83,7 +85,7 @@ public class SaveTestHandler extends AbstractInquirerServletHandler {
 	private void updateTest(HttpServletRequest request, HttpServletResponse response) throws IOException,
 			ServletException {
 		Test updatedTest = null;
-		
+		ResourceBundle errMessage = (ResourceBundle)request.getSession().getAttribute(RESOURCE_BUNDLE);
 		try {
 			updatedTest = testManager.getTest(Integer.parseInt(request.getParameter("test")));
 			checkFields(request);
@@ -99,7 +101,7 @@ public class SaveTestHandler extends AbstractInquirerServletHandler {
 		} catch (InvalidDataException ex) {
 			LOGGER.error("Not possible to update test.", ex);
 			fillRequestByOldData(request, updatedTest);
-			request.setAttribute(VALIDATION_MESSAGE, ex.getMessage());
+			request.setAttribute(VALIDATION_MESSAGE, errMessage.getString(ex.getMessage()));
 			gotoToJSP("/advanced_tutor/edit_test.jsp", request, response);
 		} catch (InquirerDataException ex) {
 			LOGGER.error("Not possible to update test.", ex);
@@ -119,13 +121,13 @@ public class SaveTestHandler extends AbstractInquirerServletHandler {
 	private void checkFields(HttpServletRequest request) throws InvalidDataException {
 		String title = request.getParameter("title");
 		if (!StringUtils.isNotBlank(title))
-			throw new InvalidDataException("Title must not be empty");
+			throw new InvalidDataException(ERR_EMPTY_TITLE);
 		try {
 			Integer timeLimit = Integer.parseInt(request.getParameter("timeLimit"));
 			if (timeLimit <= 0)
-				throw new InvalidDataException("Number of time limit not valid. Must be more than 0.");
+				throw new InvalidDataException(ERR_TEST_TIME_LIMIT);
 		} catch (NumberFormatException ex) {
-			throw new InvalidDataException("Number of time limit not valid ");
+			throw new InvalidDataException(ERR_TEST_TIME_LIMIT);
 		}
 		
 	}

@@ -3,6 +3,7 @@ package com.lvg.inquirer.actions;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.ResourceBundle;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -54,11 +55,12 @@ public class LoginHandler extends AbstractInquirerServletHandler {
 	}
 
 	protected void validateRequest(String username, String password) throws InvalidDataException {
+				 
 		if (StringUtils.isBlank(username)) {
-			throw new InvalidDataException("Username is blank");
+			throw new InvalidDataException(ERR_USNAME_BLANK);
 		}
 		if (StringUtils.isBlank(password)) {
-			throw new InvalidDataException("Password is blank");
+			throw new InvalidDataException(ERR_PASSWORD_BLANK);
 		}
 	}
 
@@ -66,7 +68,7 @@ public class LoginHandler extends AbstractInquirerServletHandler {
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
 		Integer idRole = Integer.parseInt(request.getParameter("role"));
-
+		ResourceBundle errMessage = (ResourceBundle)request.getSession().getAttribute(RESOURCE_BUNDLE);
 		try {
 			validateRequest(username, password);
 			Account account = getDataService().login(username, password, idRole);
@@ -76,11 +78,12 @@ public class LoginHandler extends AbstractInquirerServletHandler {
 				request.getSession().setAttribute("ROLE", InquirerConstants.NAMES_ROLES.get(idRole));
 				redirectRequest(homePage, request, response);
 			} else {
-				throw new InquirerDataException("Unsupported role id " + idRole);
+				String errStr = errMessage.getString(ERR_UNSUPPORTED_ROLE)+idRole;
+				throw new InquirerDataException(errStr);
 			}
 
 		} catch (InvalidDataException ex) {
-			request.setAttribute(VALIDATION_MESSAGE, ex.getMessage());
+			request.setAttribute(VALIDATION_MESSAGE, errMessage.getString(ex.getMessage()));
 			gotoToJSP("/login.jsp", request, response);
 
 		}

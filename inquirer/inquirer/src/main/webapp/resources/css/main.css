@@ -160,13 +160,13 @@ th {
 }
 
 table {
-	width: 350px;
+	width: 400px;
 }
 
 .accounts {
-	background-color: #FFEFD5;
+	    background-color: #F5FFFA;
     border: 1px solid #DDDDFF;
-    border-radius: 3px;
+    border-radius: 6px;
     margin-left: 20px;
     padding: 10px;
 }
@@ -257,7 +257,7 @@ div .loginForm {
 	margin-left: 5px;
 	padding: 15px;
 	text-align: center;
-	width: 360px;
+	width: 400px;
 }
 
 div .testTitle {
@@ -332,6 +332,7 @@ form .formTitle {
 }
 
 form td input {
+	height:25px;
 	margin-top: 7px;
 	margin-bottom: 7px;
 }

@@ -20,6 +20,35 @@ public interface InquirerConstants {
 	String NAME_ROLE_TUTOR			="Tutor";
 	String NAME_ROLE_STUDENT		="Student";
 	
+	// Resource bundle session attribute name
+	String RESOURCE_BUNDLE = "RBUNDLE";
+	String ERR_USNAME_BLANK					= "err_usname_blank";
+	String ERR_PASSWORD_BLANK				= "err_password_blank";
+	String ERR_CONF_PASSWORD_BLANK			= "err_conf_password_blank";
+	String ERR_EMAIL_BLANK					= "err_email_blank";
+	String ERR_INVALID_ROLE					= "err_invalid_role";
+	String ERR_ROLE_NOT_CHECKED				= "err_role_not_checked";
+	String ERR_UNSUPPORTED_ROLE				= "err_unsupported_role";
+	String ERR_INVALID_PASSWORD				= "err_invalid_password";
+	String ERR_INVALID_USER					= "err_invalid_user";
+	String ERR_USNAME_EMAIL_EXISTS			= "err_usname_email_exists";
+	String ERR_USER_EXISTS					= "err_user_exists";
+	String ERR_NO_RIGHTS					= "err_no_rights";
+	String ERR_PROFILE_NO_CHANGE			= "err_profile_no_change";
+	String ERR_PROFILE_OLD_PASSWORD_BLANK	= "err_profile_old_password_blank";
+	String ERR_PROFILE_PASSWORDS_NOT_EQUAL	= "err_profile_passwords_not_equal";
+	String ERR_PROFILE_BAD_OLD_PASSWORD		= "err_profile_bad_old_password";
+	String ERR_EMPTY_TITLE					= "err_empty_title";
+	String ERR_TEST_TIME_LIMIT				= "err_test_time_limit";
+	String ERR_QUESTION_NO_ANSWERS			= "err_question_no_answers";
+	String ERR_QUESTION_NO_CORRECT_ANSWERS	= "err_question_no_correct_answers";
+	String ERR_SEND_EMAIL					= "err_send_email";
+	String ERR_PAGE_NOT_FOUND 				= "err_page_not_found";
+	String ERR_PAGE_INCORRECT				= "err_page_incorrect";
+	String ERR_DELETE_USER					= "err_delete_user";
+	String ERR_UNRECONIZED_TEST				= "err_unreconized_test";
+
+
 	
 	@SuppressWarnings("serial")
 	static final Map<Integer, String> NAMES_ROLES = new HashMap<Integer,String>(){{

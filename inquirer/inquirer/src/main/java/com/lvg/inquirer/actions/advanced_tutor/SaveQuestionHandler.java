@@ -3,6 +3,7 @@ package com.lvg.inquirer.actions.advanced_tutor;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ResourceBundle;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -105,7 +106,7 @@ public class SaveQuestionHandler extends AbstractInquirerServletHandler {
 	@SuppressWarnings("unchecked")
 	private void saveQuestion(Question question, HttpServletRequest request, HttpServletResponse response)
 			throws InvalidDataException, InquirerDataException, IOException, ServletException {
-
+		ResourceBundle errMessage = (ResourceBundle)request.getSession().getAttribute(RESOURCE_BUNDLE);
 		List<Answer> answerList = (List<Answer>) request.getAttribute("ANSWERS_LIST");		
 		try {
 			checkQuestion(question);
@@ -120,7 +121,7 @@ public class SaveQuestionHandler extends AbstractInquirerServletHandler {
 			redirectRequest("/all_questions.php?test_id=" + question.getTest().getId(), request, response);
 		} catch (InvalidDataException ex) {
 			LOGGER.error("Not possible to save question with answer.", ex);			
-			request.setAttribute(VALIDATION_MESSAGE, ex.getMessage());
+			request.setAttribute(VALIDATION_MESSAGE, errMessage.getString(ex.getMessage()));
 			gotoToJSP("/advanced_tutor/add_question.jsp", request, response);
 		} catch (InquirerDataException ex) {
 			LOGGER.error("Not possible to save question with answers.", ex);
@@ -133,7 +134,8 @@ public class SaveQuestionHandler extends AbstractInquirerServletHandler {
 	@SuppressWarnings("unchecked")
 	private void updateQuestion(Question question, HttpServletRequest request, HttpServletResponse response)
 			throws InvalidDataException, InquirerDataException, IOException, ServletException {
-
+		
+		ResourceBundle errMessage = (ResourceBundle)request.getSession().getAttribute(RESOURCE_BUNDLE);
 		List<Answer> answerList = (List<Answer>)request.getAttribute("ANSWERS_LIST");		
 		try {					
 			checkQuestion(question);
@@ -148,7 +150,7 @@ public class SaveQuestionHandler extends AbstractInquirerServletHandler {
 			redirectRequest("/all_questions.php?test_id=" + question.getTest().getId(), request, response);
 		} catch (InvalidDataException ex) {
 			LOGGER.error("Not possible to update question with answer.", ex);
-			request.setAttribute(VALIDATION_MESSAGE, ex.getMessage());
+			request.setAttribute(VALIDATION_MESSAGE, errMessage.getString(ex.getMessage()));
 			gotoToJSP("/advanced_tutor/edit_question.jsp", request, response);
 		} catch (InquirerDataException ex) {
 			LOGGER.error("Not possible to update question with answers.", ex);
@@ -158,16 +160,16 @@ public class SaveQuestionHandler extends AbstractInquirerServletHandler {
 	}
 	
 	private void checkQuestion(Question question) throws InvalidDataException {
-
+		
 		if (!StringUtils.isNotBlank(question.getText()))
-			throw new InvalidDataException("Title must not be empty");
+			throw new InvalidDataException(ERR_EMPTY_TITLE);
 		if (question.getTest() == null)
-			throw new InvalidDataException("Test is not recognized");
+			throw new InvalidDataException(ERR_UNRECONIZED_TEST);
 	}
 	
 	private void checkAnswers(List<Answer> answerList)throws InvalidDataException{
 		if(null == answerList || answerList.isEmpty())
-			throw new InvalidDataException("Question must have one or more answers.");
+			throw new InvalidDataException(ERR_QUESTION_NO_ANSWERS);
 		int correctCount = 0;
 		for(Answer answer : answerList){
 			if(answer.isCorrect()){
@@ -176,7 +178,7 @@ public class SaveQuestionHandler extends AbstractInquirerServletHandler {
 			}
 		}
 		if(correctCount == 0)
-			throw new InvalidDataException("No one answer is correct.");
+			throw new InvalidDataException(ERR_QUESTION_NO_CORRECT_ANSWERS);
 	}
 
 }

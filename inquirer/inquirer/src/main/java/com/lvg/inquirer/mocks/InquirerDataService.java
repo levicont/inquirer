@@ -14,7 +14,7 @@ import com.lvg.inquirer.models.Role;
 import com.lvg.inquirer.services.DataService;
 import com.lvg.inquirer.services.InquirerServiceManager;
 
-public class InquirerDataService implements DataService {
+public class InquirerDataService implements DataService, InquirerConstants {
 
 	@SuppressWarnings("unchecked")
 	public Account login(String username, String password, Integer role)
@@ -27,13 +27,13 @@ public class InquirerDataService implements DataService {
 						if (r.getId().equals(role))
 							return account;
 					}
-					throw new InvalidDataException("Invalid role");
+					throw new InvalidDataException(ERR_INVALID_ROLE);
 				}else
-					throw new InvalidDataException("Invalid password");
+					throw new InvalidDataException(ERR_INVALID_PASSWORD);
 			}
 			
 		}
-		throw new InvalidDataException("User not found");
+		throw new InvalidDataException(ERR_INVALID_USER);
 
 	}
 

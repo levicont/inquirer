@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.ResourceBundle;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -88,7 +89,7 @@ public class SaveAccountHandler extends AbstractInquirerServletHandler implement
 			checkFields(request);
 			List<Role> roles = getRoles(request);
 			Account newAccount = new Account(username, password, roles);
-			checkAccountName(newAccount, accountList);
+			checkAccountName(request, newAccount, accountList);
 			newAccount.setEmail(email);
 			newAccount.setEnabled(Integer.parseInt(request.getParameter("enabled")));
 			// newAccount.setId(getAccountLastId(accountList)+1);
@@ -104,7 +105,7 @@ public class SaveAccountHandler extends AbstractInquirerServletHandler implement
 	}
 
 	private void checkFields(HttpServletRequest request) throws InvalidDataException {
-		
+		ResourceBundle errMessage = (ResourceBundle)request.getSession().getAttribute(RESOURCE_BUNDLE);
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
 		String email = request.getParameter("email");
@@ -115,26 +116,27 @@ public class SaveAccountHandler extends AbstractInquirerServletHandler implement
 				Integer.parseInt(request.getParameter("enabled"));
 			
 		} catch (NumberFormatException ex) {
-			throw new InvalidDataException("Status incorrect!");
+			throw new InvalidDataException(errMessage.getString("err_no_rights"));
 		}
 		if (StringUtils.isBlank(username)) {
-			throw new InvalidDataException("User name is blank!");
+			throw new InvalidDataException(errMessage.getString("err_usname_blank"));
 		}
 		if (StringUtils.isBlank(password)) {
-			throw new InvalidDataException("Password is blank!");
+			throw new InvalidDataException(errMessage.getString("err_password_blank"));
 		}
 		if (StringUtils.isBlank(confpassword)) {
-			throw new InvalidDataException("Confirm password is blank!");
+			throw new InvalidDataException(errMessage.getString("err_conf_password_blank"));
 		}
 		if(StringUtils.isBlank(email))
-			throw new InvalidDataException("Email is blank!");
+			throw new InvalidDataException(errMessage.getString("err_email_blank"));
 		if (!StringUtils.equals(password, confpassword)) {
-			throw new InvalidDataException("Passwords in fields are not same!");
+			throw new InvalidDataException(errMessage.getString("err_profile_passwords_not_equal"));
 		}
 
 	}
 
 	private List<Role> getRoles(HttpServletRequest request) throws InvalidDataException {
+		ResourceBundle errMessage = (ResourceBundle)request.getSession().getAttribute(RESOURCE_BUNDLE);
 		List<Role> result = new ArrayList<Role>();
 
 		Integer checkedRole = 0;
@@ -148,15 +150,16 @@ public class SaveAccountHandler extends AbstractInquirerServletHandler implement
 		}
 
 		if (result.isEmpty())
-			throw new InvalidDataException("Roles is not checked!");
+			throw new InvalidDataException(errMessage.getString("err_role_not_checked"));
 
 		return result;
 	}
 
-	private void checkAccountName(Account account, List<Account> accountList) throws InvalidDataException {
+	private void checkAccountName(HttpServletRequest request, Account account, List<Account> accountList) throws InvalidDataException {
+		ResourceBundle errMessages = (ResourceBundle)request.getSession().getAttribute(RESOURCE_BUNDLE);
 		for (Account a : accountList) {
 			if (account.getUsername().equals(a.getUsername()))
-				throw new InvalidDataException("User with such name already exists!");
+				throw new InvalidDataException(errMessages.getString("err_user_exists"));
 		}
 	}
 

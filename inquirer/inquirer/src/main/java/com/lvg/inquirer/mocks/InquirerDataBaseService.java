@@ -17,7 +17,7 @@ import com.lvg.inquirer.models.Role;
 import com.lvg.inquirer.services.DataService;
 import com.lvg.inquirer.services.InquirerServiceManager;
 
-public class InquirerDataBaseService implements DataService {
+public class InquirerDataBaseService implements DataService, InquirerConstants {
 
 	private static final Logger LOGGER = Logger.getLogger(InquirerDataBaseService.class);
 	//private AccountDataService accountService = new AccountDataBaseManager();
@@ -60,22 +60,23 @@ public class InquirerDataBaseService implements DataService {
 			InquirerDataException {
 		List<Account> accountList = (List<Account>) InquirerServiceManager.getServletContext().getAttribute(
 				InquirerConstants.ACCOUNTS_LIST);
+		
 		for (Account account : accountList) {
 			if (StringUtils.equals(account.getUsername(), username)) {
 				if (StringUtils.equals(account.getPassword(), password)) {
 					if (!account.isEnabled())
-						throw new InvalidDataException("No rights to enter!");
+						throw new InvalidDataException(ERR_NO_RIGHTS);
 					for (Role r : account.getRole()) {
 						if (r.getId().equals(role))
 							return account;
 					}
-					throw new InvalidDataException("Invalid role");
+					throw new InvalidDataException(ERR_INVALID_ROLE);
 				} else
-					throw new InvalidDataException("Invalid password");
+					throw new InvalidDataException(ERR_INVALID_PASSWORD);
 			}
 
 		}
-		throw new InvalidDataException("User not found");
+		throw new InvalidDataException(ERR_INVALID_USER);
 
 	}
 

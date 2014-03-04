@@ -1,6 +1,7 @@
 package com.lvg.inquirer.actions.admin;
 
 import java.util.List;
+import java.util.ResourceBundle;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -21,7 +22,8 @@ public class DeleteAccountHandler extends AbstractInquirerServletHandler {
 		int id = Integer.parseInt(request.getParameter("id"));
 		Account removedAccount = null;
 		List<Account> accountList = (List<Account>)request.getServletContext().getAttribute(ACCOUNTS_LIST);
-		
+		ResourceBundle errMessage = (ResourceBundle)request.getSession().getAttribute(RESOURCE_BUNDLE);
+				
 		for(Account a : accountList)
 			if(id==a.getId()){
 				removedAccount=a;
@@ -32,7 +34,7 @@ public class DeleteAccountHandler extends AbstractInquirerServletHandler {
 			accountList.remove(removedAccount);
 			redirectRequest("/admin/home.php", request, response);	
 		}else{
-			request.setAttribute(VALIDATION_MESSAGE, "Can't delete current user!");
+			request.setAttribute(VALIDATION_MESSAGE, errMessage.getString(ERR_DELETE_USER));
 			redirectRequest("/admin/home.php", request, response);
 		}
 		

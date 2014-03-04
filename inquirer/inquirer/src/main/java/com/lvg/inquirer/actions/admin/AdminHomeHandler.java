@@ -1,6 +1,7 @@
 package com.lvg.inquirer.actions.admin;
 
 import java.util.List;
+import java.util.ResourceBundle;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -22,9 +23,9 @@ public class AdminHomeHandler extends AbstractInquirerServletHandler {
 	@SuppressWarnings("unchecked")
 	@Override
 	protected void handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		int page;		
+		int page = 0;		
 		List<Account> accountList = (List<Account>) request.getServletContext().getAttribute(ACCOUNTS_LIST);
-
+		ResourceBundle errMessage = (ResourceBundle)request.getSession().getAttribute(RESOURCE_BUNDLE);
 		if (!StringUtils.isBlank( request.getParameter(ACCOUNTS_PAGE))) {
 			try {
 				checkPage(request.getParameter(ACCOUNTS_PAGE));
@@ -36,11 +37,12 @@ public class AdminHomeHandler extends AbstractInquirerServletHandler {
 				request.setAttribute("ACCOUNTS_ON_PAGE", ACCOUNTS_ON_PAGE);
 				gotoToJSP("/admin/home.jsp", request, response);
 
-			} catch (Exception ex) {
+			} catch (InvalidDataException ex) {
+				String errMsg = errMessage.getString(ex.getMessage())+page; 
 				request.setAttribute("ACCOUNT_PAGES_COUNT", getPages(accountList, ACCOUNTS_ON_PAGE));
 				request.setAttribute(ACCOUNTS_PAGE, 1);
 				request.setAttribute("ACCOUNTS_ON_PAGE", ACCOUNTS_ON_PAGE);
-				request.setAttribute(VALIDATION_MESSAGE, ex.getMessage());
+				request.setAttribute(VALIDATION_MESSAGE, errMsg);
 				gotoToJSP("/admin/home.jsp", request, response);
 
 			}
@@ -49,7 +51,6 @@ public class AdminHomeHandler extends AbstractInquirerServletHandler {
 			request.setAttribute("ACCOUNTS_ITEMS", accountList.size());
 			request.setAttribute("ACCOUNTS_ON_PAGE", ACCOUNTS_ON_PAGE);
 			request.setAttribute(ACCOUNTS_PAGE, 1);
-
 			gotoToJSP("/admin/home.jsp", request, response);
 		}
 	}
@@ -59,11 +60,12 @@ public class AdminHomeHandler extends AbstractInquirerServletHandler {
 		int currentPage = 1;
 		try {
 			currentPage = Integer.parseInt(page);
-			if (currentPage <= 0)
-				throw new InvalidDataException("Page not found: " + page);
+			if (currentPage <= 0){
+				throw new InvalidDataException(ERR_PAGE_NOT_FOUND);
+			}
 
 		} catch (NumberFormatException ex) {
-			throw new InvalidDataException("Incorrect page" + page, ex);
+			throw new InvalidDataException(ERR_PAGE_INCORRECT);
 		}
 	}
 
