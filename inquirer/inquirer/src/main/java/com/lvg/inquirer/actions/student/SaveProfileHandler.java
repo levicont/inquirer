@@ -1,6 +1,7 @@
 package com.lvg.inquirer.actions.student;
 
 import java.io.IOException;
+import java.util.ResourceBundle;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -36,6 +37,7 @@ public class SaveProfileHandler extends AbstractInquirerServletHandler implement
 
 	private void saveProfile(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException{
 		// TODO
+		ResourceBundle errMessage = (ResourceBundle)request.getSession().getAttribute(RESOURCE_BUNDLE);
 		try {
 			checkProfileFields(request, response);
 			accountManager.updateAccount((Account)request.getAttribute("UPDATED_ACCOUNT"));
@@ -46,13 +48,14 @@ public class SaveProfileHandler extends AbstractInquirerServletHandler implement
 			forwardRequest("/profile.php", request, response);
 		} catch (InvalidDataException ex) {
 			LOGGER.error("Not possible to update profile",ex);
-			request.setAttribute(VALIDATION_MESSAGE, ex.getMessage());
+			request.setAttribute(VALIDATION_MESSAGE, errMessage.getString(ex.getMessage()));
 			forwardRequest("/profile.php", request, response);
 		}
 	}
 
 	private void checkProfileFields(HttpServletRequest request, HttpServletResponse response)
 			throws InvalidDataException, InquirerDataException {
+		
 		Account account = (Account) request.getSession().getAttribute(CURRENT_SESSION_ACCOUNT);
 		Account newAccount = accountManager.getAccount(account.getId());
 
@@ -63,29 +66,29 @@ public class SaveProfileHandler extends AbstractInquirerServletHandler implement
 		String confirmPassword = request.getParameter("confirmPassword");
 
 		if (StringUtils.isBlank(username))
-			throw new InvalidDataException("Username is blank");
+			throw new InvalidDataException(ERR_USNAME_BLANK);
 		newAccount.setUsername(username);
 
 		if (StringUtils.isBlank(email))
-			throw new InvalidDataException("Email is blank");
+			throw new InvalidDataException(ERR_EMAIL_BLANK);
 		newAccount.setEmail(email);
 
 		if (StringUtils.isNotBlank(newPassword)) {
 			if (StringUtils.isBlank(oldPassword)) {
-				throw new InvalidDataException("Old password is blank");
+				throw new InvalidDataException(ERR_PROFILE_OLD_PASSWORD_BLANK);
 			} else {
 				if (oldPassword.equals(account.getPassword())) {
 					if (!newPassword.equals(confirmPassword))
-						throw new InvalidDataException("New password is not equal to confirm password");
+						throw new InvalidDataException(ERR_PROFILE_PASSWORDS_NOT_EQUAL);
 				} else {
-					throw new InvalidDataException("Old password is not correct");
+					throw new InvalidDataException(ERR_PROFILE_BAD_OLD_PASSWORD);
 				}
 			}
 			newAccount.setPassword(newPassword);
 		}
 		if(account.getUsername().equals(username) && account.getEmail().equals(email))
 			if(StringUtils.isBlank(oldPassword) && StringUtils.isBlank(newPassword))		
-				throw new InvalidDataException("All fields has not updated");
+				throw new InvalidDataException(ERR_PROFILE_NO_CHANGE);
 
 		accountManager.checkAccount(newAccount);
 		request.setAttribute("UPDATED_ACCOUNT", newAccount);

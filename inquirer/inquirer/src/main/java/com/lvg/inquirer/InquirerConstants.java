@@ -24,6 +24,7 @@ public interface InquirerConstants {
 	String RESOURCE_BUNDLE = "RBUNDLE";
 	String ERR_USNAME_BLANK					= "err_usname_blank";
 	String ERR_PASSWORD_BLANK				= "err_password_blank";
+	String ERR_OLD_PASSWORD_BLANK			= "err_old_password_blank";
 	String ERR_CONF_PASSWORD_BLANK			= "err_conf_password_blank";
 	String ERR_EMAIL_BLANK					= "err_email_blank";
 	String ERR_INVALID_ROLE					= "err_invalid_role";
@@ -42,13 +43,16 @@ public interface InquirerConstants {
 	String ERR_TEST_TIME_LIMIT				= "err_test_time_limit";
 	String ERR_QUESTION_NO_ANSWERS			= "err_question_no_answers";
 	String ERR_QUESTION_NO_CORRECT_ANSWERS	= "err_question_no_correct_answers";
+	String ERR_QUESTION_BAD_CHECKSUM		= "err_question_bad_checksum";
 	String ERR_SEND_EMAIL					= "err_send_email";
 	String ERR_PAGE_NOT_FOUND 				= "err_page_not_found";
 	String ERR_PAGE_INCORRECT				= "err_page_incorrect";
 	String ERR_DELETE_USER					= "err_delete_user";
 	String ERR_UNRECONIZED_TEST				= "err_unreconized_test";
-
-
+	String ERR_NOT_SELECTED_TEST			= "err_not_selected_test";
+	String ERR_TIME_STAMP_KEY				= "err_time_stamp_key";
+	String ERR_NO_MORE_QUESTIONS			= "err_no_more_questions";
+	
 	
 	@SuppressWarnings("serial")
 	static final Map<Integer, String> NAMES_ROLES = new HashMap<Integer,String>(){{

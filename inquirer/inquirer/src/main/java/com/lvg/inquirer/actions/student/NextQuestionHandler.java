@@ -3,6 +3,7 @@ package com.lvg.inquirer.actions.student;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ResourceBundle;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -96,7 +97,7 @@ public class NextQuestionHandler extends AbstractInquirerServletHandler {
 	}
 	
 	private void checkQuestionCount(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException{
-		
+		ResourceBundle errMessage = (ResourceBundle)request.getSession().getAttribute(RESOURCE_BUNDLE);
 		Integer currentQuestionCount = (Integer)request.getSession().getAttribute("QUESTION_COUNT");
 		Test currentTest = ((Question)request.getAttribute("CHECKED_QUESTION")).getTest();
 		LOGGER.debug("Current question count: "+currentQuestionCount);
@@ -105,7 +106,7 @@ public class NextQuestionHandler extends AbstractInquirerServletHandler {
 			redirectRequest("/result_test.php", request, response);
 		}else{
 			LOGGER.warn("Error! Question checksum not valid.");
-			request.setAttribute(VALIDATION_MESSAGE, "Error! Question checksum not valid.");
+			request.setAttribute(VALIDATION_MESSAGE, errMessage.getString(ERR_QUESTION_BAD_CHECKSUM));
 			forwardRequest("/all_tests.php", request, response);
 		}
 		request.getSession().removeAttribute("QUESTION_COUNT");		

@@ -1,11 +1,11 @@
 @CHARSET "UTF-8";
 
 body {
-	background: linear-gradient(to top, #FFFFFF, #EEEEFF) repeat scroll 0 0
-		rgba(0, 0, 0, 0);
-	border: 1px solid #AAAAFF;
-	margin: 1% auto 100%;
-	width: 950px;
+	background-color: #FFFAFA;
+    border: 1px solid #AAAAFF;
+    margin: 1% auto;
+    min-height: 100%;
+    width: 950px;
 }
 
 table caption {

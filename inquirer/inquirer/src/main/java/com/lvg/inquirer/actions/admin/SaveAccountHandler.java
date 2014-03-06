@@ -88,6 +88,9 @@ public class SaveAccountHandler extends AbstractInquirerServletHandler implement
 		try {
 			checkFields(request);
 			List<Role> roles = getRoles(request);
+			username = request.getParameter("username");
+			password = request.getParameter("password");
+			email = request.getParameter("email");
 			Account newAccount = new Account(username, password, roles);
 			checkAccountName(request, newAccount, accountList);
 			newAccount.setEmail(email);

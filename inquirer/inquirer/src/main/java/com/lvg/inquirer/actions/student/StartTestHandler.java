@@ -1,6 +1,7 @@
 package com.lvg.inquirer.actions.student;
 
 import java.util.List;
+import java.util.ResourceBundle;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -33,7 +34,7 @@ public class StartTestHandler extends AbstractInquirerServletHandler {
 	@Override
 	protected void handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		Integer testId;
-		
+		ResourceBundle errMessage = (ResourceBundle)request.getSession().getAttribute(RESOURCE_BUNDLE);
 		try {			
 			testId = Integer.parseInt(request.getParameter("id"));
 			Test test = testManager.getTest(testId);
@@ -55,31 +56,36 @@ public class StartTestHandler extends AbstractInquirerServletHandler {
 			request.setAttribute("ANSWERS_LIST", answersList);
 
 			gotoToJSP("/student/question.jsp", request, response);
-		} catch (InquirerDataException ex) {
+		}catch(InvalidDataException ex){
+			LOGGER.warn("Not possible to start test", ex);
+			request.setAttribute(VALIDATION_MESSAGE,errMessage.getString(ex.getMessage()));
+			forwardRequest("/all_tests.php", request, response);
+		}catch (InquirerDataException ex) {
 			LOGGER.warn("Not possible to start test", ex);
 			request.setAttribute(VALIDATION_MESSAGE, ex.getMessage());
 			forwardRequest("/all_tests.php", request, response);
 			
 		}catch(NumberFormatException ex){
 			LOGGER.warn("Not possible to load test", ex);
-			request.setAttribute(VALIDATION_MESSAGE, "No one test has been choised");
+			request.setAttribute(VALIDATION_MESSAGE,errMessage.getString(ERR_NOT_SELECTED_TEST));
 			forwardRequest("/all_tests.php", request, response);
 		}
 
 	}
 	private void checkTimeStamp(HttpServletRequest request)throws InquirerDataException{
+			ResourceBundle errMessage = (ResourceBundle)request.getSession().getAttribute(RESOURCE_BUNDLE);
 			if(null == request.getSession().getAttribute("TIME_STAMP")){
 				request.getSession().setAttribute("TIME_STAMP", System.currentTimeMillis());
 			}else{
 				request.getSession().removeAttribute("TIME_STAMP");
-				throw new InquirerDataException("Time stamp key not valid, try 'START' button again!");
+				throw new InquirerDataException(errMessage.getString(ERR_TIME_STAMP_KEY));
 			}
 				
 	}
 
 	private void checkTest(Test test) throws InquirerDataException, InvalidDataException {
 		if (questionManager.getQuestionsByTest(test).size() <= 0)
-			throw new InquirerDataException("This test has not any questions");
+			throw new InvalidDataException(ERR_NO_MORE_QUESTIONS);
 	}
 
 }
