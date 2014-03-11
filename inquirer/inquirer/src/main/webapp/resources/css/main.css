@@ -208,7 +208,7 @@ table.accountsTable .accountService {
 	border: 1px solid #444488;
 	color: #FFFFFF;
 	float: left;
-	font-size: 14px;
+	font-size: 0.8em;
 	font-weight: bold;
 	line-height: 24px;
 	margin: 5px;
@@ -354,15 +354,32 @@ form.questionForm{
 }
 
 form p.questionFormTitle{
-	background: linear-gradient(to top, #8888FF, #DDDDFF) repeat scroll 0 0 rgba(0, 0, 0, 0);
+	background: linear-gradient(to top, #CCCCFF, #DDDDFF) repeat scroll 0 0 rgba(0, 0, 0, 0);
     border-radius: 3px;
-    color: #2222FF;
-    font-size: 1em;
-    font-weight:bold;
+    color: #000080;
+    font-size: 1.1em;
+    font-weight: bold;
     margin-left: -10px;
     margin-right: -10px;
     margin-top: 0;
-    padding: 5px;
+    padding: 5px 5px 5px 10px;
+}
+#trQuestionButtons{
+	background: linear-gradient(to top, #CCCCFF, #DDDDFF) repeat scroll 0 0 rgba(0, 0, 0, 0);
+}
+#pQuestionButtons{
+	background: linear-gradient(to top, #DDDDFF, #CCCCFF) repeat scroll 0 0 rgba(0, 0, 0, 0);
+    border-radius: 3px;
+    margin-bottom: -10px;
+    margin-left: -10px;
+    margin-right: -10px;
+    padding: 10px;
+}
+p #btQuestionCancel{
+	
+}
+p #btQuestionNext{
+	
 }
 #answers{
 	width: auto;
@@ -460,11 +477,11 @@ div .mainForm{
 
 .error {
 	background-color: #FADCDC;
-	border: 1px solid #FF0000;
-	border-radius: 3px;
-	color: #FA3232;
-	margin: 20px;
-	padding: 5px;
+    border: 1px solid #FF0000;
+    border-radius: 3px;
+    color: #FA3232;
+    margin: 20px 0 20px 20px;
+    padding: 5px;
 }
 
 .label {

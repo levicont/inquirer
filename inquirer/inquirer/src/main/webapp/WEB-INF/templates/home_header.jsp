@@ -4,7 +4,7 @@
 
 <div>
 	<p class="role">
-		${ROLE} ${RBUNDLE.getString("home_page_title") }
+		${RBUNDLE.getString("home_page_title_prefix") } ${ROLE} ${RBUNDLE.getString("home_page_title") }
 	</p>
 	<p class="greeting">
 		${RBUNDLE.getString("home_page_greeting") } ${CURRENT_SESSION_ACCOUNT.username }! <a

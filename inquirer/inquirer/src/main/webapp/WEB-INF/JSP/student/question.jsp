@@ -3,7 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="f"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 
-<script>
+<!-- script>
 	time = ${QUESTION.test.timeLimit * 60};
 	
 	function executeAction(action) {
@@ -29,7 +29,7 @@
 	onload = function(){
 		setInterval("writeTimer()",1000);
 	}
-</script>
+</script-->
 
 <div id="timer">
 	<p >${RBUNDLE.getString("question_timer_before") } <span id="timerP">${QUESTION.test.timeLimit * 60}</span> ${RBUNDLE.getString("question_timer_after") }</p>
@@ -59,11 +59,16 @@
 				<input type="checkbox" name="unknow" />${ANSCOUNT } - <span>${RBUNDLE.getString("question_unknown") }</span></td>
 			</tr>
 			<tr>				
-				<td><button onclick="executeAction('cancel')">${RBUNDLE.getString("question_bt_cancel") }</button></td>
-				<td><button onclick="executeAction('next_question')">${RBUNDLE.getString("question_bt_next") }</button></td>
+				<td id = "tdQuestionButtons" colspan="3">
+					
+				</td>
 			</tr>
 
 		</table>
+		<p id="pQuestionButtons">
+			<button id="btQuestionNext" onclick="executeAction('next_question')">${RBUNDLE.getString("question_bt_next") }</button>
+			<button id="btQuestionCancel" onclick="executeAction('cancel')">${RBUNDLE.getString("question_bt_cancel") }</button>		
+		</p>
 	</form>
 
 </div>
