@@ -152,9 +152,10 @@ p.greeting a {
 }
 
 th {
-	background: linear-gradient(to top, #EEEEFF, #DDDDFF) repeat scroll 0 0 rgba(0, 0, 0, 0);
+	 background: linear-gradient(to top, #EEEEFF, #DDDDFF) repeat scroll 0 0 rgba(0, 0, 0, 0);
     border: 1px solid #DDDDFF;
-    font-family: sans-serif,Arial;
+    font-family: Verdana,sans-serif,Arial;
+    font-size: 0.8em;
     padding: 4px 2px 4px 5px;
     text-align: center;
 }
