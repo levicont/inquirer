@@ -34,7 +34,7 @@ function executeAction(action) {
 			</tr>
 			<tr>	
 				<td>${RBUNDLE.getString("reg_fm_role") }:</td><td><input type="checkbox" name="chkStudent"  checked="checked"
-									value="<%=InquirerConstants.ROLE_STUDENT %>" /> Student </td>
+									value="<%=InquirerConstants.ROLE_STUDENT %>" /> ${RBUNDLE.getString('name_role_student') } </td>
 			</tr>
 			<tr>	
 				<td><button onclick="executeAction('cancel_register')">${RBUNDLE.getString("reg_fm_bt_cancel") }</button></td>

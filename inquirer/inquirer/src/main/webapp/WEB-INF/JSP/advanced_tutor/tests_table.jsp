@@ -47,17 +47,17 @@
 						<td id="accounts">${tests.description}</td>
 						<td id="accounts">${tests.author.username}</td>
 						<td id="accounts">${tests.timeLimit }</td>
-						<td id="accounts"><c:if
-								test="${ ROLE=='Administrator' || ROLE=='Advanced tutor' || ROLE=='Tutor' }">
-								<c:if test="${ ROLE=='Administrator' || ROLE=='Advanced tutor'}">
+						<td id="accounts">
+							<c:if	test="${ ROLE==RBUNDLE.getString('name_role_admin') || ROLE==RBUNDLE.getString('name_role_advanced_tutor') || ROLE==RBUNDLE.getString('name_role_tutor') }">
+								<c:if test="${ ROLE==RBUNDLE.getString('name_role_admin')|| ROLE==RBUNDLE.getString('name_role_advanced_tutor')}">
 									<a class="accountService"
 										href="${CONTEXT }/edit_test.php?id=${TEST_ID }">${RBUNDLE.getString("test_table_bt_edit") }</a>
 									<a class="accountService"
 										href="${CONTEXT }/delete_test.php?id=${TEST_ID }"
 										onclick="return(window.confirm('${RBUNDLE.getString('confirm_delete_test') }'))">${RBUNDLE.getString("test_table_bt_delete") }</a>
-								</c:if>
+								</c:if>								
 								<c:if
-									test="${ROLE=='Tutor' && tests.author.id==CURRENT_SESSION_ACCOUNT.id}">
+									test="${ROLE==RBUNDLE.getString('name_role_tutor') && tests.author.id==CURRENT_SESSION_ACCOUNT.id}">
 									<a class="accountService"
 										href="${CONTEXT }/edit_test.php?id=${TEST_ID }">${RBUNDLE.getString("test_table_bt_edit") }</a>
 									<a class="accountService"
@@ -66,15 +66,17 @@
 								</c:if>
 								<a class="accountService"
 									href="${CONTEXT }/start_test.php?id=${TEST_ID }">${RBUNDLE.getString("test_table_bt_start") }</a>
-							</c:if> <c:if test="${ROLE=='Student' }">
+							</c:if> 
+							<c:if test="${ROLE==RBUNDLE.getString('name_role_student') }">
 								<a class="accountService"
 									href="${CONTEXT }/start_test.php?id=${TEST_ID }">${RBUNDLE.getString("test_table_bt_start") }</a>
-							</c:if></td>
+							</c:if>
+						</td>
 					</tr>
 				</c:if>
 			</c:forEach>
 			<c:if
-				test="${ ROLE=='Administrator' || ROLE=='Advanced tutor' || ROLE=='Tutor' }">
+				test="${ROLE==RBUNDLE.getString('name_role_admin') || ROLE==RBUNDLE.getString('name_role_advanced_tutor') || ROLE==RBUNDLE.getString('name_role_tutor')}">
 				<tr>
 					<td class="refTD" colspan="7"><a class="addNew"
 						href="${CONTEXT}/add_test.php">${RBUNDLE.getString("test_table_bt_new_test") }</a></td>
@@ -82,7 +84,7 @@
 			</c:if>
 
 		</tbody>
-	</table>
+	</table>	
 	<div class="pager">
 		<p class="pagination"></p>
 	</div>

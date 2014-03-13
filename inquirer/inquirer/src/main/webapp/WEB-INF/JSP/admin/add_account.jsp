@@ -41,26 +41,26 @@
 				<td><input type="checkbox" name="chkAdmin"
 					value="<%=InquirerConstants.ROLE_ADMIN%>"
 					<c:if test="${CHK_1 != null }">checked="checked"</c:if> />
-					Administrator</td>
+					${RBUNDLE.getString('name_role_admin') }</td>
 			</tr>
 			<tr>
 				<td></td>
 				<td><input type="checkbox" name="chkAdvancedTutor"
 					value="<%=InquirerConstants.ROLE_ADVANCED_TUTOR%>"
 					<c:if test="${CHK_2 != null }">checked="checked"</c:if> />
-					Advanced tutor</td>
+					${RBUNDLE.getString('name_role_advanced_tutor') }</td>
 			</tr>
 			<tr>
 				<td></td>
 				<td><input type="checkbox" name="chkTutor"
 					value="<%=InquirerConstants.ROLE_TUTOR %>"
-					<c:if test="${CHK_3 != null }">checked="checked"</c:if> /> Tutor</td>
+					<c:if test="${CHK_3 != null }">checked="checked"</c:if> /> ${RBUNDLE.getString('name_role_tutor') }</td>
 			</tr>
 			<tr>
 				<td></td>
 				<td><input type="checkbox" name="chkStudent"
 					value="<%=InquirerConstants.ROLE_STUDENT %>"
-					<c:if test="${CHK_4 != null }">checked="checked"</c:if> /> Student
+					<c:if test="${CHK_4 != null }">checked="checked"</c:if> /> ${RBUNDLE.getString('name_role_student') }
 				</td>
 			</tr>
 			<tr>

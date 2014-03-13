@@ -11,6 +11,7 @@
 		<title>Inquirer page</title>
 	</head>
 <body class="default">
+	<div class="content">
 	<div class="header">
 		<h1>${RBUNDLE.getString("title") }</h1>
 	</div>
@@ -21,7 +22,7 @@
 			<div class="mainMenu">
 				<p class="menuTitle">${RBUNDLE.getString("main_menu_title") }</p>
 				<ol>
-					<c:if test="${ROLE == 'Administrator' }">
+					<c:if test="${ROLE == RBUNDLE.getString('name_role_admin') }">
 						<li><a href="${CONTEXT }/profile.php">${RBUNDLE.getString("main_menu_profile") }</a></li>
 						<li><a href="${CONTEXT }/all_tests.php">${RBUNDLE.getString("main_menu_tests") }</a></li>
 						<li><a href="${CONTEXT }/add_test.php">${RBUNDLE.getString("main_menu_new_test") }</a></li>
@@ -30,7 +31,7 @@
 						<li><a href="${CONTEXT }/start_test.php">${RBUNDLE.getString("main_menu_start_test") }</a></li>
 
 					</c:if>
-					<c:if test="${(ROLE == 'Advanced tutor')||(ROLE == 'Tutor') }">
+					<c:if test="${ROLE == RBUNDLE.getString('name_role_advanced_tutor')}">
 
 						<li><a href="${CONTEXT }/profile.php">${RBUNDLE.getString("main_menu_profile") }</a></li>
 						<li><a href="${CONTEXT }/all_tests.php">${RBUNDLE.getString("main_menu_tests") }</a></li>
@@ -38,7 +39,15 @@
 						<li><a href="${CONTEXT }/all_results.php">${RBUNDLE.getString("main_menu_results") }</a></li>
 						<li><a href="${CONTEXT }/start_test.php">${RBUNDLE.getString("main_menu_start_test") }</a></li>
 					</c:if>
-					<c:if test="${ROLE == 'Student' }">
+					<c:if test="${ROLE == RBUNDLE.getString('name_role_tutor')}">
+
+						<li><a href="${CONTEXT }/profile.php">${RBUNDLE.getString("main_menu_profile") }</a></li>
+						<li><a href="${CONTEXT }/all_tests.php">${RBUNDLE.getString("main_menu_tests") }</a></li>
+						<li><a href="${CONTEXT }/add_test.php">${RBUNDLE.getString("main_menu_new_test") }</a></li>						
+						<li><a href="${CONTEXT }/all_results.php">${RBUNDLE.getString("main_menu_results") }</a></li>
+						<li><a href="${CONTEXT }/start_test.php">${RBUNDLE.getString("main_menu_start_test") }</a></li>
+					</c:if>					
+					<c:if test="${ROLE == RBUNDLE.getString('name_role_student') }">
 
 						<li><a href="${CONTEXT }/profile.php">${RBUNDLE.getString("main_menu_profile") }</a></li>
 						<li><a href="${CONTEXT }/all_tests.php">${RBUNDLE.getString("main_menu_tests") }</a></li>										
@@ -58,6 +67,7 @@
 				<jsp:include page="${currentPage }" flush="true" />
 			</div>
 		</div>
+	</div>
 	</div>
 	<div class="footer">
 		<p>Copyrights LVG Corp. 2013</p>

@@ -23,10 +23,10 @@
 			<tr>
 				<td>${RBUNDLE.getString("login_fm_role") }:</td>
 				<td><select name="role" id="role">
-						<option value="1">Administrator</option>
-						<option value="2">Advanced tutor</option>
-						<option value="3">Tutor</option>
-						<option value="4">Student</option>
+						<option value="1">${RBUNDLE.getString('name_role_admin') }</option>
+						<option value="2">${RBUNDLE.getString('name_role_advanced_tutor') }</option>
+						<option value="3">${RBUNDLE.getString('name_role_tutor') }</option>
+						<option value="4">${RBUNDLE.getString('name_role_student') }</option>
 				</select></td>
 			</tr>
 			<tr>

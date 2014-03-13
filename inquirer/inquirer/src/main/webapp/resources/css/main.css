@@ -15,7 +15,9 @@ table caption {
 	margin-bottom: 5px;
 	text-transform: uppercase;
 }
-
+.content{
+	
+}
 .main {
 	background: none repeat scroll 0 0 #FFFFFF;
 	height: auto;
@@ -161,7 +163,7 @@ th {
 }
 
 table {
-	width: 400px;
+	width: 450px;
 }
 
 .accounts {

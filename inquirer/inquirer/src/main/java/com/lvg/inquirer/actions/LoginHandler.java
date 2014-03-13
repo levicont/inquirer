@@ -69,13 +69,14 @@ public class LoginHandler extends AbstractInquirerServletHandler {
 		String password = request.getParameter("password");
 		Integer idRole = Integer.parseInt(request.getParameter("role"));
 		ResourceBundle errMessage = (ResourceBundle)request.getSession().getAttribute(RESOURCE_BUNDLE);
+		ResourceBundle resBundle = errMessage;
 		try {
 			validateRequest(username, password);
 			Account account = getDataService().login(username, password, idRole);
 			String homePage = homePages.get(idRole);
 			if (homePage != null) {
 				request.getSession().setAttribute(CURRENT_SESSION_ACCOUNT, account);
-				request.getSession().setAttribute("ROLE", InquirerConstants.NAMES_ROLES.get(idRole));
+				request.getSession().setAttribute("ROLE", resBundle.getString(InquirerConstants.NAMES_ROLES.get(idRole)));
 				redirectRequest(homePage, request, response);
 			} else {
 				String errStr = errMessage.getString(ERR_UNSUPPORTED_ROLE)+idRole;

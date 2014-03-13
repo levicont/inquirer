@@ -3,7 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="f"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 
-<!-- script>
+<script>
 	time = ${QUESTION.test.timeLimit * 60};
 	
 	function executeAction(action) {
@@ -29,7 +29,7 @@
 	onload = function(){
 		setInterval("writeTimer()",1000);
 	}
-</script-->
+</script>
 
 <div id="timer">
 	<p >${RBUNDLE.getString("question_timer_before") } <span id="timerP">${QUESTION.test.timeLimit * 60}</span> ${RBUNDLE.getString("question_timer_after") }</p>

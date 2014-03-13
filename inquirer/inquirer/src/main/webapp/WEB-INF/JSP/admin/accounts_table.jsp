@@ -1,7 +1,9 @@
+<%@page import="com.lvg.inquirer.InquirerConstants"%>
 <%@ page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="f"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<%request.setAttribute("NAMES_ROLES", InquirerConstants.NAMES_ROLES); %>
 <script type="text/javascript"
 	src="${CONTEXT }/resources/js/jquery.simplePagination.js">
 	
@@ -47,7 +49,9 @@
 						<td id="accounts">${accounts.email}</td>
 						<td id="accounts"><c:forEach var="role"
 								items="${accounts.role }" varStatus="item">
-					${role.name}<c:if test="${!item.last }">,</c:if>
+						<c:set var="idRole" value="${role.id}"/>						
+						${RBUNDLE.getString(NAMES_ROLES.get(idRole))}
+						<c:if test="${!item.last }">,</c:if>
 								<br>
 							</c:forEach></td>
 						<td id="accounts"> 

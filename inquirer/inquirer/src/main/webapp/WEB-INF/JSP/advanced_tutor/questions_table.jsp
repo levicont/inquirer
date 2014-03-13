@@ -49,8 +49,8 @@
 						<td id="accounts">${index.count}</td>
 						<td id="accounts">${questions.test.title}</td>
 						<td id="accounts">${questions.text}</td>
-						<td id="accounts"><c:if
-								test="${ ROLE=='Administrator' || ROLE=='Advanced tutor' || ROLE=='Tutor' }">
+						<td id="accounts">
+							<c:if test="${ROLE==RBUNDLE.getString('name_role_admin') || ROLE==RBUNDLE.getString('name_role_advanced_tutor') || ROLE==RBUNDLE.getString('name_role_tutor') }">
 								<a class="accountService"
 									href="${CONTEXT }/edit_question.php?id=${QUESTION_ID }&test_id=${test_id}">${RBUNDLE.getString("questions_bt_edit") }</a>
 								<a class="accountService"
@@ -61,7 +61,7 @@
 				</c:if>
 			</c:forEach>
 			<c:if
-				test="${ ROLE=='Administrator' || ROLE=='Advanced tutor' || ROLE=='Tutor' }">
+				test="${ROLE==RBUNDLE.getString('name_role_admin') || ROLE==RBUNDLE.getString('name_role_advanced_tutor') || ROLE==RBUNDLE.getString('name_role_tutor') }">
 				<tr>
 					<td class="refTD" colspan="5"><a class="addNew"
 						href="${CONTEXT}/add_question.php?test_id=${test_id}">${RBUNDLE.getString("questions_bt_new_question") }</a></td>

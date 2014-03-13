@@ -15,13 +15,13 @@ public interface InquirerConstants {
 	int ROLE_TUTOR 					= 3;
 	int ROLE_STUDENT 				= 4;
 	
-	String NAME_ROLE_ADMIN			="Administrator";
-	String NAME_ROLE_ADVANCED_TUTOR	="Advanced tutor";
-	String NAME_ROLE_TUTOR			="Tutor";
-	String NAME_ROLE_STUDENT		="Student";
+	String NAME_ROLE_ADMIN			="name_role_admin";
+	String NAME_ROLE_ADVANCED_TUTOR	="name_role_advanced_tutor";
+	String NAME_ROLE_TUTOR			="name_role_tutor";
+	String NAME_ROLE_STUDENT		="name_role_student";
 	
 	// Resource bundle session attribute name
-	String RESOURCE_BUNDLE = "RBUNDLE";
+	String RESOURCE_BUNDLE 					= "RBUNDLE";
 	String ERR_USNAME_BLANK					= "err_usname_blank";
 	String ERR_PASSWORD_BLANK				= "err_password_blank";
 	String ERR_OLD_PASSWORD_BLANK			= "err_old_password_blank";
