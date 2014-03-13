@@ -55,8 +55,8 @@
 								<br>
 							</c:forEach></td>
 						<td id="accounts"> 
-							<c:if test="${accounts.enabled !=0 }" >enabled</c:if>
-							<c:if test="${accounts.enabled == 0 }" >disabled</c:if>
+							<c:if test="${accounts.enabled !=0 }" >${RBUNDLE.getString('account_status_enabled')}</c:if>
+							<c:if test="${accounts.enabled == 0 }" >${RBUNDLE.getString('account_status_disabled')}</c:if>
 						</td>
 						<td id="accounts"><a class="accountService"
 							href="${CONTEXT }/admin/edit_account.php?id=${ACCOUNT_ID }">${RBUNDLE.getString("account_table_bt_edit") }</a>

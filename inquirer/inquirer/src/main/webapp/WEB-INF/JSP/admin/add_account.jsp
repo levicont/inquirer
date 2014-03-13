@@ -67,12 +67,12 @@
 				<td>${RBUNDLE.getString("edit_account_status") }</td>
 				<td><select name="enabled" id="role">
 						<c:if test="${ENABLED == '0'}">
-							<option value="0">Disabled</option>
-							<option value="1">Enabled</option>
+							<option value="0">${RBUNDLE.getString('account_status_disabled')}</option>
+							<option value="1">${RBUNDLE.getString('account_status_enabled')}</option>
 						</c:if>
 						<c:if test="${ENABLED != '0'}">
-							<option value="1">Enabled</option>
-							<option value="0">Disabled</option>
+							<option value="1">${RBUNDLE.getString('account_status_enabled')}</option>
+							<option value="0">${RBUNDLE.getString('account_status_disabled')}</option>
 						</c:if>
 						
 				</select></td>
