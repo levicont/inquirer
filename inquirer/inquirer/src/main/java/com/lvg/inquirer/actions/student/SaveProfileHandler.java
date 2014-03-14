@@ -86,10 +86,12 @@ public class SaveProfileHandler extends AbstractInquirerServletHandler implement
 			}
 			newAccount.setPassword(newPassword);
 		}
-		if(account.getUsername().equals(username) && account.getEmail().equals(email))
+		if(account.getUsername().equals(username) && account.getEmail().equals(email)){
 			if(StringUtils.isBlank(oldPassword) && StringUtils.isBlank(newPassword))		
 				throw new InvalidDataException(ERR_PROFILE_NO_CHANGE);
-
+			if(StringUtils.isNotBlank(oldPassword) && StringUtils.isBlank(newPassword))
+				throw new InvalidDataException(ERR_PROFILE_NO_CHANGE);
+		}
 		accountManager.checkAccount(newAccount);
 		request.setAttribute("UPDATED_ACCOUNT", newAccount);
 
