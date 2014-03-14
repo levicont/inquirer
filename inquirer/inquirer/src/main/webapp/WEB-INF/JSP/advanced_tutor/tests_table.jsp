@@ -15,7 +15,9 @@
 			itemsOnPage : "${ITEMS_ON_PAGE}",
 			currentPage : "${page}",
 			hrefTextPrefix : "?page=",
-			cssStyle : 'light-theme'
+			cssStyle : 'light-theme',
+			prevText:"${RBUNDLE.getString('pagenator_text_prev')}",
+			nextText:"${RBUNDLE.getString('pagenator_text_next')}"
 		});
 	});
 </script>
