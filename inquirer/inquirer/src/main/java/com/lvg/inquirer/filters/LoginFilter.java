@@ -25,13 +25,11 @@ public class LoginFilter extends AbstractInquirerFilter implements Filter, Inqui
 	}
 
 	public void doFilter(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
-			throws IOException, ServletException {
+			throws IOException, ServletException {		
 		
-		
-		LOGGER.info("<<== Login filter starts. Requested URL is: "+request.getRequestURL());
-		
-		Locale currLocal = new Locale("ru");
-		ResourceBundle bundle = ResourceBundle.getBundle("interface", currLocal);
+		LOGGER.info("<<== Login filter starts. Requested URL is: "+request.getRequestURL());		
+				
+		ResourceBundle bundle = ResourceBundle.getBundle(RESOURCE_BUNDLE_PROPERTY_FILE, getCurrentLocale(request));
 		
 		
 		HttpSession session = request.getSession();
@@ -39,8 +37,15 @@ public class LoginFilter extends AbstractInquirerFilter implements Filter, Inqui
 		String uri = request.getRequestURI();
 		request.setCharacterEncoding("UTF8");
 		
-		LOGGER.debug(bundle.getString("title"));
-		session.setAttribute("RBUNDLE", bundle);
+		
+		//Locale check
+		checkLocale(request, bundle);
+		if(null == session.getAttribute(RESOURCE_BUNDLE)){
+			request.getSession().setAttribute(RESOURCE_BUNDLE, bundle);
+			request.getSession().removeAttribute(CURRENT_SESSION_ACCOUNT);
+			request.getRequestDispatcher("/login.php").forward(request, response);			
+			return;
+		}
 		
 		if("POST".equals(request.getMethod())){
 			chain.doFilter(request, response);
@@ -73,6 +78,50 @@ public class LoginFilter extends AbstractInquirerFilter implements Filter, Inqui
 
 	public void init(FilterConfig fConfig) throws ServletException {
 
+	}
+	
+	private void checkLocale(HttpServletRequest request, ResourceBundle bundle){
+		 
+		if(null==request.getSession().getAttribute(RESOURCE_BUNDLE)){
+			bundle.getLocale();
+			request.getSession().setAttribute(RESOURCE_BUNDLE, bundle);
+		}else{
+			String oldLang = ((ResourceBundle)request.getSession().getAttribute(RESOURCE_BUNDLE)).getLocale().getLanguage();
+			if(bundle.getLocale().getLanguage().equals(oldLang))
+				return;
+			else{
+				request.getSession().removeAttribute(RESOURCE_BUNDLE);				
+			}
+		}
+	}
+	
+	private Locale getCurrentLocale(HttpServletRequest request){
+		String defaultLocale = request.getHeader("Accept-Language").substring(0, 2); 
+		LOGGER.debug("<-- defaultLocale = "+defaultLocale+" -->");
+		if(null != request.getParameter("lang")){
+			String newLang = request.getParameter("lang");
+			LOGGER.debug("<-- newLang = "+newLang+" -->");
+			if(newLang.equals("en")){
+				request.getSession().setAttribute("LANG", newLang);
+				return  new Locale(newLang);
+			}else{
+				if(newLang.equals("ru")){
+					request.getSession().setAttribute("LANG", newLang);
+					return new Locale(newLang);
+				}else{
+					if(null != request.getSession().getAttribute("LANG"))
+						request.getSession().removeAttribute("LANG");
+					return new Locale(defaultLocale);
+				}
+			}
+		}else{
+			if(null != request.getSession().getAttribute("LANG")){
+				LOGGER.debug("<-- LANG = "+request.getSession().getAttribute("LANG")+" -->");
+				return new Locale(""+request.getSession().getAttribute("LANG"));
+			}else{
+				return new Locale(defaultLocale);
+			}
+		}		
 	}
 
 }

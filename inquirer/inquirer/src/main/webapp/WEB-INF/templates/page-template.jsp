@@ -14,6 +14,10 @@
 	<div class="content">
 	<div class="header">
 		<h1>${RBUNDLE.getString("title") }</h1>
+		<div class="language"> 
+			<a href="${CONTEXT }/login.php?lang=ru">рус</a>
+			<a href="${CONTEXT }/login.php?lang=en">eng</a>
+		</div>
 	</div>
 
 	<div class="main">

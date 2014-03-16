@@ -54,7 +54,7 @@ public class RecoverAccountHandler extends AbstractInquirerServletHandler {
 			request.setAttribute(VALIDATION_MESSAGE, errMessage.getString(ex.getMessage()));
 			gotoToJSP("/recover.jsp", request, response);
 		} catch (InquirerDataException ex) {
-			request.setAttribute(VALIDATION_MESSAGE, errMessage.getString(ex.getMessage()));
+			request.setAttribute(VALIDATION_MESSAGE, ex.getMessage());
 			ex.printStackTrace();
 			gotoToJSP("/recover.jsp", request, response);
 		}
