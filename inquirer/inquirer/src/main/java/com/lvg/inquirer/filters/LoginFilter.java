@@ -28,15 +28,14 @@ public class LoginFilter extends AbstractInquirerFilter implements Filter, Inqui
 			throws IOException, ServletException {		
 		
 		LOGGER.info("<<== Login filter starts. Requested URL is: "+request.getRequestURL());		
-				
-		ResourceBundle bundle = ResourceBundle.getBundle(RESOURCE_BUNDLE_PROPERTY_FILE, getCurrentLocale(request));
-		
-		
 		HttpSession session = request.getSession();
 		RequestDispatcher rd = request.getRequestDispatcher("/login.php");
 		String uri = request.getRequestURI();
-		request.setCharacterEncoding("UTF8");
+		request.setCharacterEncoding("UTF8");		
 		
+		ResourceBundle bundle = ResourceBundle.getBundle(RESOURCE_BUNDLE_PROPERTY_FILE, getCurrentLocale(request));
+		
+				
 		
 		//Locale check
 		checkLocale(request, bundle);
