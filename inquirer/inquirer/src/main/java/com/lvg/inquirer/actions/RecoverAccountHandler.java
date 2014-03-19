@@ -62,7 +62,7 @@ public class RecoverAccountHandler extends AbstractInquirerServletHandler {
 	}
 
 	@SuppressWarnings("deprecation")
-	private void sendRecoverEmail(Account account) throws InquirerDataException {
+	private void sendRecoverEmail(Account account) throws InquirerDataException, InvalidDataException {
 		
 		
 		Email email = new SimpleEmail();
@@ -82,7 +82,7 @@ public class RecoverAccountHandler extends AbstractInquirerServletHandler {
 			email.send();
 		} catch (EmailException ex) {
 			LOGGER.error("Can't send mail! ", ex);
-			throw new InquirerDataException(ERR_SEND_EMAIL);
+			throw new InvalidDataException(ERR_SEND_EMAIL);
 			
 		}
 		
