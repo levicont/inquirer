@@ -32,7 +32,6 @@
 		<caption>${RBUNDLE.getString("questions_table_title") }</caption>
 		<thead>
 			<tr>
-				<th>${RBUNDLE.getString("questions_table_col_id") }</th>
 				<th>${RBUNDLE.getString("questions_table_col_num") }</th>
 				<th>${RBUNDLE.getString("questions_table_col_title") }</th>
 				<th>${RBUNDLE.getString("questions_table_col_question") }</th>
@@ -47,8 +46,7 @@
 					test="${(index.count > (page-1)*ITEMS_ON_PAGE) && (index.count <= (page)*ITEMS_ON_PAGE)}">
 					<c:set var="QUESTION_ID" value="${questions.id}" />
 					<tr>
-						<td id="accounts">${questions.id}</td>
-						<td id="accounts">${index.count}</td>
+						<td id="accounts">${questions.number}</td>
 						<td id="accounts">${questions.test.title}</td>
 						<td id="accounts">${questions.text}</td>
 						<td id="accounts">
@@ -65,7 +63,7 @@
 			<c:if
 				test="${ROLE==RBUNDLE.getString('name_role_admin') || ROLE==RBUNDLE.getString('name_role_advanced_tutor') || ROLE==RBUNDLE.getString('name_role_tutor') }">
 				<tr>
-					<td class="refTD" colspan="5"><a class="addNew"
+					<td class="refTD" colspan="4"><a class="addNew"
 						href="${CONTEXT}/add_question.php?test_id=${test_id}">${RBUNDLE.getString("questions_bt_new_question") }</a></td>
 				</tr>
 			</c:if>

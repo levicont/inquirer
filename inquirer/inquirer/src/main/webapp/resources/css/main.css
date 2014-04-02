@@ -399,7 +399,12 @@ form.questionForm{
     padding: 0 10px 10px;
     text-align: left;
 }
-
+#questionNumberInput{
+	font-size: 1.1em;
+    font-weight: bold;
+    text-align: center;
+    width: 40px;
+}
 form p.questionFormTitle{
 	background: linear-gradient(to top, #CCCCFF, #DDDDFF) repeat scroll 0 0 rgba(0, 0, 0, 0);
     border-radius: 3px;

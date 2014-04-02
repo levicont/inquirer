@@ -67,7 +67,10 @@ public class SaveQuestionHandler extends AbstractInquirerServletHandler {
 		Integer testId;
 
 		String text = request.getParameter("text");
+		Integer questionNumber = 0;
 		List<Answer> answerList = new ArrayList<Answer>();
+		
+		
 		try {
 			if(null!=request.getParameter("question")){
 				Integer questionId = Integer.parseInt(request.getParameter("question"));
@@ -75,8 +78,8 @@ public class SaveQuestionHandler extends AbstractInquirerServletHandler {
 			}
 				
 			testId = Integer.parseInt(request.getParameter("test"));
-			Test test = testManager.getTest(testId);			
-
+			Test test = testManager.getTest(testId);	
+			
 			for (int i = 1; i <= DEFAULT_ANSWERS_COUNT; i++) {
 				String answerText = request.getParameter("answer_" + i);
 
@@ -94,6 +97,7 @@ public class SaveQuestionHandler extends AbstractInquirerServletHandler {
 			newQuestion = new Question();
 			newQuestion.setTest(test);
 			newQuestion.setText(text);
+			newQuestion.setNumber(questionNumber);
 			request.setAttribute("NEW_QUESTION", newQuestion);
 			request.setAttribute("ANSWERS_LIST", answerList);
 			request.setAttribute("SIZE_OF_ANSWER_LIST", answerList.size());
@@ -111,6 +115,14 @@ public class SaveQuestionHandler extends AbstractInquirerServletHandler {
 		try {
 			checkQuestion(question);
 			request.setAttribute("QUESTION_TEXT", question.getText());
+			String questionParameter = request.getParameter("number");
+			checkQuestionNumber(questionParameter);
+			Integer questionNumber = Integer.parseInt(questionParameter);
+			if(questionManager.getQuestionCountByNumberAndTest(questionNumber, question.getTest())>0){
+				throw new InvalidDataException(ERR_QUESTION_NUMBER_NOT_UNIQUE);
+			}
+			question.setNumber(questionNumber);
+			
 			checkAnswers(answerList);			
 			questionManager.addQuestion(question);
 			answerManager.deleteAnswerByQuestion(questionManager.getLastInsertedQuestion());
@@ -139,7 +151,16 @@ public class SaveQuestionHandler extends AbstractInquirerServletHandler {
 		List<Answer> answerList = (List<Answer>)request.getAttribute("ANSWERS_LIST");		
 		try {					
 			checkQuestion(question);
-			request.setAttribute("QUESTION_TEXT", question.getText());			
+			request.setAttribute("QUESTION_TEXT", question.getText());
+			
+			String questionParameter = request.getParameter("number");
+			checkQuestionNumber(questionParameter);
+			Integer questionNumber = Integer.parseInt(questionParameter);
+			if(questionManager.getQuestionCountByNumberAndTest(questionNumber, question.getTest())>0){
+				throw new InvalidDataException(ERR_QUESTION_NUMBER_NOT_UNIQUE);
+			}
+			question.setNumber(questionNumber);
+						
 			checkAnswers(answerList);			
 			answerManager.deleteAnswerByQuestion(question);
 			questionManager.updateQuestion(question);			
@@ -165,6 +186,20 @@ public class SaveQuestionHandler extends AbstractInquirerServletHandler {
 			throw new InvalidDataException(ERR_EMPTY_TITLE);
 		if (question.getTest() == null)
 			throw new InvalidDataException(ERR_UNRECONIZED_TEST);
+	}
+	
+	private void checkQuestionNumber(String numberParameter)throws InvalidDataException{
+		Integer number = 0;
+		try{
+			number = Integer.parseInt(numberParameter);
+			if(number <= 0){
+				throw new InvalidDataException(ERR_QUESTION_NUMBER_LESS_ZERO);
+			}
+			
+		}catch(NumberFormatException ex){
+			LOGGER.warn("Not correct number of question: "+numberParameter);
+			throw new InvalidDataException(ERR_QUESTION_INVALID_NUMBER_FORMAT);
+		}
 	}
 	
 	private void checkAnswers(List<Answer> answerList)throws InvalidDataException{

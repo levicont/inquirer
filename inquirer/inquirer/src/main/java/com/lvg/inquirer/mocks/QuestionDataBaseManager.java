@@ -29,17 +29,18 @@ public class QuestionDataBaseManager implements QuestionDataService, InquirerCon
 	private final String COLUMN_NAME_ID = "id_questions";
 	private final String COLUMN_NAME_TEST = "id_tests";
 	private final String COLUMN_NAME_TEXT = "text";
+	private final String COLUMN_NAME_NUMBER = "number";
 
 	private final String SQL_ALL_QUESTIONS = "SELECT * FROM questions";
 	private final String SQL_GET_LAST_INSERTED_QUESTION = "SELECT MAX(id_questions) FROM questions";
 	private final String SQL_GET_QUESTIONS_BY_TEST_ID = "SELECT * FROM questions WHERE id_tests=?";
-	private final String SQL_GET_VALID_QUESTIONS = "SELECT * FROM questions WHERE id_tests=? AND text=?";
+	private final String SQL_GET_VALID_QUESTIONS = "SELECT * FROM questions WHERE id_tests=? AND number=?";
 	private final String SQL_GET_QUESTION_BY_ID = "SELECT * FROM questions WHERE id_questions=?";
-	private final String SQL_ADD_NEW_QUESTION = "INSERT INTO questions VALUE (null,?,?)";
-	private final String SQL_UPDATE_QUESTION = "UPDATE questions SET text=? WHERE id_questions=?";
+	private final String SQL_ADD_NEW_QUESTION = "INSERT INTO questions VALUE (null,?,?,?)";
+	private final String SQL_UPDATE_QUESTION = "UPDATE questions SET text=?, number=? WHERE id_questions=?";
 	private final String SQL_DELETE_QUESTION = "DELETE FROM questions WHERE id_questions=?";
-	
-
+	private final String SQL_GET_MAX_QUESTION_NUMBER_BY_TEST = "SELECT max(number) from questions WHERE id_tests=?";
+	private final String SQL_GET_QUESTIONS_BY_NUMBER_AND_TEST = "SELECT count(number) FROM questions WHERE number=? AND id_tests=?";
 	public List<Question> getQuestionList() throws InquirerDataException, InvalidDataException {
 		List<Question> result = new ArrayList<Question>();
 		Connection connection = connectionManager.getDBConnection();
@@ -51,6 +52,7 @@ public class QuestionDataBaseManager implements QuestionDataService, InquirerCon
 				question.setId(rs.getInt(COLUMN_NAME_ID));
 				question.setTest(testManager.getTest(rs.getInt(COLUMN_NAME_TEST)));
 				question.setText(rs.getString(COLUMN_NAME_TEXT));
+				question.setNumber(rs.getInt(COLUMN_NAME_NUMBER));
 				result.add(question);
 			}
 			return result;
@@ -71,6 +73,7 @@ public class QuestionDataBaseManager implements QuestionDataService, InquirerCon
 			PreparedStatement pstmt = connection.prepareStatement(SQL_ADD_NEW_QUESTION);
 			pstmt.setInt(1, question.getTest().getId());
 			pstmt.setString(2, question.getText());
+			pstmt.setInt(3, question.getNumber());
 			pstmt.executeUpdate();
 
 		} catch (SQLException ex) {
@@ -89,7 +92,9 @@ public class QuestionDataBaseManager implements QuestionDataService, InquirerCon
 		try {
 			PreparedStatement pstmt = connection.prepareStatement(SQL_UPDATE_QUESTION);
 			pstmt.setString(1, question.getText());
-			pstmt.setInt(2, question.getId());
+			pstmt.setInt(2, question.getNumber());
+			pstmt.setInt(3, question.getId());
+			
 			pstmt.executeUpdate();
 
 		} catch (SQLException ex) {
@@ -131,6 +136,7 @@ public class QuestionDataBaseManager implements QuestionDataService, InquirerCon
 				question.setId(rs.getInt(COLUMN_NAME_ID));
 				question.setTest(test);
 				question.setText(rs.getString(COLUMN_NAME_TEXT));
+				question.setNumber(rs.getInt(COLUMN_NAME_NUMBER));
 				result.add(question);
 			}
 			return result;
@@ -154,6 +160,7 @@ public class QuestionDataBaseManager implements QuestionDataService, InquirerCon
 				question.setId(rs.getInt(COLUMN_NAME_ID));
 				question.setTest(testManager.getTest(rs.getInt(COLUMN_NAME_TEST)));
 				question.setText(rs.getString(COLUMN_NAME_TEXT));
+				question.setNumber(rs.getInt(COLUMN_NAME_NUMBER));
 				return question;
 			}
 			throw new InquirerDataException("Could not find question with id:" + id);
@@ -194,11 +201,11 @@ public class QuestionDataBaseManager implements QuestionDataService, InquirerCon
 		try {
 			PreparedStatement pstmt = connection.prepareStatement(SQL_GET_VALID_QUESTIONS);
 			pstmt.setInt(1, question.getTest().getId());
-			pstmt.setString(2, question.getText());
+			pstmt.setInt(2, question.getNumber());
 			ResultSet rs = pstmt.executeQuery();
 
 			if (rs.next()) {
-				throw new InvalidDataException("This is not valid text of question: " + question.getText());
+				throw new InvalidDataException("This is not valid number of question: " + question.getText());
 			}
 
 		} catch (SQLException ex) {
@@ -210,5 +217,55 @@ public class QuestionDataBaseManager implements QuestionDataService, InquirerCon
 		}
 	}
 
+	@Override
+	public Integer getNextQuestionNumberByTest(Test test) throws InquirerDataException, InvalidDataException {
+		Integer result = 1;
+		Connection connection = connectionManager.getDBConnection();
+		try {
+			PreparedStatement pstmt = connection.prepareStatement(SQL_GET_MAX_QUESTION_NUMBER_BY_TEST);
+			pstmt.setInt(1, test.getId());
+			ResultSet rs = pstmt.executeQuery();
+			if (rs.next()) {
+				if(rs.wasNull()){
+					return 1;
+				}else{
+					result = rs.getInt(1)+1;
+					return result;
+				}				
+			}
+			return 1;
+
+		} catch (SQLException ex) {
+			LOGGER.error("Not possible to calculate max question number", ex);
+			throw new InquirerDataException("Not possible to calculate max question number", ex);
+
+		} finally {
+			connectionManager.closeDBConnection(connection);
+		}		
+	}
+	
+
+	public Integer getQuestionCountByNumberAndTest(Integer questionNumber, Test test)throws InvalidDataException, InquirerDataException{
+		Connection connection = connectionManager.getDBConnection();
+		Integer result = 0;
+		try {
+			PreparedStatement pstmt = connection.prepareStatement(SQL_GET_QUESTIONS_BY_NUMBER_AND_TEST);
+			pstmt.setInt(1, questionNumber);
+			pstmt.setInt(2, test.getId());
+			ResultSet rs = pstmt.executeQuery();
+			if(rs.next()){
+				result = rs.getInt(1);
+				return result;
+			}
+			return result;
+
+		} catch (SQLException ex) {
+			LOGGER.error("Not possible to execute query from questions table", ex);
+			throw new InquirerDataException("Not possible to execute query from questions table", ex);
+
+		} finally {
+			connectionManager.closeDBConnection(connection);
+		}		
+	}
 	
 }

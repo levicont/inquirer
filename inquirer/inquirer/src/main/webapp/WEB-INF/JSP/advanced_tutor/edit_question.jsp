@@ -19,6 +19,12 @@
 		<p class="formTitle">${RBUNDLE.getString("edit_question_title") }</p>
 		<table>
 			<tr>
+				<td>${RBUNDLE.getString("edit_question_number")}:</td>
+				<td colspan="2">
+					<input id="questionNumberInput" type="number" name="number" value="${EDITED_QUESTION.number}">
+				</td>
+			</tr>
+			<tr>
 				<td>${RBUNDLE.getString("edit_question") }:</td>
 				<td colspan="2"><textarea id="taQuestion" rows="5" cols="40" maxlength="250"
 								name="text">${QUESTION_TEXT} </textarea></td>

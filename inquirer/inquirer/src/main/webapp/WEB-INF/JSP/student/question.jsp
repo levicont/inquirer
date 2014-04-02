@@ -42,7 +42,7 @@
 		<input type="hidden" name="action" value="none"/> 
 		<input type="hidden" name="timeStamp" value="${TIME_STAMP}"/>
 		<input type="hidden" name="question" value="${QUESTION.id}" />
-		<p class="questionFormTitle">${QUESTION.text }</p>
+		<p class="questionFormTitle">${QUESTION.number}) ${QUESTION.text }</p>
 		<table id="answers">
 			<tr>
 					<td id="answersTitle" colspan="3">${RBUNDLE.getString("question_answer_choice") }:</td>

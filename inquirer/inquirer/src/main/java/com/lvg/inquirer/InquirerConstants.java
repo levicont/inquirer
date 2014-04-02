@@ -53,7 +53,9 @@ public interface InquirerConstants {
 	String ERR_NOT_SELECTED_TEST			= "err_not_selected_test";
 	String ERR_TIME_STAMP_KEY				= "err_time_stamp_key";
 	String ERR_NO_MORE_QUESTIONS			= "err_no_more_questions";
-	
+	String ERR_QUESTION_NUMBER_LESS_ZERO	= "err_question_number_less_zero";
+	String ERR_QUESTION_INVALID_NUMBER_FORMAT	= "err_question_invalid_number_format";
+	String ERR_QUESTION_NUMBER_NOT_UNIQUE	= "err_question_number_not_unique";
 	
 	@SuppressWarnings("serial")
 	static final Map<Integer, String> NAMES_ROLES = new HashMap<Integer,String>(){{

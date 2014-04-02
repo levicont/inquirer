@@ -9,6 +9,7 @@ public class Question extends AbstractModelBean {
 	private Integer id;
 	private Test test;
 	private String text;
+	private Integer number;
 	
 	protected Object getIdModel(){
 		return this.id;
@@ -24,8 +25,17 @@ public class Question extends AbstractModelBean {
 		this.id= id;
 		this.test = test;
 		this.text = text;
+		this.number = null;
 	}
-	
+	public Question(Integer id, Test test, String text, Integer number){
+		super();
+		this.id= id;
+		this.test = test;
+		this.text = text;
+		this.number = number;
+		
+	}
+			
 	public Integer getId() {
 		return id;
 	}
@@ -48,6 +58,13 @@ public class Question extends AbstractModelBean {
 
 	public void setText(String text) {
 		this.text = text;
+	}
+	
+	public Integer getNumber() {
+		return number;
+	}
+	public void setNumber(Integer number) {
+		this.number = number;
 	}
 
 }

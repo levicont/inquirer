@@ -45,7 +45,7 @@ public class AllQuestionsHandler extends AbstractInquirerServletHandler {
 			String id = request.getParameter("test_id");
 			LOGGER.info("Test id = "+id);
 			testId = Integer.parseInt(id);
-
+			//TODO if testId is null - redirect on tests table
 			if (testId == null) {
 				questionList = questionManager.getQuestionList();
 			} else {

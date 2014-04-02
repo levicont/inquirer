@@ -20,6 +20,12 @@
 		</p>
 		<table>
 			<tr>
+				<td>${RBUNDLE.getString("add_question_number")}:</td>
+				<td colspan="2">
+					<input id="questionNumberInput" type="number" name="number" value="${QUESTION_NUMBER}">
+				</td>
+			</tr>
+			<tr>
 				<td>${RBUNDLE.getString("add_question") }:</td>
 				<td colspan="2">
 					<textarea id="taQuestion" rows="5" cols="40" maxlength="250" name="text">${QUESTION_TEXT}</textarea>
