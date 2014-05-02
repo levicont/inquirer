@@ -31,9 +31,36 @@
 				<td><f:formatNumber maxFractionDigits="2">${CURRENT_TEST_RESULT.correctAnswers*100/QUESTIONS_COUNT }</f:formatNumber>
 				%</td>			
 			</tr>
-		</tbody>
-	
+		</tbody>	
 	</table>
+	<p></p>
+	
+	<div id="mistakesContanier">
+	<table class="accountsTable">
+	<caption>${RBUNDLE.getString("test_mistakes_title") }</caption>
+		<thead>
+			<tr>
+				<th>${RBUNDLE.getString("test_mistakes_col_num_question") }</th>
+				<th>${RBUNDLE.getString("test_mistakes_col_question") }</th>
+				<th>${RBUNDLE.getString("test_mistakes_col_fail_answer") }</th>
+				<th>${RBUNDLE.getString("test_mistakes_col_correct_answer") }</th>
+			</tr>
+		</thead>
+		<tbody>
+			<c:forEach var="mistake" items="${CURRENT_TEST_MISTAKES}" varStatus="index">
+			<tr>
+				<td>${mistake.question.number }</td>
+				<td>${mistake.question.text }</td>
+				<td>${mistake.failAnswerText }</td>
+				<td>${mistake.correctAnswerText}</td>			
+			</tr>
+			</c:forEach>
+		</tbody>	
+	</table>
+	
+
+</div>
+		
 	<form class="resultForm" action="${CONTEXT }/all_tests.php" method="post" name="resultForm">
 	<input type="hidden" name="action" value="none">
 	<input type="button" onclick="executeAction('back')" value="${RBUNDLE.getString('test_result_bt_back') }"/>

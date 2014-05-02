@@ -30,6 +30,8 @@ public class StartTestHandler extends AbstractInquirerServletHandler {
 	private static final TestDataService testManager = new TestDataBaseManager();
 	private static final QuestionDataService questionManager = new QuestionDataBaseManager();
 	private static final AnswerDataService answerManager = new AnswerDataBaseManager();
+	
+	private static final String FAIL_ANSWERS_LIST_ATTR = "FAIL_ANSWERS_LIST";
 
 	@Override
 	protected void handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -45,11 +47,14 @@ public class StartTestHandler extends AbstractInquirerServletHandler {
 
 			List<Answer> answersList = answerManager.getAnswerListByQuestion(questionsList.get(0));
 			TestResult testResult = new TestResult();
+						
 			
 			testResult.setAccount((Account)request.getSession().getAttribute(CURRENT_SESSION_ACCOUNT));
 			testResult.setTest(test);
 			
 			request.getSession().setAttribute("CURRENT_TEST_RESULT", testResult);
+			request.getSession().removeAttribute("CURRENT_TEST_MISTAKES");
+			request.getSession().removeAttribute(FAIL_ANSWERS_LIST_ATTR);
 			request.setAttribute("TEST", test);
 			request.setAttribute("QUESTIONS_COUNT", questionsCount);
 			request.setAttribute("QUESTION", questionsList.get(0));

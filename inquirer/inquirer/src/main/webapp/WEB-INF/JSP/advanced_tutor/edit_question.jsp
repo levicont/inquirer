@@ -40,7 +40,7 @@
 				</tr>
 				<tr>
 					<td colspan="3"><c:set var="answerText">${answer.text }</c:set>
-						<textarea id="taAnswer" rows="4" cols="35" maxlength="250"						
+						<textarea id="taAnswer" rows="3" cols="40" maxlength="250"
 							name="answer_${ansIndex.count}">${answerText}</textarea></td>
 				</tr>
 				<tr>

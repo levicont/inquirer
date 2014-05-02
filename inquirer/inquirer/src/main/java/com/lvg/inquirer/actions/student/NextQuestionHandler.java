@@ -20,6 +20,7 @@ import com.lvg.inquirer.mocks.QuestionDataBaseManager;
 import com.lvg.inquirer.models.Answer;
 import com.lvg.inquirer.models.Question;
 import com.lvg.inquirer.models.Test;
+import com.lvg.inquirer.models.TestMistake;
 import com.lvg.inquirer.models.TestResult;
 import com.lvg.inquirer.services.AnswerDataService;
 import com.lvg.inquirer.services.QuestionDataService;
@@ -30,7 +31,11 @@ public class NextQuestionHandler extends AbstractInquirerServletHandler {
 	private static final Logger LOGGER = Logger.getLogger(NextQuestionHandler.class);
 	private static final QuestionDataService questionManager = new QuestionDataBaseManager();
 	private static final AnswerDataService answerManager = new AnswerDataBaseManager();
-
+	
+	private static final String FAIL_ANSWERS_LIST_ATTR = "FAIL_ANSWERS_LIST";
+	private static final String CURRENT_TEST_MISTAKES_ATTR = "CURRENT_TEST_MISTAKES";
+	private static final String CURRENT_TEST_RESULT_ATTR = "CURRENT_TEST_RESULT";
+	
 	@Override
 	protected void handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		if(null != request.getSession().getAttribute("TIME_STAMP"))
@@ -71,16 +76,32 @@ public class NextQuestionHandler extends AbstractInquirerServletHandler {
 		}
 	}
 
+	@SuppressWarnings("unchecked")
 	private void updateResult(HttpServletRequest request, HttpServletResponse response) throws IOException,
 			ServletException, InquirerDataException, InvalidDataException {
 		TestResult testResult = (TestResult) request.getSession().getAttribute("CURRENT_TEST_RESULT");
+		List<TestMistake> testMistakes = (List<TestMistake>)request.getSession().getAttribute("CURRENT_TEST_MISTAKES");
+		if(null==testMistakes){
+			testMistakes = new ArrayList<TestMistake>();
+		}
 		if (validAnswer(request, response)) {
 			testResult.setCorrectAnswers(testResult.getCorrectAnswers() + 1);
 		} else {
+			TestMistake mistake;
+			List<Answer> failAnswers = (List<Answer>)request.getSession().getAttribute(FAIL_ANSWERS_LIST_ATTR);
+			if(null==failAnswers){
+				failAnswers = new ArrayList<Answer>();
+			}
+			Question question = (Question)request.getAttribute("CHECKED_QUESTION");
+			mistake = getMistake(testResult, question, failAnswers);
+			testMistakes.add(mistake);
+			request.getSession().removeAttribute(FAIL_ANSWERS_LIST_ATTR);
+			request.getSession().setAttribute("CURRENT_TEST_MISTAKES",testMistakes);
 			testResult.setFailAnswers(testResult.getFailAnswers() + 1);
 		}
 		updateSessionQuestionCount(request.getSession());
 		request.getSession().setAttribute("CURRENT_TEST_RESULT", testResult);
+		//TODO request.getSession().setAttribute("CURRENT_TEST_MISTAKES",testMistakes);
 
 	}
 
@@ -131,26 +152,71 @@ public class NextQuestionHandler extends AbstractInquirerServletHandler {
 		List<Answer> answerList = answerManager.getAnswerListByQuestion(question);
 		List<Answer> answersTest = new ArrayList<Answer>();
 
-		if (null != request.getParameter("unknow"))
+		if (null != request.getParameter("unknow")){
+			Answer unknowAnswer = new Answer();
+			unknowAnswer.setQuestion(question);
+			unknowAnswer.setIsCorrect(0);
+			unknowAnswer.setText("I do NOT know");
+			answersTest.add(unknowAnswer);
+			request.getSession().setAttribute(FAIL_ANSWERS_LIST_ATTR, answersTest);
 			return false;
+		}
+			
 		for (Answer answer : answerList) {
 			if (null != request.getParameter("isCorrect_" + answer.getId()))
 				answersTest.add(answer);
 		}
 		
-		if (answersTest.isEmpty())
+		if (answersTest.isEmpty()){
+			request.getSession().setAttribute(FAIL_ANSWERS_LIST_ATTR, answersTest);
 			return false;
-
+		}
 		if (answersTest.size() == answerCorrectList.size()) {
 			for (Answer answer : answersTest) {
-				if (!answerCorrectList.contains(answer))
+				if (!answerCorrectList.contains(answer)){
+					request.getSession().setAttribute(FAIL_ANSWERS_LIST_ATTR, answersTest);
 					return false;
+				}
 			}
 			return true;
 		} else {
+			request.getSession().setAttribute(FAIL_ANSWERS_LIST_ATTR, answersTest);
 			return false;
 		}
 
+	}
+	
+	private TestMistake getMistake(TestResult testResult, Question question, List<Answer> failAnswers)
+					throws InquirerDataException, InvalidDataException{
+		TestMistake result = new TestMistake();
+		if(failAnswers.isEmpty()){
+			result.setQuestion(question);
+			result.setTestResult(testResult);
+			result.setFailAnswerText("I don't know!");
+			result.setCorrectAnswerText(getCorrectAnswers(question));
+			return result;
+		}else{
+			StringBuilder failText = new StringBuilder();
+			for (Answer answer:failAnswers){
+				failText.append(" - "+answer.getText()+"</br>");
+			}
+			result.setQuestion(question);
+			result.setTestResult(testResult);
+			result.setFailAnswerText(failText.toString());
+			result.setCorrectAnswerText(getCorrectAnswers(question));
+			return result;
+		}
+		
+	}
+	private String getCorrectAnswers(Question question)throws InquirerDataException, InvalidDataException{
+		
+		List<Answer> correctAnswers = answerManager.getCorrectAnswerListByQuestion(question);
+		StringBuilder correctText = new StringBuilder();
+		for(Answer answer: correctAnswers){
+			correctText.append(" - "+answer.getText()+"</br>");
+		}
+		return correctText.toString();
+				
 	}
 
 }

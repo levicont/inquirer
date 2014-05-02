@@ -474,8 +474,8 @@ div .registerForm .formTitle {
    	width: 315px;
 }
 #taAnswer{
-	width: 410px; 
-	height: 121px; 
+	width: 440px; 
+	height: 65px; 
 	background: linear-gradient(to top, rgb(221, 221, 255), rgb(238, 238, 255))
 				 repeat scroll 0% 0% transparent;
 	font-size: 1.4em;
