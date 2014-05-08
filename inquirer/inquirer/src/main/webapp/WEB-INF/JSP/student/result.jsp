@@ -35,6 +35,7 @@
 	</table>
 	<p></p>
 	
+	<c:if test="${CURRENT_TEST_MISTAKES.size() > 0 }">
 	<div id="mistakesContanier">
 	<table class="accountsTable">
 	<caption>${RBUNDLE.getString("test_mistakes_title") }</caption>
@@ -57,10 +58,8 @@
 			</c:forEach>
 		</tbody>	
 	</table>
-	
-
 </div>
-		
+	</c:if>
 	<form class="resultForm" action="${CONTEXT }/all_tests.php" method="post" name="resultForm">
 	<input type="hidden" name="action" value="none">
 	<input type="button" onclick="executeAction('back')" value="${RBUNDLE.getString('test_result_bt_back') }"/>

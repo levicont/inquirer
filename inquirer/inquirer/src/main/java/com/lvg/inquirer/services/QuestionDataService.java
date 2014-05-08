@@ -21,8 +21,10 @@ public interface QuestionDataService extends DataClosable {
 	
 	Question getQuestion(Integer id) throws InquirerDataException, InvalidDataException;
 	
-	Question getLastInsertedQuestion()throws InquirerDataException, InvalidDataException;
+	Question getQuestionByNumberAndTest(Integer questionNumber, Test test)throws InvalidDataException, InquirerDataException;
 	
+	Question getLastInsertedQuestion()throws InquirerDataException, InvalidDataException;
+		
 	Integer getNextQuestionNumberByTest(Test test)throws InquirerDataException, InvalidDataException;
 	
 	Integer getQuestionCountByNumberAndTest(Integer questionNumber, Test test) throws InvalidDataException, InquirerDataException;

@@ -40,7 +40,8 @@ public class QuestionDataBaseManager implements QuestionDataService, InquirerCon
 	private final String SQL_UPDATE_QUESTION = "UPDATE questions SET text=?, number=? WHERE id_questions=?";
 	private final String SQL_DELETE_QUESTION = "DELETE FROM questions WHERE id_questions=?";
 	private final String SQL_GET_MAX_QUESTION_NUMBER_BY_TEST = "SELECT max(number) from questions WHERE id_tests=?";
-	private final String SQL_GET_QUESTIONS_BY_NUMBER_AND_TEST = "SELECT count(number) FROM questions WHERE number=? AND id_tests=?";
+	private final String SQL_GET_QUESTIONS_COUNT_BY_NUMBER_AND_TEST = "SELECT count(number) FROM questions WHERE number=? AND id_tests=?";
+	private final String SQL_GET_QUESTION_BY_NUMBER_AND_TEST = "SELECT * FROM questions WHERE number=? AND id_tests=?";
 	public List<Question> getQuestionList() throws InquirerDataException, InvalidDataException {
 		List<Question> result = new ArrayList<Question>();
 		Connection connection = connectionManager.getDBConnection();
@@ -195,6 +196,33 @@ public class QuestionDataBaseManager implements QuestionDataService, InquirerCon
 		}
 
 	}
+	
+	public Question getQuestionByNumberAndTest(Integer questionNumber, Test test) throws InquirerDataException, InvalidDataException {
+		Connection connection = connectionManager.getDBConnection();
+		Question question = new Question();
+		try {
+			PreparedStatement pstmt = connection.prepareStatement(SQL_GET_QUESTION_BY_NUMBER_AND_TEST);
+			pstmt.setInt(1, questionNumber);
+			pstmt.setInt(2, test.getId());
+			
+			ResultSet rs = pstmt.executeQuery();
+			if (rs.next()) {
+				question.setId(rs.getInt(COLUMN_NAME_ID));
+				question.setTest(test);
+				question.setText(rs.getString(COLUMN_NAME_TEXT));
+				question.setNumber(rs.getInt(COLUMN_NAME_NUMBER));
+				return question;
+			}
+			LOGGER.error("The question could not be found with number:" + questionNumber);
+			throw new InquirerDataException("The question could not be found with number:" + questionNumber);
+		} catch (SQLException ex) {
+			LOGGER.error("Error accurred while accessing the database! ", ex);
+			throw new InquirerDataException("Error accurred while accessing the database! ", ex);
+		} finally {
+			connectionManager.closeDBConnection(connection);
+		}
+
+	}
 
 	private void validQuestion(Question question) throws InquirerDataException, InvalidDataException {
 		Connection connection = connectionManager.getDBConnection();
@@ -249,7 +277,7 @@ public class QuestionDataBaseManager implements QuestionDataService, InquirerCon
 		Connection connection = connectionManager.getDBConnection();
 		Integer result = 0;
 		try {
-			PreparedStatement pstmt = connection.prepareStatement(SQL_GET_QUESTIONS_BY_NUMBER_AND_TEST);
+			PreparedStatement pstmt = connection.prepareStatement(SQL_GET_QUESTIONS_COUNT_BY_NUMBER_AND_TEST);
 			pstmt.setInt(1, questionNumber);
 			pstmt.setInt(2, test.getId());
 			ResultSet rs = pstmt.executeQuery();

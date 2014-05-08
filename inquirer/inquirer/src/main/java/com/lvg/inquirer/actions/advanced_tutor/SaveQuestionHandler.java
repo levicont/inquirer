@@ -157,7 +157,9 @@ public class SaveQuestionHandler extends AbstractInquirerServletHandler {
 			checkQuestionNumber(questionParameter);
 			Integer questionNumber = Integer.parseInt(questionParameter);
 			if(questionManager.getQuestionCountByNumberAndTest(questionNumber, question.getTest())>0){
-				throw new InvalidDataException(ERR_QUESTION_NUMBER_NOT_UNIQUE);
+				if(questionManager.getQuestionByNumberAndTest(questionNumber, question.getTest()).getId()!=question.getId()){
+					throw new InvalidDataException(ERR_QUESTION_NUMBER_NOT_UNIQUE);
+				}				
 			}
 			question.setNumber(questionNumber);
 						
