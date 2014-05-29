@@ -42,8 +42,9 @@
 				<c:if
 					test="${(index.count > (page-1)*ITEMS_ON_PAGE) && (index.count <= (page)*ITEMS_ON_PAGE)}">
 					<c:set var="QUESTIONS_COUNT" value="${result.correctAnswers+result.failAnswers}"/>
+					
 					<tr>
-						<td id="accounts">${index.count}</td>
+						<td id="accounts"><a href="">${index.count}</a></td>
 						<td id="accounts">${result.test.title}</td>
 						<td id="accounts">${QUESTIONS_COUNT}</td>
 						<td id="accounts">${result.correctAnswers}</td>
@@ -53,6 +54,7 @@
 						
 						</td>
 					</tr>
+					
 				</c:if>
 			</c:forEach>
 			
