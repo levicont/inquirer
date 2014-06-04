@@ -61,8 +61,8 @@ public class TestMistakeDataBaseManager implements TestMistakeDataService, Inqui
 			connection.commit();
 			
 		}catch(SQLException ex){
-			LOGGER.error("Test mistake could not to be added in DB");
-			throw new InquirerDataException("Test mistake could not to be added in DB");
+			LOGGER.error("Test mistake could not to be added in DB "+ex.getMessage());
+			throw new InquirerDataException("Test mistake could not to be added in DB",ex);
 		}finally{
 			connectionManager.closeDBConnection(connection);
 		}

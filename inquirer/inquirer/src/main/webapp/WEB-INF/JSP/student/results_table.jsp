@@ -44,7 +44,7 @@
 					<c:set var="QUESTIONS_COUNT" value="${result.correctAnswers+result.failAnswers}"/>
 					
 					<tr>
-						<td id="accounts"><a href="">${index.count}</a></td>
+						<td id="accounts"><a href="${CONTEXT }/test_mistakes.php?id=${result.id }">${index.count}</a></td>
 						<td id="accounts">${result.test.title}</td>
 						<td id="accounts">${QUESTIONS_COUNT}</td>
 						<td id="accounts">${result.correctAnswers}</td>

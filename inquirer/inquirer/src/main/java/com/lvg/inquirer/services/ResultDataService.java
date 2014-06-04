@@ -1,5 +1,6 @@
 package com.lvg.inquirer.services;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 import com.lvg.inquirer.exceptions.InquirerDataException;
@@ -20,6 +21,8 @@ public interface ResultDataService extends DataClosable {
 	List<TestResult> getTestResultList(Account account, Test test)throws InquirerDataException, InvalidDataException;
 		
 	TestResult getTestResult(Integer id)throws InquirerDataException, InvalidDataException ;
+	
+	TestResult getTestResultByAccountAndDate(Account account, Timestamp date)throws InquirerDataException, InvalidDataException;
 		
 	void insertTestResult(TestResult testResult)throws InquirerDataException, InvalidDataException;
 		

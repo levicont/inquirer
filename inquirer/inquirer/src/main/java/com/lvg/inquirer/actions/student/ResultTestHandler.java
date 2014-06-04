@@ -39,7 +39,9 @@ public class ResultTestHandler extends AbstractInquirerServletHandler {
 		
 		request.setAttribute("QUESTIONS_COUNT", questionList.size());
 		saveTestResult(testResult);
-		saveMistakes(testMistakes);
+		testResult = resultManager.getTestResultByAccountAndDate(testResult.getAccount(), testResult.getDate());
+		
+		saveMistakes(testMistakes, testResult);
 		gotoToJSP("/student/result.jsp", request, response);
 
 	}
@@ -57,10 +59,11 @@ public class ResultTestHandler extends AbstractInquirerServletHandler {
 		}
 	}
 	
-	private void saveMistakes(List<TestMistake> testMistakes){
+	private void saveMistakes(List<TestMistake> testMistakes, TestResult testResult){
 		try{
-			if(testMistakes.size()>7){
+			if(testMistakes.size()>0){
 				for(TestMistake mistake : testMistakes){
+					mistake.setTestResult(testResult);
 					mistakeManager.addTestMistake(mistake);
 				}
 			}
