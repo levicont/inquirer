@@ -14,7 +14,9 @@ import com.lvg.inquirer.exceptions.InvalidDataException;
 import com.lvg.inquirer.mocks.QuestionDataBaseManager;
 import com.lvg.inquirer.mocks.ResultDataBaseManager;
 import com.lvg.inquirer.mocks.TestMistakeDataBaseManager;
+import com.lvg.inquirer.models.Account;
 import com.lvg.inquirer.models.Question;
+import com.lvg.inquirer.models.Role;
 import com.lvg.inquirer.models.TestMistake;
 import com.lvg.inquirer.models.TestResult;
 import com.lvg.inquirer.services.QuestionDataService;
@@ -29,7 +31,7 @@ public class TestMistakesHandler extends AbstractInquirerServletHandler {
 	private static final ResultDataService resultManager = new ResultDataBaseManager();
 	private static final QuestionDataService questionManager = new QuestionDataBaseManager();
 	private static final TestMistakeDataService mistakeManager = new TestMistakeDataBaseManager();
-	
+		
 	private static final Logger LOGGER  = Logger.getLogger(ResultTestHandler.class);
 
 	@Override
@@ -41,6 +43,11 @@ public class TestMistakesHandler extends AbstractInquirerServletHandler {
 			checkTestResultId(idParameter);
 			testResult = resultManager.getTestResult(Integer.parseInt(idParameter));
 			//TODO check Account of current test result
+			Account currentAccount  = (Account)request.getSession().getAttribute(CURRENT_SESSION_ACCOUNT);
+			Role currentRole = (Role)request.getSession().getAttribute(CURRENT_SESSION_ROLE);
+			checkTestResultToAccountRole(testResult, currentRole, currentAccount);
+						
+			
 			List<TestMistake> mistakes = mistakeManager.getMistakesByResult(testResult);
 			List<Question> questionList = questionManager.getQuestionsByTest(testResult.getTest());
 			
@@ -51,12 +58,12 @@ public class TestMistakesHandler extends AbstractInquirerServletHandler {
 			gotoToJSP("/student/result.jsp", request, response);
 			
 		}catch(InvalidDataException ex){
-			LOGGER.error(ex.getMessage());
-			request.setAttribute(VALIDATION_MESSAGE, ex.getMessage());
+			LOGGER.error("Not possible to load test result "+ex.getMessage());
+			request.setAttribute(VALIDATION_MESSAGE, errMessage.getString(ERR_LOAD_TEST_RESULT));
 			forwardRequest("/all_results.php", request, response);
 		}catch(InquirerDataException ex){
-			LOGGER.error("Not possible to load test result");
-			request.setAttribute(VALIDATION_MESSAGE, ex.getMessage());
+			LOGGER.error("Not possible to load test result "+ex.getMessage());
+			request.setAttribute(VALIDATION_MESSAGE, errMessage.getString(ERR_LOAD_TEST_RESULT));
 			forwardRequest("/all_results.php", request, response);
 		}
 
@@ -74,6 +81,20 @@ public class TestMistakesHandler extends AbstractInquirerServletHandler {
 		}catch(NumberFormatException ex){
 			LOGGER.error("Invalid id of test result");
 			throw new InvalidDataException("Invalid id of test result");
+		}
+	}
+	
+	private void checkTestResultToAccountRole(TestResult testResult, Role currentRole, Account currentAccount)throws InquirerDataException, InvalidDataException{
+		if(testResult.getAccount().equals(currentAccount)){
+			return;
+		}else{
+			if(currentRole.getId() == ROLE_ADMIN || currentRole.getId() == ROLE_ADVANCED_TUTOR
+					|| currentRole.getId() == ROLE_TUTOR){
+				return;
+			}else{
+				LOGGER.error("Invalid id of test result");
+				throw new InvalidDataException("Invalid id of test result");
+			}
 		}
 	}
 	

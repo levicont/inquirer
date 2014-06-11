@@ -77,6 +77,7 @@ public class LoginHandler extends AbstractInquirerServletHandler {
 			if (homePage != null) {
 				request.getSession().setAttribute(CURRENT_SESSION_ACCOUNT, account);
 				request.getSession().setAttribute("ROLE", resBundle.getString(InquirerConstants.NAMES_ROLES.get(idRole)));
+				request.getSession().setAttribute(CURRENT_SESSION_ROLE, roleManager.getRoleById(idRole));
 				redirectRequest(homePage, request, response);
 			} else {
 				String errStr = errMessage.getString(ERR_UNSUPPORTED_ROLE)+idRole;

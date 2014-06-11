@@ -12,6 +12,8 @@ public interface RoleDataService extends DataClosable {
 	
 	List<Role> getRolesByAccount(Account account) throws InquirerDataException;
 	
+	Role getRoleById(Integer id)throws InquirerDataException;
+	
 	void updateRolesByAccount(Account account) throws InquirerDataException;
 	
 	void addRolesByAccount(Account account)throws InquirerDataException;

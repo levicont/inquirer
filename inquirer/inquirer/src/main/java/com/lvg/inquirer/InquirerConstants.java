@@ -8,6 +8,7 @@ public interface InquirerConstants {
 	String CONTEXT 					= "CONTEXT";
 	String VALIDATION_MESSAGE 		= "VALIDATION_MESSAGE";
 	String CURRENT_SESSION_ACCOUNT 	= "CURRENT_SESSION_ACCOUNT";
+	String CURRENT_SESSION_ROLE		= "CURRENT_SESSION_ROLE";
 	String ACCOUNTS_LIST			= "ACCOUNTS_LIST";
 	
 	int ROLE_ADMIN 					= 1;
@@ -56,6 +57,7 @@ public interface InquirerConstants {
 	String ERR_QUESTION_NUMBER_LESS_ZERO	= "err_question_number_less_zero";
 	String ERR_QUESTION_INVALID_NUMBER_FORMAT	= "err_question_invalid_number_format";
 	String ERR_QUESTION_NUMBER_NOT_UNIQUE	= "err_question_number_not_unique";
+	String ERR_LOAD_TEST_RESULT				= "err_load_test_result";
 	
 	@SuppressWarnings("serial")
 	static final Map<Integer, String> NAMES_ROLES = new HashMap<Integer,String>(){{

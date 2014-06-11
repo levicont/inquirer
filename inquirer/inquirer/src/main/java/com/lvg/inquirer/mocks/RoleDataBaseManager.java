@@ -25,7 +25,7 @@ public class RoleDataBaseManager implements RoleDataService {
 			+ "AND accounts_roles.id_roles = roles.id_roles " + "AND accounts.id_accounts =?";
 	private final String SQL_DELETE_ACCOUNTS_ROLES = "DELETE FROM accounts_roles WHERE id_accounts=? ";
 	private final String SQL_ADD_ACCOUNT_ROLE = "INSERT INTO accounts_roles VALUE(null,?,?);";
-	
+	private final String SQL_GET_ROLE_BY_ID = "SELECT * FROM roles WHERE id_roles=?";
 	
 	private DBConnectionService connectionManager= new DBConnectionManager();
 	
@@ -86,7 +86,33 @@ public class RoleDataBaseManager implements RoleDataService {
 			connectionManager.closeDBConnection(connection);
 		}
 	}
-	
+	public Role getRoleById(Integer id) throws InquirerDataException {
+		Role result = null;
+		Connection connection = connectionManager.getDBConnection();
+		try {
+			
+			PreparedStatement pstmt = connection.prepareStatement(SQL_GET_ROLE_BY_ID);
+			pstmt.setInt(1, id);
+			ResultSet rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				result = new Role();
+				result.setId(rs.getInt("id_roles"));
+				result.setName(rs.getString("name"));
+			}
+			if(null == result){
+				LOGGER.error("Not possible to load role by id:"+id+" from DB:");
+				throw new InquirerDataException("Not possible to load role by id:"+id+" from DB:");
+			}
+			return result;
+
+		} catch (SQLException ex) {
+			LOGGER.error("Not possible to load role by id:"+id+" from DB:", ex);
+			throw new InquirerDataException("Not possible to load role by id:"+id+" from DB:", ex);
+		}finally{
+			connectionManager.closeDBConnection(connection);
+		}
+	}
 	public void addRolesByAccount(Account account) throws InquirerDataException{
 		Connection connection = connectionManager.getDBConnection();
 		List<Role> roleList = account.getRole();

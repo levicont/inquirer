@@ -60,9 +60,9 @@
 	</table>
 </div>
 	</c:if>
-	<form class="resultForm" action="${CONTEXT }/all_tests.php" method="post" name="resultForm">
+	<form class="resultForm" action="${CONTEXT }/all_results.php" method="post" name="resultForm">
 	<input type="hidden" name="action" value="none">
-	<input type="button" onclick="executeAction('back')" value="${RBUNDLE.getString('test_result_bt_back') }"/>
+	<input type="button" onclick="executeAction('back')" value="${RBUNDLE.getString('test_result_show_all_results') }"/>
 	</form>
 
 </div>
