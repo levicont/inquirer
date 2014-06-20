@@ -29,7 +29,8 @@ public class AccountDataBaseManager implements InquirerConstants, AccountDataSer
 	
 	private final String SQL_GET_ALL_ACCOUNTS = "SELECT * FROM accounts";
 	private final String SQL_ALL_ACCOUNTS_VALIDATE = "SELECT * FROM accounts WHERE username=? OR email=?";
-	private final String SQL_GET_ACCOUNTS_BY_NAME = "SELECT * FROM accounts WHERE username=? AND email=?";
+	private final String SQL_GET_ACCOUNTS_BY_USERNAME = "SELECT * FROM accounts WHERE username=?";
+	private final String SQL_GET_ACCOUNTS_BY_NAME_AND_EMAIL = "SELECT * FROM accounts WHERE username=? AND email=?";
 	private final String SQL_GET_ACCOUNTS_BY_ID = "SELECT * FROM accounts WHERE id_accounts=?";
 	private final String SQL_UPDATE_ACCOUNT = "UPDATE accounts SET username=?, password=?, email=?, enabled=? WHERE id_accounts=?;";
 	private final String SQL_ADD_ACCOUNT = "INSERT INTO accounts VALUE (null, ?, ?, ?,?);";
@@ -201,7 +202,7 @@ public class AccountDataBaseManager implements InquirerConstants, AccountDataSer
 		Connection connection = connectionManager.getDBConnection();
 		Account result = new Account();
 		try{
-			PreparedStatement pstmt = connection.prepareStatement(SQL_GET_ACCOUNTS_BY_NAME);
+			PreparedStatement pstmt = connection.prepareStatement(SQL_GET_ACCOUNTS_BY_NAME_AND_EMAIL);
 			pstmt.setString(1, username);
 			pstmt.setString(2, email);
 			ResultSet rs = pstmt.executeQuery();
@@ -220,6 +221,33 @@ public class AccountDataBaseManager implements InquirerConstants, AccountDataSer
 		}catch(SQLException ex){
 			LOGGER.error("Not possible to find account with username: "+username+" and email: "+email, ex);
 			throw new InquirerDataException("Not possible to find account with username: "+username+" and email: "+email, ex);
+		}finally{
+			connectionManager.closeDBConnection(connection);
+		}
+	}
+	
+	public Account getAccount(String username)throws InquirerDataException{
+		Connection connection = connectionManager.getDBConnection();
+		Account result = new Account();
+		try{
+			PreparedStatement pstmt = connection.prepareStatement(SQL_GET_ACCOUNTS_BY_USERNAME);
+			pstmt.setString(1, username);
+			ResultSet rs = pstmt.executeQuery();
+			if(rs.next()){
+				result.setId(rs.getInt(COLUMN_NAME_ID));
+				result.setUsername(rs.getString(COLUMN_NAME_USERNAME));
+				result.setPassword(rs.getString(COLUMN_NAME_PASSWORD));
+				result.setEmail(rs.getString(COLUMN_NAME_EMAIL));
+				result.setEnabled(rs.getInt(COLUMN_NAME_ENABLED));
+				result.setRole(rolesManager.getRolesByAccount(result));
+				return result;
+			}else{
+				throw new InquirerDataException("Not possible to find account with username: "+username);
+			}
+			
+		}catch(SQLException ex){
+			LOGGER.error("Not possible to find account with username: "+username, ex);
+			throw new InquirerDataException("Not possible to find account with username: "+username, ex);
 		}finally{
 			connectionManager.closeDBConnection(connection);
 		}

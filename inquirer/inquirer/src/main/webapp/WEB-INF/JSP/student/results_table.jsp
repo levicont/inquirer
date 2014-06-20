@@ -20,7 +20,40 @@
 			nextText:"${RBUNDLE.getString('pagenator_text_next')}"
 		});
 	});
+	function executeAction() {
+		document.accountForm.submit();
+	}
 </script>
+<div>
+	<form name="selectForm" action="${CONTEXT }/all_results.php" method="post">
+		<table>
+			<tr>
+				<td>Select account</td>
+				<td>
+					<select name="accountUsername" id="role">
+						<c:if test="${CURRENT_SELECTED_ACCOUNT != null }">
+							<option>${CURRENT_SELECTED_ACCOUNT.getUsername()}</option>
+						</c:if>
+						<c:if test="${CURRENT_SELECTED_ACCOUNT == null }">
+							<option>${CURRENT_SESSION_ACCOUNT.getUsername()}</option>
+						</c:if>
+						<c:if test="${STUDENTS_LIST != null }">
+							<c:forEach var="student" varStatus="index" items="${STUDENTS_LIST }">							
+								<option>${student.getUsername()}</option>
+							</c:forEach>						
+						</c:if>						
+					</select>
+				</td>
+				<td>
+					<button onclick="executeAction()">Select</button>
+				</td>
+			</tr>
+		</table>
+	</form>
+	<p>
+		<c:if test="${null != CURRENT_SELECTED_ACCOUNT }">Selected account: ${CURRENT_SELECTED_ACCOUNT.getUsername() }</c:if>
+	</p>
+</div>
 <div class="accounts">
 	
 	<table class="accountsTable">

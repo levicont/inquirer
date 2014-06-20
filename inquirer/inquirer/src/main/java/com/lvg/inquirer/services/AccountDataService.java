@@ -24,4 +24,6 @@ public interface AccountDataService extends DataClosable {
 	
 	Account getAccount(Integer id)throws InquirerDataException, InvalidDataException;
 	
+	Account getAccount(String username)throws InquirerDataException, InvalidDataException;
+	
 }
