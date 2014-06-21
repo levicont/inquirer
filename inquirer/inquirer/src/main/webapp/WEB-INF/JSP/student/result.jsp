@@ -49,7 +49,13 @@
 		</thead>
 		<tbody>
 			<c:forEach var="mistake" items="${CURRENT_TEST_MISTAKES}" varStatus="index">
-			<tr>
+				<c:if test="${(index.count mod 2)!=0 }">
+						<tr id="oddRow">	
+				</c:if>
+				<c:if test="${(index.count mod 2)==0 }">
+						<tr id="evenRow">	
+				</c:if>
+					
 				<td>${mistake.question.number }</td>
 				<td>${mistake.question.text }</td>
 				<td>${mistake.failAnswerText }</td>

@@ -45,7 +45,12 @@
 				<c:if
 					test="${(index.count > (page-1)*ITEMS_ON_PAGE) && (index.count <= (page)*ITEMS_ON_PAGE)}">
 					<c:set var="QUESTION_ID" value="${questions.id}" />
-					<tr>
+					<c:if test="${(index.count mod 2)!=0 }">
+						<tr id="oddRow">	
+					</c:if>
+					<c:if test="${(index.count mod 2)==0 }">
+						<tr id="evenRow">	
+					</c:if>
 						<td id="accounts">${questions.number}</td>
 						<td id="accounts">${questions.test.title}</td>
 						<td id="accounts">${questions.text}</td>

@@ -76,8 +76,13 @@
 				<c:if
 					test="${(index.count > (page-1)*ITEMS_ON_PAGE) && (index.count <= (page)*ITEMS_ON_PAGE)}">
 					<c:set var="QUESTIONS_COUNT" value="${result.correctAnswers+result.failAnswers}"/>
-					
-					<tr>
+					<c:if test="${(index.count mod 2)!=0 }">
+						<tr id="oddRow">	
+					</c:if>
+					<c:if test="${(index.count mod 2)==0 }">
+						<tr id="evenRow">	
+					</c:if>
+										
 						<td id="accounts"><a href="${CONTEXT }/test_mistakes.php?id=${result.id }">${index.count}</a></td>
 						<td id="accounts">${result.test.title}</td>
 						<td id="accounts">${QUESTIONS_COUNT}</td>
