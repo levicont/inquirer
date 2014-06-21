@@ -57,9 +57,12 @@ public class AllTestResultsHandler extends AbstractInquirerServletHandler implem
 		request.setAttribute("RESULTS_ITEMS", testResultList.size());
 		request.setAttribute("ITEMS_ON_PAGE", ITEMS_ON_PAGE);
 		request.setAttribute(ITEMS_PAGE, page);
-		
-		gotoToJSP("/student/results_table.jsp", request, response);
-
+		if(null != currentAccount){
+			gotoToJSP("/student/results_table.jsp", request, response);
+			return;
+		}else{
+			redirectRequest("/login.php", request, response);
+		}
 	}
 	
 	private List<Account> getStudentAccounts(List<Account> allAccounts){
@@ -78,6 +81,8 @@ public class AllTestResultsHandler extends AbstractInquirerServletHandler implem
 	}
 	
 	private Boolean isAccountNotStudent(Account account){
+		if(null==account)
+			return false;
 		List<Role> roles = account.getRole();
 		for(Role role : roles){
 			if(role.getId()==1){

@@ -32,10 +32,13 @@
 				<td>
 					<select name="accountUsername" id="role">
 						<c:if test="${CURRENT_SELECTED_ACCOUNT != null }">
-							<option>${CURRENT_SELECTED_ACCOUNT.getUsername()}</option>
+							<c:if test="${CURRENT_SELECTED_ACCOUNT.getId()  != CURRENT_SESSION_ACCOUNT.getId()}">
+								<option >${CURRENT_SESSION_ACCOUNT.getUsername()}</option>
+							</c:if>							
+							<option selected="selected">${CURRENT_SELECTED_ACCOUNT.getUsername()}</option>
 						</c:if>
 						<c:if test="${CURRENT_SELECTED_ACCOUNT == null }">
-							<option>${CURRENT_SESSION_ACCOUNT.getUsername()}</option>
+							<option >${CURRENT_SESSION_ACCOUNT.getUsername()}</option>
 						</c:if>
 						<c:if test="${STUDENTS_LIST != null }">
 							<c:forEach var="student" varStatus="index" items="${STUDENTS_LIST }">							
