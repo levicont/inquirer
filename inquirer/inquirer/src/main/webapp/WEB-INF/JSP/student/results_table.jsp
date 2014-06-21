@@ -28,7 +28,7 @@
 	<form name="selectForm" action="${CONTEXT }/all_results.php" method="post">
 		<table>
 			<tr>
-				<td>Select account</td>
+				<td>${RBUNDLE.getString("all_test_results_choose_student") }:</td>
 				<td>
 					<select name="accountUsername" id="role">
 						<c:if test="${CURRENT_SELECTED_ACCOUNT != null }">
@@ -48,14 +48,12 @@
 					</select>
 				</td>
 				<td>
-					<button onclick="executeAction()">Select</button>
+					<button onclick="executeAction()">${RBUNDLE.getString("all_test_results_bt_choose_student") }</button>
 				</td>
 			</tr>
 		</table>
 	</form>
-	<p>
-		<c:if test="${null != CURRENT_SELECTED_ACCOUNT }">Selected account: ${CURRENT_SELECTED_ACCOUNT.getUsername() }</c:if>
-	</p>
+	<p></p>
 </div>
 <div class="accounts">
 	
