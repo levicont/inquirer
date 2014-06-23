@@ -24,6 +24,7 @@ public interface InquirerConstants {
 	// Resource bundle session attribute name
 	String RESOURCE_BUNDLE 					= "RBUNDLE";
 	String RESOURCE_BUNDLE_PROPERTY_FILE	= "interface";
+	String RESOURCE_BUNDLE_QUESTION_UNKNOWN	= "question_unknown";
 	String ERR_USNAME_BLANK					= "err_usname_blank";
 	String ERR_PASSWORD_BLANK				= "err_password_blank";
 	String ERR_OLD_PASSWORD_BLANK			= "err_old_password_blank";

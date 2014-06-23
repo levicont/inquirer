@@ -35,6 +35,7 @@ public class NextQuestionHandler extends AbstractInquirerServletHandler {
 	private static final String FAIL_ANSWERS_LIST_ATTR = "FAIL_ANSWERS_LIST";
 	private static final String CURRENT_TEST_MISTAKES_ATTR = "CURRENT_TEST_MISTAKES";
 	private static final String CURRENT_TEST_RESULT_ATTR = "CURRENT_TEST_RESULT";
+	private static final String FAIL_ANSWER_UNKNOW = "I don't know";
 	
 	@Override
 	protected void handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -79,8 +80,8 @@ public class NextQuestionHandler extends AbstractInquirerServletHandler {
 	@SuppressWarnings("unchecked")
 	private void updateResult(HttpServletRequest request, HttpServletResponse response) throws IOException,
 			ServletException, InquirerDataException, InvalidDataException {
-		TestResult testResult = (TestResult) request.getSession().getAttribute("CURRENT_TEST_RESULT");
-		List<TestMistake> testMistakes = (List<TestMistake>)request.getSession().getAttribute("CURRENT_TEST_MISTAKES");
+		TestResult testResult = (TestResult) request.getSession().getAttribute(CURRENT_TEST_RESULT_ATTR);
+		List<TestMistake> testMistakes = (List<TestMistake>)request.getSession().getAttribute(CURRENT_TEST_MISTAKES_ATTR);
 		if(null==testMistakes){
 			testMistakes = new ArrayList<TestMistake>();
 		}
@@ -96,12 +97,12 @@ public class NextQuestionHandler extends AbstractInquirerServletHandler {
 			mistake = getMistake(testResult, question, failAnswers);
 			testMistakes.add(mistake);
 			request.getSession().removeAttribute(FAIL_ANSWERS_LIST_ATTR);
-			request.getSession().setAttribute("CURRENT_TEST_MISTAKES",testMistakes);
+			request.getSession().setAttribute(CURRENT_TEST_MISTAKES_ATTR,testMistakes);
 			testResult.setFailAnswers(testResult.getFailAnswers() + 1);
 		}
 		updateSessionQuestionCount(request.getSession());
-		request.getSession().setAttribute("CURRENT_TEST_RESULT", testResult);
-		//TODO request.getSession().setAttribute("CURRENT_TEST_MISTAKES",testMistakes);
+		request.getSession().setAttribute(CURRENT_TEST_RESULT_ATTR, testResult);
+	    request.getSession().setAttribute(CURRENT_TEST_MISTAKES_ATTR,testMistakes);
 
 	}
 
@@ -146,7 +147,7 @@ public class NextQuestionHandler extends AbstractInquirerServletHandler {
 
 	private Boolean validAnswer(HttpServletRequest request, HttpServletResponse response) throws IOException,
 			ServletException, InquirerDataException, InvalidDataException {
-
+		ResourceBundle answerText = (ResourceBundle)request.getSession().getAttribute(RESOURCE_BUNDLE);
 		Question question = (Question) request.getAttribute("CHECKED_QUESTION");
 		List<Answer> answerCorrectList = answerManager.getCorrectAnswerListByQuestion(question);
 		List<Answer> answerList = answerManager.getAnswerListByQuestion(question);
@@ -156,7 +157,7 @@ public class NextQuestionHandler extends AbstractInquirerServletHandler {
 			Answer unknowAnswer = new Answer();
 			unknowAnswer.setQuestion(question);
 			unknowAnswer.setIsCorrect(0);
-			unknowAnswer.setText("I do NOT know");
+			unknowAnswer.setText(answerText.getString(RESOURCE_BUNDLE_QUESTION_UNKNOWN));
 			answersTest.add(unknowAnswer);
 			request.getSession().setAttribute(FAIL_ANSWERS_LIST_ATTR, answersTest);
 			return false;
@@ -192,7 +193,7 @@ public class NextQuestionHandler extends AbstractInquirerServletHandler {
 		if(failAnswers.isEmpty()){
 			result.setQuestion(question);
 			result.setTestResult(testResult);
-			result.setFailAnswerText("I don't know!");
+			result.setFailAnswerText(FAIL_ANSWER_UNKNOW);
 			result.setCorrectAnswerText(getCorrectAnswers(question));
 			return result;
 		}else{

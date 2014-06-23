@@ -4,7 +4,7 @@ html{
 	height: 100%;
 }
 body {
-	background-color: #FFFAFA;
+	background-color: #FFFFE0;
     height: 100%;
     margin: 1% auto 0;
     width: 950px;
@@ -19,7 +19,7 @@ table caption {
 }
 .content{
 	background: linear-gradient(to top, #FFFFFF, #F5FFFE) repeat scroll 0 0 rgba(0, 0, 0, 0);
-	border: 1px solid #AAF;   
+	border: 1px solid #ACF;   
     margin: 0 auto -100px;
     min-height: 100%;
 }
@@ -28,15 +28,14 @@ table caption {
 }
 
 .header {
-	background: linear-gradient(to top, #EEEEFF, #AAAAFF) repeat scroll 0 0
-		rgba(0, 0, 0, 0);
-	border-bottom: 2px solid #AAAAFF;
-	color: #FFFFCC;
-	letter-spacing: 20px;
-	margin: 0;
-	padding: 15px;
-	text-align: center;
-	text-transform: uppercase;
+	background: linear-gradient(to top, #88AAFF, #AACCFF) repeat scroll 0 0 rgba(0, 0, 0, 0);
+    border-bottom: 2px solid #88AAFF;
+    color: #FFFFCC;
+    letter-spacing: 20px;
+    margin: 0;
+    padding: 15px;
+    text-align: center;
+    text-transform: uppercase;
 }
 .language{
 	font-family: serif;
@@ -58,9 +57,9 @@ div.language a{
 	 background-color: #FFF5D5;
 }
 .mainMenu {
-	background: linear-gradient(to top, #DDDDFF, #EEEEFF) repeat scroll 0 0
+	background: linear-gradient(to top, #BBDDFF, #AACCFF) repeat scroll 0 0
 		rgba(0, 0, 0, 0);
-	border: 1px solid #AAAAFF;
+	border: 1px solid #AACCFF;
 	border-radius: 3px;
 	float: left;
 	margin-bottom: 10px;
@@ -89,7 +88,7 @@ div.language a{
 }
 
 .mainMenu li:HOVER {
-	background: #99f;
+	background: #8af;
 	color: #fff;
 }
 
@@ -98,17 +97,17 @@ div.language a{
 }
 
 .menuTitle {
-	background-color: #DDDDFF;
-	border-bottom: 1px solid;
-	color: #FF8822;
-	font-size: 1.1em;
-	font-weight: bold;
-	letter-spacing: 0.2em;
-	margin: 0;
-	padding-bottom: 10px;
-	padding-top: 5px;
-	text-align: center;
-	width: 250px;
+	background: linear-gradient(to top, #88AAFF, #99BBFF) repeat scroll 0 0 rgba(0, 0, 0, 0);
+    border-bottom: 1px solid;
+    color: #FFDD77;
+    font-size: 1.1em;
+    font-weight: bold;
+    letter-spacing: 0.2em;
+    margin: 0;
+    padding-bottom: 10px;
+    padding-top: 5px;
+    text-align: center;
+    width: 250px;
 }
 
 .mainContext {
@@ -116,8 +115,8 @@ div.language a{
 }
 
 .footer {
-	background: linear-gradient(to top, #AAAAFF, #EEEEFF) repeat scroll 0 0 rgba(0, 0, 0, 0);
-    border: 1px solid #AAF;
+	background: linear-gradient(to top,  #88AAFF,#AACCFF) repeat scroll 0 0 rgba(0, 0, 0, 0);
+    border: 1px solid #ACF;
     color: #708090;
     font-size: 0.9em;
     height: 100px;
@@ -144,7 +143,7 @@ div .pager {
 }
 
 .role {
-	background: linear-gradient(to top, #8888FF, #9999FF) repeat scroll 0 0
+	background: linear-gradient(to top, #7799FF, #88AAFF) repeat scroll 0 0
 		rgba(0, 0, 0, 0);
 	border-radius: 3px;
 	color: #FFFFFF;
@@ -155,9 +154,8 @@ div .pager {
 }
 
 .greeting {
-	background: linear-gradient(to right, #AAAAFF, #8888FF) repeat scroll 0
-		0 rgba(0, 0, 0, 0);
-	border: 1px solid #8888FF;
+	background: linear-gradient(to right, #99BBFF, #88AAFF) repeat scroll 0 0 rgba(0, 0, 0, 0);
+    border: 1px solid #88AAFF;
 	border-radius: 3px;
 	color: #4F4FF8;
 	font-family: sans-serif;
@@ -178,8 +176,8 @@ p.greeting a {
 }
 
 th {
-	 background: linear-gradient(to top, #EEEEFF, #DDDDFF) repeat scroll 0 0 rgba(0, 0, 0, 0);
-    border: 1px solid #DDDDFF;
+	 background: linear-gradient(to top, #AACCFF, #BBDDFF) repeat scroll 0 0 rgba(0, 0, 0, 0);
+    border: 1px solid #AACCFF;
     font-family: Verdana,sans-serif,Arial;
     font-size: 0.8em;
     padding: 4px 2px 4px 5px;
@@ -192,7 +190,7 @@ table {
 
 .accounts {
 	background-color: #F0FFFD;
-    border: 1px solid #DDDDFF;
+    border: 1px solid #AACCFF;
     border-radius: 6px;
     margin-left: 0;
     padding: 10px;
@@ -202,20 +200,20 @@ table.accountsTable {
 	width: 620px;
 	border-collapse: collapse;
 	background-color: #FFFAF0;
-	border: 1px solid #DDDDFF;
+	border: 1px solid #AACCFF;
 	color: rgb(100, 50, 160);
 	text-align: left;
 	vertical-align: top;
 }
 
 .refTD {
-	background: linear-gradient(to top, #EEEEFF, #DDDDFF);
+	background: linear-gradient(to top, #BBDDFF, #AACCFF);
 	text-align: right;
 	padding: 5px;
 }
 
 table.accountsTable a.accountService:link {
-	background: linear-gradient(to top, #55F, #99F);
+	background: linear-gradient(to top, #6688FF, #88AAFF) repeat scroll 0 0 rgba(0, 0, 0, 0);
 }
 
 table.accountsTable a.accountService:visited {
@@ -276,8 +274,8 @@ table.accountsTable .addNew {
 }
 
 div .loginForm {
-	    background: linear-gradient(to top, #FFFFFF, #DDDDFF) repeat scroll 0 0 rgba(0, 0, 0, 0);
-    border: 1px solid #AAAAFF;
+	    background: linear-gradient(to top, #FFFFFF, #AACCFF) repeat scroll 0 0 rgba(0, 0, 0, 0);
+    border: 1px solid #88AAFF;
     border-radius: 5px;
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
     color: #4499DD;
@@ -374,8 +372,8 @@ form {
 }
 
 form .formTitle {
-	background: linear-gradient(to bottom, #CCCCFF, #9999FF) repeat scroll 0 0 rgba(0, 0, 0, 0);
-    border-bottom: 1px solid #AAAAFF;
+	background: linear-gradient(to bottom, #88AAFF, #99BBFF) repeat scroll 0 0 rgba(0, 0, 0, 0);
+    border-bottom: 1px solid #AACCFF;
     color: #F9F9F9;
     font-size: 1.2em;
     font-weight: bolder;
@@ -398,8 +396,8 @@ form.resultForm {
 }
 
 form.questionForm{ 
-	background: linear-gradient(to top, #DDDDFF, #EEEEFF) repeat scroll 0 0 rgba(0, 0, 0, 0);
-    border: 1px solid #5555FF;
+	background: linear-gradient(to top, #FFFFFF, #DDEEFF) repeat scroll 0 0 rgba(0, 0, 0, 0);
+    border: 1px solid #88AAFF;
     border-radius: 3px;
     color: #8888FF;
     font-size: 1em;
@@ -415,7 +413,7 @@ form.questionForm{
     width: 40px;
 }
 form p.questionFormTitle{
-	background: linear-gradient(to top, #CCCCFF, #DDDDFF) repeat scroll 0 0 rgba(0, 0, 0, 0);
+	background: linear-gradient(to top, #88AAFF, #99BBFF) repeat scroll 0 0 rgba(0, 0, 0, 0);
     border-radius: 3px;
     color: #000080;
     font-size: 1.1em;
@@ -429,7 +427,7 @@ form p.questionFormTitle{
 	background: linear-gradient(to top, #CCCCFF, #DDDDFF) repeat scroll 0 0 rgba(0, 0, 0, 0);
 }
 #pQuestionButtons{
-	background: linear-gradient(to top, #DDDDFF, #CCCCFF) repeat scroll 0 0 rgba(0, 0, 0, 0);
+	background: linear-gradient(to top, #88AAFF, #99BBFF) repeat scroll 0 0 rgba(0, 0, 0, 0);
     border-radius: 3px;
     margin-bottom: -10px;
     margin-left: -10px;
@@ -492,9 +490,9 @@ div .registerForm .formTitle {
 
 
 div .registerForm {
-	background: linear-gradient(to top, #FFFFFF, #DDDDFF) repeat scroll 0 0
+	background: linear-gradient(to top, #FFFFFF, #AACCFF) repeat scroll 0 0
 		rgba(0, 0, 0, 0);
-	border: 1px solid #AAAAFF;
+	border: 1px solid #88AAFF;
 	border-radius: 5px;
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
 	color: #AAAAFF;
@@ -508,8 +506,8 @@ div .registerForm {
 }
 
 div .recoverForm {
-	    background: linear-gradient(to top, #FFFFFF, #DDDDFF) repeat scroll 0 0 rgba(0, 0, 0, 0);
-    border: 1px solid #AAAAFF;
+	    background: linear-gradient(to top, #FFFFFF, #AACCFF) repeat scroll 0 0 rgba(0, 0, 0, 0);
+    border: 1px solid #88AAFF;
     border-radius: 5px;
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
     color: #AAAAFF;
@@ -523,8 +521,8 @@ div .recoverForm {
 }
 
 form .formRecoverTitle {
-	background: linear-gradient(to bottom, #CCCCFF, #9999FF) repeat scroll 0 0 rgba(0, 0, 0, 0);
-    border-bottom: 1px solid #AAAAFF;
+	background: linear-gradient(to bottom, #88AAFF, #99BBFF) repeat scroll 0 0 rgba(0, 0, 0, 0);
+    border-bottom: 1px solid #AACCFF;
     border-radius: 5px;
     color: #FAFAFA;
     font-size: 1.2em;
@@ -538,8 +536,8 @@ form .formRecoverTitle {
 }
 
 div .mainForm{
-	background: linear-gradient(to top, #DDDDFF, #EEEEFF) repeat scroll 0 0 rgba(0, 0, 0, 0);
-    border: 1px solid #8888FF;
+	background: linear-gradient(to top, #FFFFFF, #DDEEFF) repeat scroll 0 0 rgba(0, 0, 0, 0);
+    border: 1px solid #88AAFF;
     border-radius: 3px;
     padding: 10px;
     width: 450px;
