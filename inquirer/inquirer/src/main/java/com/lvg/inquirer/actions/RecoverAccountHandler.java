@@ -48,12 +48,14 @@ public class RecoverAccountHandler extends AbstractInquirerServletHandler {
 			Account validAccount = accountManager.getAccount(request.getParameter("username"),
 					request.getParameter("email"));
 			sendRecoverEmail(validAccount);
-			request.setAttribute("RECOVER_MESSAGE", "Recovered data were sent to e-mail adress. ");
+			request.setAttribute("RECOVER_MESSAGE", errMessage.getString("recover_message_sent"));
 			gotoToJSP("/recover.jsp", request, response);
 		} catch (InvalidDataException ex) {
+			LOGGER.error("Not possible to send email message: "+ex.getMessage());
 			request.setAttribute(VALIDATION_MESSAGE, errMessage.getString(ex.getMessage()));
 			gotoToJSP("/recover.jsp", request, response);
 		} catch (InquirerDataException ex) {
+			LOGGER.error("Not possible to send email message: "+ex.getMessage());
 			request.setAttribute(VALIDATION_MESSAGE, ex.getMessage());
 			ex.printStackTrace();
 			gotoToJSP("/recover.jsp", request, response);
@@ -66,18 +68,19 @@ public class RecoverAccountHandler extends AbstractInquirerServletHandler {
 		
 		
 		Email email = new SimpleEmail();
-		email.setHostName("smtp.gmail.com");
-		email.setAuthenticator(new DefaultAuthenticator("levicont84", "levicont84"));
-		email.setSmtpPort(587);
+		email.setHostName(EMAIL_HOST_NAME);
+		email.setAuthenticator(new DefaultAuthenticator(EMAIL_LOGIN, EMAIL_PASSWORD));
+		email.setSmtpPort(EMAIL_PORT);
 		email.setSSLOnConnect(true);
 		email.setSSL(true);
 		email.setStartTLSEnabled(true);
 		email.setSSLCheckServerIdentity(true);
 
 		try {
-			email.setFrom("levicont84@gmail.com");
+			email.setFrom(EMAIL_FROM);
 			email.setSubject("TestMail");
 			email.setMsg("Recovered account: Username: "+account.getUsername()+", Password: "+account.getPassword()+", roles: "+account.getRole());
+			//TODO paste email of real account
 			email.addTo("victor84lg@ukr.net");
 			email.send();
 		} catch (EmailException ex) {

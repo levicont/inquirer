@@ -13,7 +13,7 @@
 		<strong>${RECOVER_MESSAGE }</strong>
 	</p>
 	<c:if test="${RECOVER_MESSAGE != null }">
-		<a href="${CONTEXT }/login.php"> Back to login page </a>
+		<a href="${CONTEXT }/login.php"> ${RBUNDLE.getString("recover_fm_back_to_login") } </a>
 	</c:if>
 	<c:if test="${RECOVER_MESSAGE  == null}">
 			<form action="${CONTEXT }/recover.php" method="post" name="accountForm">

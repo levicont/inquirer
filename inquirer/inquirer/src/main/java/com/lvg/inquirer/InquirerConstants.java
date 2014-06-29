@@ -60,6 +60,15 @@ public interface InquirerConstants {
 	String ERR_QUESTION_NUMBER_NOT_UNIQUE	= "err_question_number_not_unique";
 	String ERR_LOAD_TEST_RESULT				= "err_load_test_result";
 	
+	//e-mail options
+	String 	EMAIL_LOGIN 		= "inquirer.center";
+	String 	EMAIL_PASSWORD 		= "inquirermail";
+	String 	EMAIL_HOST_NAME 	= "smtp.gmail.com";
+	String 	EMAIL_FROM			= "inquirer.center@gmail.com";
+	Integer EMAIL_PORT			= 587;
+	
+	
+	
 	@SuppressWarnings("serial")
 	static final Map<Integer, String> NAMES_ROLES = new HashMap<Integer,String>(){{
 		put(ROLE_ADMIN, NAME_ROLE_ADMIN);
@@ -67,6 +76,7 @@ public interface InquirerConstants {
 		put(ROLE_TUTOR, NAME_ROLE_TUTOR);
 		put(ROLE_STUDENT, NAME_ROLE_STUDENT);		
 	}};
+	
 	
 	
 
