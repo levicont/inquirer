@@ -35,7 +35,7 @@
 		</table>
 	</form>
 	<p>
-		<a href="${CONTEXT }/register.php">${RBUNDLE.getString("login_fm_ref_reg") }</a> <a
+		<a href="${CONTEXT }/">${RBUNDLE.getString("login_fm_ref_reg") }</a> <a
 			href="${CONTEXT }/recover.php">${RBUNDLE.getString("login_fm_ref_recover") }</a>
 	</p>
 </div>
