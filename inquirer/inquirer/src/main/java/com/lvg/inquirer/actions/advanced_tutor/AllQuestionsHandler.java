@@ -45,6 +45,7 @@ public class AllQuestionsHandler extends AbstractInquirerServletHandler {
 			String id = request.getParameter("test_id");
 			LOGGER.info("Test id = "+id);
 			testId = Integer.parseInt(id);
+			LOGGER.debug("All questions table page= "+page);
 			//TODO if testId is null - redirect on tests table
 			if (testId == null) {
 				questionList = questionManager.getQuestionList();
@@ -56,16 +57,17 @@ public class AllQuestionsHandler extends AbstractInquirerServletHandler {
 				request.setAttribute("CURRENT_TEST", test);
 
 			}
-			request.setAttribute("test_id", testId);
-			request.getServletContext().setAttribute("QUESTIONS_LIST", questionList);
-			request.setAttribute("QUESTIONS_ITEMS", testManager.getTestList().size());
-			request.setAttribute("ITEMS_ON_PAGE", ITEMS_ON_PAGE);
-			request.setAttribute(ITEMS_PAGE, page);
 			if (request.getParameter(ITEMS_PAGE) != null) {
 				page = Integer.parseInt(request.getParameter(ITEMS_PAGE));
 				if (page < 1)
 					page = 1;
 			}
+			request.setAttribute("test_id", testId);
+			request.setAttribute("QUESTIONS_LIST", questionList);
+			request.setAttribute("QUESTIONS_ITEMS", questionList.size());
+			request.setAttribute("ITEMS_ON_PAGE", ITEMS_ON_PAGE);
+			request.setAttribute(ITEMS_PAGE, page);
+			
 
 		} catch (NumberFormatException ex) {
 			LOGGER.warn("Not possible to determinate the id of test. ID=" + testId, ex);

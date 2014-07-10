@@ -12,10 +12,10 @@
 	$(function() {
 		$("p.pagination").pagination({
 
-			items : "${QUESTION_ITEMS}",
+			items : "${QUESTIONS_ITEMS}",
 			itemsOnPage : "${ITEMS_ON_PAGE}",
 			currentPage : "${page}",
-			hrefTextPrefix : "?page=",
+			hrefTextPrefix : "?test_id=${test_id}&page=",
 			cssStyle : 'light-theme',
 			prevText:"${RBUNDLE.getString('pagenator_text_prev')}",
 			nextText:"${RBUNDLE.getString('pagenator_text_next')}"
